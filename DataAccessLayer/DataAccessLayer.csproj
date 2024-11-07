@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Abstract\" />
+      <Folder Include="Concrete\" />
+      <Folder Include="DependencyResolver\" />
+      <Folder Include="Repositories\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CoreLayer\CoreLayer.csproj" />
+      <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
+    </ItemGroup>
+
+</Project>

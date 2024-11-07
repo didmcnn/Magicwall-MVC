@@ -1,0 +1,99 @@
+@{
+    ViewBag.Title = "Documents";
+    Layout = "_Layout";
+}
+
+<div class="parallax-section">
+    <h2 class="display-4">Belgelerimiz</h2>
+</div>
+
+<!-- Belgeler Görsel Kartlar -->
+<div class="container my-5 section-documents">
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center mt">
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/img/belge.jpg" class="card-img-top" alt="Belge 1" data-bs-toggle="modal" data-bs-target="#belgeModal1">
+                <div class="card-body">
+                    <h5 class="card-title">İhracat Belgemiz</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/img/belge.jpg" class="card-img-top" alt="Belge 2" data-bs-toggle="modal" data-bs-target="#belgeModal2">
+                <div class="card-body">
+                    <h5 class="card-title">İhracat Belgemiz</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <img src="~/img/belge.jpg" class="card-img-top" alt="Belge 3" data-bs-toggle="modal" data-bs-target="#belgeModal3">
+                <div class="card-body">
+                    <h5 class="card-title">İhracat Belgemiz</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 1 -->
+<section class="section-modal">
+    <div class="modal fade" id="belgeModal1" tabindex="-1" aria-labelledby="belgeModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="belgeCarousel1" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Sayfa 1 -->
+                            <div class="carousel-item active">
+                                <img src="~/img/belge.jpg" class="d-block w-100" alt="Belge 1 Sayfa 1">
+                            </div>
+                            <!-- Sayfa 2 -->
+                            <div class="carousel-item">
+                                <img src="~/img/belge.jpg" class="d-block w-100" alt="Belge 1 Sayfa 2">
+                            </div>
+                            <!-- Sayfa 3 -->
+                            <div class="carousel-item">
+                                <img src="~/img/belge.jpg" class="d-block w-100" alt="Belge 1 Sayfa 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#belgeCarousel1" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#belgeCarousel1" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="modal fade" id="belgeModal2" tabindex="-1" aria-labelledby="belgeModal2Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/img/belge.jpg" class="img-fluid" alt="Belge 2">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="modal fade" id="belgeModal3" tabindex="-1" aria-labelledby="belgeModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="~/img/belge.jpg" class="img-fluid" alt="Belge 3">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

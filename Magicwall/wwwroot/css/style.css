@@ -1,0 +1,800 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+.navbar-nav .nav-link {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #22272c;
+    transition: color 0.3s ease-in-out;
+}
+.navbar-nav .nav-link:hover {
+    color: #ff5722;
+}
+.navbar-nav .nav-link.active {
+    color: #ff5722;
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    border: none;
+    display: block;
+    margin-top: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item {
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+@keyframes flipFlag {
+    0% {
+        transform: scaleX(1);
+    }
+    50% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+.flag {
+    transition: transform 0.6s ease-in-out;
+}
+.flag.flip {
+    animation: flipFlag 0.8s;
+}
+
+.main-section h2 {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+.main-section p.lead {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #030b47;
+    margin-top: 1.5rem;
+}
+.main-section .row.g-0 {
+    margin-bottom: 3rem;
+}
+.main-section .row.g-0 .col-md-6 img {
+    width: 100%;
+    height: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.main-section .row.g-0 .p-md-3 {
+    font-size: 1.3rem;
+    color: #4e4e4e;
+}
+.main-section .row.g-0 .p-md-3 p {
+    line-height: 1.6;
+    font-family: "Titillium Web", sans-serif;
+}
+.main-section .row.g-0 .p-md-3 h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 1.5rem;
+    font-family: "Titillium Web", sans-serif;
+}
+.main-section .transparent-btn {
+    background-color: rgba(255, 255, 255, 0.16);
+    padding: 10px 20px;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: "Titillium Web", sans-serif;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.main-section .transparent-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.section-models {
+    font-family: "Titillium Web", sans-serif;
+}
+.section-models .image-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+.section-models .image-wrapper img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.section-models .image-wrapper .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.section-models .image-wrapper .overlay .overlay-text {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: "Titillium Web", sans-serif;
+}
+.section-models .image-wrapper:hover .overlay {
+    opacity: 1;
+}
+@media (max-width: 425px) {
+    .section-models .col-lg-3, .section-models .col-md-6 {
+        width: 50%;
+        max-width: 50%;
+        margin-bottom: 20px;
+    }
+    .section-models .image-wrapper {
+        margin-bottom: 15px;
+    }
+    .section-models .overlay {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .section-models .overlay .overlay-text {
+        font-size: 16px;
+        font-family: "Titillium Web", sans-serif;
+    }
+    .section-models:hover .overlay {
+        opacity: 1;
+    }
+}
+@media (max-width: 375px) {
+    .section-models .col-lg-3, .section-models .col-md-6 {
+        width: 50%;
+        max-width: 50%;
+        margin-bottom: 20px;
+    }
+    .section-models .image-wrapper {
+        margin-bottom: 15px;
+    }
+    .section-models .overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .section-models .overlay .overlay-text {
+        font-size: 14px;
+        font-family: "Titillium Web", sans-serif;
+    }
+    .section-models:hover .overlay {
+        opacity: 1;
+    }
+}
+
+section {
+    font-family: "Titillium Web", sans-serif;
+}
+
+h5, p {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #25b495;
+    color: #25b495;
+    text-decoration: none;
+    border-radius: 2px;
+    font-family: "Titillium Web", sans-serif;
+    transition: all 0.3s ease;
+}
+.read-more:hover {
+    background-color: #25b495;
+    color: white;
+}
+
+.text-primary .fas {
+    color: #25b495;
+}
+
+.gallery-card {
+    overflow: hidden;
+    position: relative;
+}
+.gallery-card::before {
+    content: "";
+    display: block;
+    padding-top: 90%;
+}
+.gallery-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.gallery-card .overlay-content {
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+.gallery-card:hover .overlay-content {
+    opacity: 1;
+}
+
+.section-photo .gallery-card {
+    overflow: hidden;
+    position: relative;
+    height: 450px;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.section-photo .gallery-card.slide-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+.section-photo .gallery-card img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.section-photo .gallery-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.section-photo .gallery-card:hover img {
+    transform: scale(1.1);
+}
+.section-photo .gallery-card:hover .overlay {
+    opacity: 1;
+}
+.section-photo .gallery-card:hover .text-white {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: "Titillium Web", sans-serif;
+}
+@media (max-width: 576px) {
+    .section-photo .gallery-card {
+        height: 350px;
+    }
+}
+
+.section-video .video-container {
+    position: relative;
+}
+.section-video .video-container video {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.section-video .video-container video:hover {
+    transform: scale(1.05);
+}
+.section-video .video-container .overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.section-video .video-container .overlay:hover {
+    opacity: 0;
+}
+.section-video .video-container .overlay .model-name {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Titillium Web", sans-serif;
+}
+
+footer {
+    background-color: #ffffff;
+    color: #393939;
+    padding: 8rem 0;
+}
+footer .container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+footer .f-items .row {
+    margin-bottom: 2rem;
+}
+footer .about .logo {
+    max-width: 200px;
+    margin-bottom: 1.5rem;
+}
+footer .about p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+footer .about .social {
+    display: flex;
+    gap: 2rem;
+}
+footer .about .social li {
+    list-style: none;
+}
+footer .about .social li a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+footer .about .social li a img {
+    width: 30px;
+    height: auto;
+}
+footer .about .social li a:hover {
+    transform: scale(1.1);
+}
+footer .link h4 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+footer .link ul {
+    list-style: none;
+    padding: 0;
+}
+footer .link ul li {
+    margin-bottom: 0.5rem;
+}
+footer .link ul li a {
+    color: #393939;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+footer .link ul li a i {
+    margin-right: 5px;
+}
+footer .link ul li a:hover {
+    color: #161616;
+}
+footer .link ul li a:hover i {
+    transition: margin-left 0.3s;
+    margin-left: 10px;
+}
+footer .contact-widget h4 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+footer .contact-widget .address ul {
+    list-style: none;
+    padding: 0;
+}
+footer .contact-widget .address ul li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: start;
+}
+footer .contact-widget .address ul li .icon {
+    font-size: 1.3rem;
+    margin-right: 10px;
+    color: #00aced;
+}
+footer .contact-widget .address ul li .content {
+    font-size: 0.875rem;
+}
+footer .contact-widget .address ul li .content a {
+    color: #25d366;
+    text-decoration: none;
+    display: inline-block;
+}
+footer .contact-widget .address ul li .content a:hover {
+    color: #0a85a3;
+}
+footer .contact-widget .address ul li .content strong {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+footer .newsletter h4 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+footer .newsletter h4 strong {
+    color: #00aced;
+}
+footer .newsletter p {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+footer .newsletter form {
+    display: flex;
+    flex-direction: column;
+}
+footer .newsletter form input {
+    padding: 0.75rem;
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    background-color: #dadada;
+    color: #fff;
+}
+footer .newsletter form input::-moz-placeholder {
+    color: #aaa;
+}
+footer .newsletter form input::placeholder {
+    color: #aaa;
+}
+footer .newsletter form button {
+    background-color: #00aced;
+    color: #fff;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+footer .newsletter form button i {
+    margin-left: 5px;
+}
+footer .newsletter form button:hover {
+    background-color: #0087ba;
+}
+footer .footer-bottom {
+    background-color: #ffffff;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+}
+footer .footer-bottom .footer-bottom-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+footer .footer-bottom .footer-bottom-box p {
+    margin-bottom: 0;
+    color: #777;
+}
+footer .footer-bottom .footer-bottom-box ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+footer .footer-bottom .footer-bottom-box ul li {
+    margin-left: 15px;
+}
+footer .footer-bottom .footer-bottom-box ul li a {
+    color: #777;
+    text-decoration: none;
+}
+footer .footer-bottom .footer-bottom-box ul li a:hover {
+    color: #00aced;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.parallax-section {
+    position: relative;
+    background-image: url("../img/resim-6.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8rem;
+}
+.parallax-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.355);
+    z-index: 1;
+}
+.parallax-section h2 {
+    font-weight: 700;
+    font-family: "Titillium Web", sans-serif;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.section-documents .h5 {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+.section-documents .card {
+    max-width: 250px;
+    margin: 0 auto;
+    position: relative;
+}
+.section-documents .card .card-img-top {
+    height: 370px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.section-documents .card:hover .card-img-top {
+    transform: scale(1.1);
+}
+.section-documents .card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.333);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    transition: background 0.3s ease;
+}
+.section-documents .card .card-body h5 {
+    font-size: 1.25rem;
+    margin: 0;
+}
+.section-documents .card:hover .card-body {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.parallax-section-references {
+    position: relative;
+    background-image: url("../img/resim-5.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8rem;
+}
+.parallax-section-references::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.parallax-section-references h2 {
+    font-weight: 700;
+    font-family: "Titillium Web", sans-serif;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.section-references .card {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section-references .card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-references .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+
+.p-4 h4 {
+    margin-bottom: 2rem;
+    color: #258e98;
+}
+.p-4 h5, .p-4 p, .p-4 ul {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.parallax-section-humanresources {
+    position: relative;
+    background-image: url("../img/resim-7.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8rem;
+}
+.parallax-section-humanresources::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.parallax-section-humanresources h2 {
+    font-weight: 700;
+    font-family: "Titillium Web", sans-serif;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.parallax-section-accounts {
+    position: relative;
+    background-image: url("../img/resim-5.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8rem;
+}
+.parallax-section-accounts::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+.parallax-section-accounts h2 {
+    font-weight: 700;
+    font-family: "Titillium Web", sans-serif;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.banka-kutusu {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.banka-kutusu .banka-logo {
+    margin-right: 1.5rem;
+    width: 100px;
+}
+@media (max-width: 768px) {
+    .banka-kutusu .banka-logo {
+        width: 80px;
+    }
+}
+.banka-kutusu .banka-bilgileri h5 {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+.banka-kutusu .banka-bilgileri p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+.banka-kutusu .banka-bilgileri .iban-numara, .banka-kutusu .banka-bilgileri .sube-numara, .banka-kutusu .banka-bilgileri .hesap-numara {
+    font-weight: bold;
+}
+
+.copy-icon {
+    font-size: 1rem;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color 0.3s;
+}
+.copy-icon:hover {
+    color: #000;
+}
+
+.section-corporate {
+    padding: 5rem 0;
+}
+.section-corporate .gallery-card {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+}
+.section-corporate .gallery-card img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.section-corporate .gallery-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+.section-corporate .gallery-card .card-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.section-corporate .gallery-card:hover::before {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.section-corporate .gallery-card:hover img {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.custom-shift-right {
+    margin-left: 10%;
+}
+
+@media (min-width: 768px) {
+    .custom-shift-right {
+        margin-left: 15%;
+    }
+}
+.whatsapp-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white;
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+.whatsapp-button:hover {
+    background-color: #128c7e;
+    color: white;
+}/*# sourceMappingURL=style.css.map */

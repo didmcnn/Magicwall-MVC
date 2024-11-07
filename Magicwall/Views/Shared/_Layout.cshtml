@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Magicwall</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="~/Home">
+                <img src="~/img/magic wall logo.jpg" alt="MagicWall Logo" height="65">
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarsExample03">
+                <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="~/Home/Index">Anasayfa</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="~/Home/Models">Modeller</a>
+                    </li>
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle"  id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.href='/Home/Gallery'; return false;">Galeri</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                            <li><a class="dropdown-item" href="~/Home/Photogallery">Foto Galeri</a></li>
+                            <li><a class="dropdown-item" href="~/Home/videogallery">Video Galeri</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle"  id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false" onclick="window.location.href='/Home/Corporate'; return false;">Kurumsal</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                            <li><a class="dropdown-item" href="~/Home/Aboutus">Hakkımızda</a></li>
+                            <li><a class="dropdown-item" href="~/Home/Documents">Belgelerimiz</a></li>
+                            <li><a class="dropdown-item" href="~/Home/References">Referanslar</a></li>
+                            <li><a class="dropdown-item" href="~/Home/Humanresources">İnsan Kaynakları</a></li>
+                            <li><a class="dropdown-item" href="~/Home/Accounts">Banka Bilgilerimiz</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="~/img/katalog.pdf" target="_blank">E-Katalog</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="~/Home/Contact">İletişim</a>
+                    </li>
+                    <!-- Bayraklar -->
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="#" onclick="changeLanguage()">
+                            <img class="flag" id="flagIcon" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/tr.svg" alt="Türkçe" width="24" height="16">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="f-items default-padding">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 item">
+                        <div class="f-item about">
+                            <img class="logo" src="~/img/magic wall logo.jpg" alt="Logo">
+                            <p>Bizimle Çalışmak İster misiniz? İşimize geniş bir bakış açısıyla yaklaşıp hayal ederiz, farklı çözüm yolları ve yeni fikirlerle yaklaşımda bulunuruz. Sizler için de ne yapabileceğimizi bilmek isteriz, bizimle iletişime geçip tanışmaya ne dersiniz?</p>
+                            <ul class="social">
+                                <li>
+                                    <a href="https://www.facebook.com/aktekinreklam" target="_blank">
+                                        <img src="~/img/instagram.png" alt="İnstagram Logo" width="30">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/?lang=tr" target="_blank">
+                                        <img src="~/img/twitter.png" alt="Twitter Logo" width="30">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://tr.linkedin.com/" target="_blank">
+                                        <img src="~/img/linkedin.png" alt="LinkedIn Logo" width="30">
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 item">
+                        <div class="f-item link">
+                            <h4 class="widget-title">Hızlı Menü</h4>
+                            <ul>
+                                <li><a href="~/Home"><i class="fas fa-angle-right"></i> Anasayfa</a></li>
+                                <li><a href="~/Home/Aboutus"><i class="fas fa-angle-right"></i> Hakkımızda</a></li>
+                                <li><a href="~/Home/Models"><i class="fas fa-angle-right"></i> Modeller</a></li>
+                                <li><a href="~/Home/Gallery"><i class="fas fa-angle-right"></i> Galeri</a></li>
+                                <li><a href="~/Home/Photogallery"><i class="fas fa-angle-right"></i> Foto Galeri</a></li>
+                                <li><a href="~/Home/Videogallery"><i class="fas fa-angle-right"></i> Video Galeri</a></li>
+                                <li><a href="~/Home/Corporate"><i class="fas fa-angle-right"></i> Kurumsal</a></li>
+                                <li><a href="~/img/katalog.pdf"><i class="fas fa-angle-right"></i> E-Katalog</a></li>
+                                <li><a href="~/Home/Contact"><i class="fas fa-angle-right"></i> İletişim</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 item">
+                        <div class="f-item contact-widget">
+                            <h4 class="widget-title">İletişim Bilgileri</h4>
+                            <div class="address">
+                                <ul>
+                                    <li>Yakuplu Mah. 194. Sk. 3. Matbaacılar Sitesi Kat: 4 No: 377 Beylikdüzü - İstanbul / Türkiye</li>
+                                    <li>
+                                        <div class="icon"><i class="fas fa-clock"></i></div>
+                                        <div class="content"><strong>Çalışma Saatleri:</strong>P.tesi - C.tesi : 08:30 - 18:30 <br> Pazar: Kapalı                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <i class="fal fa-user-headset"></i>
+                                        </div>
+                                        <div class="content">
+                                            <a href="https://wa.me/905395498585" target="_blank">
+                                                <i class="fab fa-whatsapp"></i> WhatsApp
+                                            </a>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 item">
+                        <div class="f-item newsletter">
+                            <h4 class="widget-title"><strong>E-Posta Bültenimize </strong> Kaydolun</h4>
+                            <p>Düzenli olarak projelerimiz hakkında bilgilendirici bültenler gönderiyoruz.</p>
+                            <form action="_class/site_islem.php" autocomplete="off" method="post">
+                                <input type="email" placeholder="Lütfen E-mail adresinizi yazınız" class="form-control" name="email" required="">
+                                <input type="hidden" name="kontrol" value="" id="kontrol">
+                                <button type="submit" name="ebultenbtn"> GÖNDER VE KAYDOL <i class="fa fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-box">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>MagicWall Copyright © 2024. Her Hakkı Saklıdır </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

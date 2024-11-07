@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Abstaract\" />
+      <Folder Include="AutoMapper\" />
+      <Folder Include="Concrete\" />
+      <Folder Include="Constants\" />
+      <Folder Include="DependencyResolver\" />
+      <Folder Include="Models\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CoreLayer\CoreLayer.csproj" />
+      <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+      <ProjectReference Include="..\EntityLayer\EntityLayer.csproj" />
+    </ItemGroup>
+
+</Project>
