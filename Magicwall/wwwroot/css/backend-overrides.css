@@ -1,0 +1,28 @@
+﻿.filepond--credits {
+    display: none;
+}
+body.dark .filepond--panel-root {
+    background-color: transparent;
+    border: 2px solid #1e272e;
+}
+
+body.dark .filepond--item {
+    background-color: transparent;
+}
+
+body.dark .filepond--file {
+    background-color: #1e272e;
+}
+
+table.dataTable th.dt-type-numeric {
+    text-align: right;
+    padding-right: 30px !important;
+}
+
+#dt-length-0, #dt-length-1, #dt-length-2 {
+    height: auto;
+    appearance: auto;
+    padding-right: unset;
+    margin-right: unset;
+    background:unset;
+}

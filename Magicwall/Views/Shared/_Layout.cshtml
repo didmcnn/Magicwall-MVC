@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - Magicwall</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
-    
+    @await RenderSectionAsync("Links", required: false)
 </head>
 <body>
 <header>

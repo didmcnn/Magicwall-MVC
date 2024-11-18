@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "OpenPositions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">Açık Pozisyon Listesi</span>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="px-2 py-1">Id</th>
+                            <th class="px-2 py-1">Adı</th>
+                            <th class="px-2 py-1">İşlem</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-2 py-1">1</td>
+                            <td class="px-2 py-1">test</td>
+                            <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">Açık Pozisyon Ekle</span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label>Başlık</label>
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            table = new DataTable('#datatable', {
+                scrollY: "",
+                language: { url: "/plugins/datatables/tr.json" },
+                order: [0, "desc"]
+            });
+        });
+    </script>
+
+}
