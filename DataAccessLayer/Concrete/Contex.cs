@@ -10,7 +10,7 @@ public class Context : DbContext
         optionsBuilder.UseSqlServer("Data Source=37.148.210.105;Initial Catalog=testdb; User Id=site;Password=kv84EtFBboaok2e1;Connect Timeout=15;Encrypt=False;Packet Size=4096");
     }
 
-    public DbSet<AboutUsItem> AboutUsItems { get; set; }
+    public DbSet<About> Abouts { get; set; }
     public DbSet<BankAccount> BankAccounts { get; set; }
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<DocumentsPageItem> DocumentsPageItems { get; set; }
