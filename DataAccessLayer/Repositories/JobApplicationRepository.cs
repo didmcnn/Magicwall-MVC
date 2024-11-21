@@ -30,6 +30,16 @@ public class JobApplicationRepository : IJobApplicationDal
         return _context.JobApplications.Find(id)!;
     }
 
+    public List<JobApplication> GetListAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Insert(JobApplication t)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Update(JobApplication jobApplication)
     {
         _context.Update(jobApplication);

@@ -30,6 +30,17 @@ public class VideoPageItemRepository : IVideoPageItemDal
             return _context.VideoPageItems.Find(id)!;
     }
 
+    public List<VideoPageItem> GetListAll()
+    {
+        return _context.VideoPageItems.ToList();
+    }
+
+    public void Insert(VideoPageItem t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(VideoPageItem videoPageItem)
     {
         _context.Update(videoPageItem);

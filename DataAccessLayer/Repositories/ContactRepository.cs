@@ -30,6 +30,17 @@ public class ContactRepository : IContactDal
             return _context.Contacts.Find(id)!;
     }
 
+    public List<Contact> GetListAll()
+    {
+        return _context.Contacts.ToList();
+    }
+
+    public void Insert(Contact t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(Contact contact)
     {
         _context.Update(contact);

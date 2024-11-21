@@ -31,6 +31,17 @@ public class AboutRepository : IAboutDal
         return _context.Abouts.Find(id);
     }
 
+    public List<About> GetListAll()
+    {
+        return _context.Abouts.ToList();
+    }
+
+    public void Insert(About t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(About about)
     {
         _context.Update(about);

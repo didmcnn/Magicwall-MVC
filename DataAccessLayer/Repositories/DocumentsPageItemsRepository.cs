@@ -30,6 +30,17 @@ public class DocumentsPageItemsRepository : IDocumentsPageItemsDal
         return _context.DocumentsPageItems.Find(id)!;
     }
 
+    public List<DocumentsPageItem> GetListAll()
+    {
+        return _context.DocumentsPageItems.ToList();
+    }
+
+    public void Insert(DocumentsPageItem t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(DocumentsPageItem documentsPageItem)
     {
         _context.Update(documentsPageItem);

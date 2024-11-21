@@ -30,6 +30,17 @@ public class OpenPositionRepository : IOpenPositionDal
         return _context.OpenPositions.Find(id)!;
     }
 
+    public List<OpenPosition> GetListAll()
+    {
+        return _context.OpenPositions.ToList();
+    }
+
+    public void Insert(OpenPosition t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(OpenPosition openPosition)
     {
         _context.Update(openPosition);

@@ -30,6 +30,17 @@ public class BankAccountRepository : IBankAccountDal
         return _context.BankAccounts.Find(id)!;
     }
 
+    public List<BankAccount> GetListAll()
+    {
+        return _context.BankAccounts.ToList();
+    }
+
+    public void Insert(BankAccount t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(BankAccount bankAccount)
     {
         _context.Update(bankAccount);

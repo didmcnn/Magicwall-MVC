@@ -30,6 +30,17 @@ public class ReferencesPageItemRepository : IReferencesPageItemDal
         return _context.ReferencesPageItems.Find(id)!;
     }
 
+    public List<ReferencesPageItem> GetListAll()
+    {
+        return _context.ReferencesPageItems.ToList();
+    }
+
+    public void Insert(ReferencesPageItem t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(ReferencesPageItem referencesPageItem)
     {
         _context.Update(referencesPageItem);

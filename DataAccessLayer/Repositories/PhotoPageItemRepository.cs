@@ -30,6 +30,17 @@ public class PhotoPageItemRepository : IPhotoPageItemDal
         return _context.PhotoPageItems.Find(id)!;
     }
 
+    public List<PhotoPageItem> GetListAll()
+    {
+        return _context.PhotoPageItems.ToList();
+    }
+
+    public void Insert(PhotoPageItem t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(PhotoPageItem photoPageItem)
     {
         _context.Update(photoPageItem);

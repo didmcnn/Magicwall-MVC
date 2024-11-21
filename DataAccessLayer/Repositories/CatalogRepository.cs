@@ -30,6 +30,17 @@ public class CatalogRepository : ICatalogDal
             return _context.Catalogs.Find(id)!;
     }
 
+    public List<Catalog> GetListAll()
+    {
+        return _context.Catalogs.ToList();
+    }
+
+    public void Insert(Catalog t)
+    {
+        _context.Add(t);
+        _context.SaveChanges();
+    }
+
     public void Update(Catalog catalog)
     {
         _context.Update(catalog);
