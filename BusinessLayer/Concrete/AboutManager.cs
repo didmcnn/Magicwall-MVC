@@ -1,4 +1,3 @@
-using System;
 using BusinessLayer.Abstaract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
@@ -12,17 +11,17 @@ public class AboutManager : IAboutService
     {
         _aboutDal = aboutDal;
     }
-    public void AboutAdd(About about)
+    public void Add(About about)
     {
         _aboutDal.Insert(about);
     }
 
-    public void AboutDelete(About about)
+    public void Delete(About about)
     {
         _aboutDal.Delete(about);
     }
 
-    public void AboutUpdate(About about)
+    public void Update(About about)
     {
         _aboutDal.Update(about);
     }

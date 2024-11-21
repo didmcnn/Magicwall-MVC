@@ -1,9 +1,15 @@
+using BusinessLayer.Abstaract;
+using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFrameWork;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Magicwall.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly OpenPositionManager _openPositionManager = new(new EfOpenPositionsRepository());
+
         public ActionResult Index()
         {
             return View();
@@ -28,9 +34,25 @@ namespace Magicwall.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult OpenPositions()
         {
-            return View();
+            List<OpenPosition> openPositions = _openPositionManager.GetListAll();
+
+            return View(openPositions);
+        }
+
+        [HttpPost]
+        public ActionResult OpenPositions(string Name)
+        {
+            OpenPosition position = new() {
+                Name = Name
+            };
+
+            _openPositionManager.Add(position);
+
+            List<OpenPosition> openPositions = _openPositionManager.GetListAll();
+            return View(openPositions);
         }
         public ActionResult Models()
         {

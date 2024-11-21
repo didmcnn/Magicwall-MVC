@@ -1,4 +1,5 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model List<OpenPosition>
 @{
     ViewData["Title"] = "OpenPositions";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -21,34 +22,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="px-2 py-1">1</td>
-                            <td class="px-2 py-1">test</td>
-                            <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="px-2 py-1">@item.Id</td>
+                                <td class="px-2 py-1">@item.Name</td>
+                                <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <span class="font-weight-bold">Açık Pozisyon Ekle</span>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label>Başlık</label>
-                        <input type="text" class="form-control"/>
+        <form method="post">
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">Açık Pozisyon Ekle</span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Başlık</label>
+                            <input type="text" class="form-control" name="Name" />
+                        </div>
                     </div>
                 </div>
-                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </div>
             </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Ekle</button>
-            </div>
-        </div>
+        </form>
+        
     </div>
 </div>
 

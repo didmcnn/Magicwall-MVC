@@ -10,7 +10,6 @@
       <Folder Include="Abstract\" />
       <Folder Include="Concrete\" />
       <Folder Include="DependencyResolver\" />
-      <Folder Include="Repositories\" />
     </ItemGroup>
 
     <ItemGroup>

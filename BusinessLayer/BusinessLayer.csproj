@@ -13,9 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Abstaract\" />
       <Folder Include="AutoMapper\" />
-      <Folder Include="Concrete\" />
       <Folder Include="Constants\" />
       <Folder Include="DependencyResolver\" />
       <Folder Include="Models\" />

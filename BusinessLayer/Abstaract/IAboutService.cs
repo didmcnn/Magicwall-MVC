@@ -1,15 +1,13 @@
-using System;
-using System.ComponentModel;
 using EntityLayer.Concrete;
 
 namespace BusinessLayer.Abstaract;
 
 public interface IAboutService
 {
-    void AboutAdd(About about);
+    void Add(About about);
 
-    void AboutDelete(About about);
-    void AboutUpdate(About about);
+    void Delete(About about);
+    void Update(About about);
 
     List<About> GetListAll();
 
