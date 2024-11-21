@@ -1,5 +1,5 @@
-@using EntityLayer.Concrete
-@model List<About>   
+﻿@using EntityLayer.Concrete
+@model List<About>
 @{
     ViewData["Title"] = "About";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -52,6 +52,14 @@
                             <label>Başlık</label>
                             <input type="text" class="form-control" name="Title" />
                         </div>
+                        <div class="col-12">
+                            <label>Başlık</label>
+                            <input type="text" class="form-control" name="Text" />
+                        </div>
+                        <div class="col-12">
+                            <label>Başlık</label>
+                            <input type="text" class="form-control" name="Image" />
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">
@@ -59,7 +67,7 @@
                 </div>
             </div>
         </form>
-        
+
     </div>
 </div>
 

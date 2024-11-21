@@ -10,6 +10,7 @@ namespace Magicwall.Controllers
     {
         private readonly OpenPositionManager _openPositionManager = new(new EfOpenPositionsRepository());
         private readonly HomePageItemManager _homePageItemManager = new(new EfHomePageItemRepository());
+        private readonly AboutManager _aboutManager = new(new EfAboutRepository());
 
         public ActionResult Index()
         {
@@ -17,7 +18,16 @@ namespace Magicwall.Controllers
         }
         public ActionResult AboutUs()
         {
-            return View();
+            List<About> aboutList = _aboutManager.GetListAll();
+            return View(aboutList);
+        }
+        [HttpPost]
+        public ActionResult AboutUs(About about)
+        {
+            _aboutManager.Add(about);
+
+            List<About> aboutList = _aboutManager.GetListAll();
+            return View(aboutList);
         }
         public ActionResult Catalog()
         {
