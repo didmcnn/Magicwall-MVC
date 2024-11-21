@@ -9,6 +9,7 @@ namespace Magicwall.Controllers
     public class AdminController : Controller
     {
         private readonly OpenPositionManager _openPositionManager = new(new EfOpenPositionsRepository());
+        private readonly HomePageItemManager _homePageItemManager = new(new EfHomePageItemRepository());
 
         public ActionResult Index()
         {
@@ -69,6 +70,25 @@ namespace Magicwall.Controllers
         public ActionResult Videos()
         {
             return View();
+        }
+        public ActionResult HomePageItems()
+        {
+            List<HomePageItem> homePageItems = _homePageItemManager.GetListAll();
+            return View(homePageItems);
+        }
+        
+        [HttpPost]
+        public ActionResult HomePageItems(string Title, string Text, string Image)  
+        {
+            HomePageItem homePageItem = new()
+            {
+                Title = Title,
+                Text = Text,
+                Image = Image
+            };
+            _homePageItemManager.Add(homePageItem);
+            List<HomePageItem> homePageItems = _homePageItemManager.GetListAll();
+            return View(homePageItems);
         }
     }
 }

@@ -1,0 +1,78 @@
+@using EntityLayer.Concrete
+@model List<About>   
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">Burası Hakkımızda</span>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="px-2 py-1">Id</th>
+                            <th class="px-2 py-1">Adı</th>
+                            <th class="px-2 py-1">İçerik</th>
+                            <th class="px-2 py-1">Resim</th>
+                            <th class="px-2 py-1">İşlem</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="px-2 py-1">@item.Id</td>
+                                <td class="px-2 py-1">@item.Title</td>
+                                <td class="px-2 py-1">@item.Text</td>
+                                <td class="px-2 py-1">@item.Image</td>
+                                <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <form method="post">
+            <div class="card">
+                <div class="card-header">
+                    <span class="font-weight-bold">Hakkımızda Ekle</span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Başlık</label>
+                            <input type="text" class="form-control" name="Title" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            table = new DataTable('#datatable', {
+                scrollY: "",
+                language: { url: "/plugins/datatables/tr.json" },
+                order: [0, "desc"]
+            });
+        });
+    </script>
+
+}

@@ -21,4 +21,5 @@ public class Context : DbContext
     public DbSet<ReferencesPageItem> ReferencesPageItems { get; set; }
     public DbSet<VideoPageItem> VideoPageItems { get; set; }
     public DbSet<Catalog> Catalogs { get; set; }
+    public DbSet<HomePageItem> HomePageItems { get; set; }
 }
