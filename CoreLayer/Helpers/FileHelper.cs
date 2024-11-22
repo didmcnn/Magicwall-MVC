@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using SixLabors.ImageSharp.PixelFormats;
+﻿using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreLayer.Helpers;
 
