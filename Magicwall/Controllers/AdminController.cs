@@ -15,25 +15,29 @@ namespace Magicwall.Controllers
         private readonly HomePageItemManager _homePageItemManager;
         private readonly AboutManager _aboutManager;
         private readonly ModelsManager _modelsManager;
+        private readonly PhotoPageManager _photoPageItemManager;
+        private readonly VideoPageManager _videoPageItemManager;
         public AdminController()
         {
             _openPositionManager = new(new EfOpenPositionsRepository(_context));
             _homePageItemManager = new(new EfHomePageItemRepository(_context));
             _aboutManager = new(new EfAboutRepository(_context));
             _modelsManager = new(new EfModelPageItemsRepository(_context));
+            _photoPageItemManager = new(new EfPhotoPageItemsRepository(_context));
+            _videoPageItemManager = new(new EfVideoPageItemRepository(_context));
         }
 
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult AboutUs()
+        public ActionResult Abouts()
         {
             List<About> aboutList = _aboutManager.GetListAll();
             return View(aboutList);
         }
         [HttpPost]
-        public ActionResult AboutUs(About about)
+        public ActionResult Abouts(About about)
         {
             _aboutManager.Add(about);
 
@@ -93,17 +97,43 @@ namespace Magicwall.Controllers
             List<ModelPageItem> modelPageItems = _modelsManager.GetListAll();
             return View(modelPageItems);
         }
-        public ActionResult Photos()
+        public ActionResult PhotoPageItem()
         {
-            return View();
+            List<PhotoPageItem> photoPageItems = _photoPageItemManager.GetListAll();
+            return View(photoPageItems);
+        }
+        [HttpPost]
+        public ActionResult PhotoPageItem(string Image, string Name)
+        {
+            PhotoPageItem photoPageItem = new()
+            {
+                Image = Image,
+                Name = Name
+            };
+            _photoPageItemManager.Add(photoPageItem);
+            List<PhotoPageItem> photoPageItems = _photoPageItemManager.GetListAll();
+            return View(photoPageItems);
         }
         public ActionResult Referances()
         {
             return View();
         }
-        public ActionResult Videos()
+        public ActionResult VideoPageItem()
         {
-            return View();
+            List<VideoPageItem> videoPageItems = _videoPageItemManager.GetListAll();
+            return View(videoPageItems);
+        }
+        [HttpPost]
+        public ActionResult VideoPageItem(string Name, string Video)
+        {
+            VideoPageItem videoPageItem = new()
+            {
+                Name = Name,
+                Video = Video
+            };
+            _videoPageItemManager.Add(videoPageItem);
+            List<VideoPageItem> videoPageItems = _videoPageItemManager.GetListAll();
+            return View(videoPageItems);
         }
         public ActionResult HomePageItems()
         {
