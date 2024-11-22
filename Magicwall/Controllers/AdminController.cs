@@ -4,10 +4,12 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFrameWork;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Magicwall.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly Context _context = new();

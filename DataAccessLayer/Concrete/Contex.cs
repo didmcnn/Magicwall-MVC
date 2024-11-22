@@ -1,5 +1,7 @@
 using EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DataAccessLayer.Concrete;
 
@@ -22,4 +24,29 @@ public class Context : DbContext
     public DbSet<VideoPageItem> VideoPageItems { get; set; }
     public DbSet<Catalog> Catalogs { get; set; }
     public DbSet<HomePageItem> HomePageItems { get; set; }
+    public DbSet<User> Users { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        // Create a default admin user
+        var adminUser = new User
+        {
+            Id = Guid.NewGuid(),
+            Username = "admin",
+            Email = "admin@magicwall.com",
+            PasswordHash = HashPassword("MagicWall24Admin@Pass!"),
+            CreatedAt = DateTime.UtcNow
+        };
+
+        modelBuilder.Entity<User>().HasData(adminUser);
+        // Additional configurations if needed
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique(); // Ensure unique emails
+    }
+    // Helper method to hash passwords
+    private static string HashPassword(string password)
+    {
+        var bytes = Encoding.UTF8.GetBytes(password);
+        var hash = SHA256.HashData(bytes);
+        return Convert.ToBase64String(hash);
+    }
 }
