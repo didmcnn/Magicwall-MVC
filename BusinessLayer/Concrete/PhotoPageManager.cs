@@ -1,38 +1,51 @@
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstaract;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete;
 
 public class PhotoPageManager : IPhotoPageItemService
 {
-    IPhotoPageItemDal _photoPageItemDal;
+    private readonly IPhotoPageItemDal _photoPageItemDal;
     public PhotoPageManager(IPhotoPageItemDal photoPageItemDal)
     {
         _photoPageItemDal = photoPageItemDal;
     }
-    public void Add(PhotoPageItem photoPageItem)
+
+    public async Task<PhotoPageItem> CreateAsync(PhotoPageItem t)
     {
-        _photoPageItemDal.Insert(photoPageItem);
+        return await _photoPageItemDal.AddAsync(t);
     }
 
-    public void Delete(PhotoPageItem photoPageItem)
+    public async Task<List<PhotoPageItem>> GetAllAsync()
     {
-        _photoPageItemDal.Delete(photoPageItem);
+        return await _photoPageItemDal.GetAllAsync();
     }
 
-    public void Update(PhotoPageItem photoPageItem)
+    public async Task<PhotoPageItem> GetByIdAsync(int id)
     {
-        _photoPageItemDal.Update(photoPageItem);
+        return await _photoPageItemDal.GetByIdAsync(id);
     }
 
-    public PhotoPageItem GetById(int id)
+    public async Task<PhotoPageItem> GetWithIncludeById(int id)
     {
-        return _photoPageItemDal.GetById(id);
+        return await _photoPageItemDal.GetByIdAsync(id);
     }
 
-    public List<PhotoPageItem> GetListAll()
+    public async Task<PhotoPageItem> GetByFilterAsync(Expression<Func<PhotoPageItem, bool>> predicate)
     {
-        return _photoPageItemDal.GetListAll();
+        return await _photoPageItemDal.GetByFilterAsync(predicate);
+    }
+
+    public async Task<PhotoPageItem> UpdateAsync(PhotoPageItem t)
+    {
+        return await _photoPageItemDal.UpdateAsync(t);
+    }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        return await _photoPageItemDal.DeleteByIdAsync(id);
     }
 }
+

@@ -1,38 +1,50 @@
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstaract;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete;
 
 public class VideoPageManager : IVideoPageItemService
 {
-    IVideoPageItemDal _videoPageItemDal;
+    private readonly IVideoPageItemDal _videoPageItemDal;
     public VideoPageManager(IVideoPageItemDal videoPageItemDal)
     {
         _videoPageItemDal = videoPageItemDal;
     }
-    public void Add(VideoPageItem videoPageItem)
+
+    public async Task<VideoPageItem> CreateAsync(VideoPageItem t)
     {
-        _videoPageItemDal.Insert(videoPageItem);
+        return await _videoPageItemDal.AddAsync(t);
     }
 
-    public void Delete(VideoPageItem videoPageItem)
+    public async Task<bool> DeleteAsync(int id)
     {
-        _videoPageItemDal.Delete(videoPageItem);
+        return await _videoPageItemDal.DeleteByIdAsync(id);
     }
 
-    public void Update(VideoPageItem videoPageItem)
+    public async Task<List<VideoPageItem>> GetAllAsync()
     {
-        _videoPageItemDal.Update(videoPageItem);
+        return await _videoPageItemDal.GetAllAsync();
     }
 
-    public VideoPageItem GetById(int id)
+    public async Task<VideoPageItem> GetByFilterAsync(Expression<Func<VideoPageItem, bool>> predicate)
     {
-        return _videoPageItemDal.GetById(id);
+        return await _videoPageItemDal.GetByFilterAsync(predicate);
     }
 
-    public List<VideoPageItem> GetListAll()
+    public async Task<VideoPageItem> GetByIdAsync(int id)
     {
-        return _videoPageItemDal.GetListAll();
+        return await _videoPageItemDal.GetByIdAsync(id);
+    }
+
+    public async Task<VideoPageItem> GetWithIncludeById(int id)
+    {
+        return await _videoPageItemDal.GetByIdAsync(id);
+    }
+
+    public async Task<VideoPageItem> UpdateAsync(VideoPageItem t)
+    {
+        return await _videoPageItemDal.UpdateAsync(t);
     }
 }

@@ -2,7 +2,7 @@ using EntityLayer.Concrete;
 
 namespace BusinessLayer.Abstaract;
 
-public interface IVideoPageItemService:IGenericService<PhotoPageItem>
+public interface IVideoPageItemService:IGenericService<VideoPageItem>
 {
   
 }

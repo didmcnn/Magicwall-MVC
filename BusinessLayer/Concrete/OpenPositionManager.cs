@@ -1,9 +1,10 @@
-﻿using BusinessLayer.Abstaract;
+﻿using System.Linq.Expressions;
+using BusinessLayer.Abstaract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 
-namespace BusinessLayer.Concrete
-{
+namespace BusinessLayer.Concrete;
+
     public class OpenPositionManager : IOpenPositionService
     {
         private readonly IOpenPositionDal _openPositionDal;
@@ -12,29 +13,39 @@ namespace BusinessLayer.Concrete
             _openPositionDal = openPositionDal;
         }
 
-        public void Add(OpenPosition op)
+        public async Task<OpenPosition> CreateAsync(OpenPosition t)
         {
-             _openPositionDal.Insert(op);
+            return await _openPositionDal.AddAsync(t);
         }
 
-        public void Delete(OpenPosition op)
+        public async Task<bool> DeleteAsync(int id)
         {
-            _openPositionDal.Delete(op);
+            return await _openPositionDal.DeleteByIdAsync(id);
         }
 
-        public OpenPosition GetById(int id)
+        public async Task<List<OpenPosition>> GetAllAsync()
         {
-            return _openPositionDal.GetById(id);
+            return await _openPositionDal.GetAllAsync();
         }
 
-        public List<OpenPosition> GetListAll()
+        public async Task<OpenPosition> GetByFilterAsync(Expression<Func<OpenPosition, bool>> predicate)
         {
-            return _openPositionDal.GetListAll();
+            return await _openPositionDal.GetByFilterAsync(predicate);
         }
 
-        public void Update(OpenPosition op)
+        public async Task<OpenPosition> GetByIdAsync(int id)
         {
-            _openPositionDal.Update(op);
+            return await _openPositionDal.GetByIdAsync(id);
+        }
+
+        public async Task<OpenPosition> GetWithIncludeById(int id)
+        {
+            return await _openPositionDal.GetByIdAsync(id);
+        }
+
+        public async Task<OpenPosition> UpdateAsync(OpenPosition t)
+        {
+            return await _openPositionDal.UpdateAsync(t);
         }
     }
-}
+

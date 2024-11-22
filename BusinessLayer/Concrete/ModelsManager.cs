@@ -23,19 +23,19 @@ public class ModelsManager : IModelsService
         return await _modelPageItemDal.DeleteByIdAsync(id);
     }
 
-    public Task<List<ModelPageItem>> GetAllAsync()
+    public async Task<List<ModelPageItem>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _modelPageItemDal.GetAllAsync();
     }
 
-    public Task<ModelPageItem> GetByFilterAsync(Expression<Func<ModelPageItem, bool>> predicate)
+    public async Task<ModelPageItem> GetByFilterAsync(Expression<Func<ModelPageItem, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await _modelPageItemDal.GetByFilterAsync(predicate);
     }
 
-    public Task<ModelPageItem> GetByIdAsync(int id)
+    public async Task<ModelPageItem> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _modelPageItemDal.GetByIdAsync(id);
     }
 
     public Task<ModelPageItem> GetWithIncludeById(int id)
@@ -43,8 +43,8 @@ public class ModelsManager : IModelsService
         throw new NotImplementedException();
     }
 
-    public Task<ModelPageItem> UpdateAsync(ModelPageItem t)
+    public async Task<ModelPageItem> UpdateAsync(ModelPageItem t)
     {
-        throw new NotImplementedException();
+        return await _modelPageItemDal.UpdateAsync(t);
     }
 }
