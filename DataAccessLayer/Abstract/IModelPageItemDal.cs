@@ -4,6 +4,6 @@ using EntityLayer.Concrete;
 
 namespace DataAccessLayer.Abstract;
 
-public interface IModelPageItemDal
+public interface IModelPageItemDal:IGenericDal<ModelPageItem>
 {
 }

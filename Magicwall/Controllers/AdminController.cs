@@ -1,5 +1,7 @@
 using BusinessLayer.Abstaract;
 using BusinessLayer.Concrete;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFrameWork;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -8,9 +10,18 @@ namespace Magicwall.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly OpenPositionManager _openPositionManager = new(new EfOpenPositionsRepository());
-        private readonly HomePageItemManager _homePageItemManager = new(new EfHomePageItemRepository());
-        private readonly AboutManager _aboutManager = new(new EfAboutRepository());
+        private readonly Context _context = new();
+        private readonly OpenPositionManager _openPositionManager;
+        private readonly HomePageItemManager _homePageItemManager;
+        private readonly AboutManager _aboutManager;
+        private readonly ModelsManager _modelsManager;
+        public AdminController()
+        {
+            _openPositionManager = new(new EfOpenPositionsRepository(_context));
+            _homePageItemManager = new(new EfHomePageItemRepository(_context));
+            _aboutManager = new(new EfAboutRepository(_context));
+            _modelsManager = new(new EfModelPageItemsRepository(_context));
+        }
 
         public ActionResult Index()
         {
@@ -67,7 +78,20 @@ namespace Magicwall.Controllers
         }
         public ActionResult Models()
         {
-            return View();
+            List<ModelPageItem> modelPageItems = _modelsManager.GetListAll();
+            return View(modelPageItems);
+        }
+        [HttpPost]
+        public ActionResult Models(string Name, string Image)
+        {
+            ModelPageItem modelPageItem = new()
+            {
+                Name = Name,    
+                Image = Image
+            };
+            _modelsManager.Add(modelPageItem);
+            List<ModelPageItem> modelPageItems = _modelsManager.GetListAll();
+            return View(modelPageItems);
         }
         public ActionResult Photos()
         {
@@ -101,4 +125,5 @@ namespace Magicwall.Controllers
             return View(homePageItems);
         }
     }
+
 }
