@@ -26,7 +26,11 @@
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
 
     <link href="~/plugins/datatables/datatables.min.css" rel="stylesheet" />
-
+    <style>
+        .dropdown-toggle::after {
+            content:unset !important;
+        }
+    </style>
     @await RenderSectionAsync("Links", required: false)
     <link href="~/css/backend-overrides.css" rel="stylesheet" />
 </head>
@@ -55,9 +59,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">
-                        <i class="fas fa-th-large"></i>
-                    </a>
+                    <div class="nav-link">
+                        <i class="fa fa-user dropdown-toggle" data-toggle="dropdown" style=""></i>
+                        <div class="dropdown-menu">
+                            <form asp-action="Logout" asp-controller="Auth" method="post" style="display:inline;">
+                                <button type="submit" class="dropdown-item">Çıkış Yap</button>
+                            </form>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </nav>

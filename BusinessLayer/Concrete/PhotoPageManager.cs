@@ -1,6 +1,6 @@
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
-using BusinessLayer.Abstaract;
+using BusinessLayer.Abstract;
 using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete;

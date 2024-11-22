@@ -1,4 +1,4 @@
-using BusinessLayer.Abstaract;
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
@@ -33,17 +33,17 @@ namespace Magicwall.Controllers
         {
             return View();
         }
-        public ActionResult Abouts()
+        public async Task<ActionResult> AboutsAsync()
         {
-            List<About> aboutList = _aboutService.GetListAll();
+            List<About> aboutList = await _aboutService.GetAllAsync();
             return View(aboutList);
         }
         [HttpPost]
-        public ActionResult Abouts(About about)
+        public async Task<ActionResult> AboutsAsync(About about)
         {
-            _aboutService.Add(about);
+            await _aboutService.CreateAsync(about);
 
-            List<About> aboutList = _aboutService.GetListAll();
+            List<About> aboutList = await _aboutService.GetAllAsync();
             return View(aboutList);
         }
         public ActionResult Catalog()
@@ -63,97 +63,73 @@ namespace Magicwall.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult OpenPositions()
+        public async Task<ActionResult> OpenPositionsAsync()
         {
-            List<OpenPosition> openPositions = _openPositionService.GetListAll();
+            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
 
             return View(openPositions);
         }
 
         [HttpPost]
-        public ActionResult OpenPositions(string Name)
+        public async Task<ActionResult> OpenPositionsAsync(OpenPosition position)
         {
-            OpenPosition position = new() {
-                Name = Name
-            };
+            await _openPositionService.CreateAsync(position);
 
-            _openPositionManager.Add(position);
-
-            List<OpenPosition> openPositions = _openPositionManager.GetListAll();
+            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
             return View(openPositions);
         }
-        public ActionResult Models()
+        public async Task<ActionResult> ModelsAsync()
         {
-            List<ModelPageItem> modelPageItems = _modelsManager.GetListAll();
+            List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
             return View(modelPageItems);
         }
         [HttpPost]
-        public ActionResult Models(string Name, string Image)
+        public async Task<ActionResult> ModelsAsync(ModelPageItem modelPageItem)
         {
-            ModelPageItem modelPageItem = new()
-            {
-                Name = Name,    
-                Image = Image
-            };
-            _modelsManager.Add(modelPageItem);
-            List<ModelPageItem> modelPageItems = _modelsManager.GetListAll();
+            await _modelsService.CreateAsync(modelPageItem);
+            List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
             return View(modelPageItems);
         }
-        public ActionResult PhotoPageItem()
+        public async Task<ActionResult> PhotoPageItemAsync()
         {
-            List<PhotoPageItem> photoPageItems = _photoPageItemManager.GetListAll();
+            List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
             return View(photoPageItems);
         }
         [HttpPost]
-        public ActionResult PhotoPageItem(string Image, string Name)
+        public async Task<ActionResult> PhotoPageItemAsync(PhotoPageItem photoPageItem)
         {
-            PhotoPageItem photoPageItem = new()
-            {
-                Image = Image,
-                Name = Name
-            };
-            _photoPageItemManager.Add(photoPageItem);
-            List<PhotoPageItem> photoPageItems = _photoPageItemManager.GetListAll();
+            await _photoPageItemService.CreateAsync(photoPageItem);
+            List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
             return View(photoPageItems);
         }
         public ActionResult Referances()
         {
             return View();
         }
-        public ActionResult VideoPageItem()
+        public async Task<ActionResult> VideoPageItemAsync()
         {
-            List<VideoPageItem> videoPageItems = _videoPageItemManager.GetListAll();
+            List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
             return View(videoPageItems);
         }
         [HttpPost]
-        public ActionResult VideoPageItem(string Name, string Video)
+        public async Task<ActionResult> VideoPageItemAsync(VideoPageItem videoPageItem)
         {
-            VideoPageItem videoPageItem = new()
-            {
-                Name = Name,
-                Video = Video
-            };
-            _videoPageItemManager.Add(videoPageItem);
-            List<VideoPageItem> videoPageItems = _videoPageItemManager.GetListAll();
+           
+            await _videoPageItemService.CreateAsync(videoPageItem);
+            List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
             return View(videoPageItems);
         }
-        public ActionResult HomePageItems()
+        public async Task<ActionResult> HomePageItemsAsync()
         {
-            List<HomePageItem> homePageItems = _homePageItemManager.GetListAll();
+            List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
             return View(homePageItems);
         }
         
         [HttpPost]
-        public ActionResult HomePageItems(string Title, string Text, string Image)  
+        public async Task<ActionResult> HomePageItemsAsync(HomePageItem homePageItem)  
         {
-            HomePageItem homePageItem = new()
-            {
-                Title = Title,
-                Text = Text,
-                Image = Image
-            };
-            _homePageItemManager.Add(homePageItem);
-            List<HomePageItem> homePageItems = _homePageItemManager.GetListAll();
+            await _homePageItemService.CreateAsync(homePageItem);
+            List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
             return View(homePageItems);
         }
     }

@@ -1,16 +1,13 @@
 using EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace DataAccessLayer.Concrete;
 
-public class Context : DbContext
+public class Context(DbContextOptions<Context> options) : DbContext(options)
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Data Source=37.148.210.105;Initial Catalog=testdb; User Id=site;Password=kv84EtFBboaok2e1;Connect Timeout=15;Encrypt=False;Packet Size=4096");
-    }
 
     public DbSet<About> Abouts { get; set; }
     public DbSet<BankAccount> BankAccounts { get; set; }
@@ -29,9 +26,12 @@ public class Context : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         // Create a default admin user
         var adminUser = new User
         {
+            Id=1,
             Username = "admin",
             Email = "admin@magicwall.com",
             PasswordHash = HashPassword("MagicWall24Admin@Pass!"),

@@ -1,4 +1,4 @@
-﻿using BusinessLayer.Abstaract;
+﻿using BusinessLayer.Abstract;
 using Magicwall.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -46,7 +46,7 @@ namespace Magicwall.Controllers
                 // Sign in user
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Admin");
             }
 
             ModelState.AddModelError("", "Invalid email or password.");

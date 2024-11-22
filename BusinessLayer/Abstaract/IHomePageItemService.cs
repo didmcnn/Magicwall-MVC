@@ -1,6 +1,6 @@
 using EntityLayer.Concrete;
 
-namespace BusinessLayer.Abstaract;
+namespace BusinessLayer.Abstract;
 
 public interface IHomePageItemService:IGenericService<HomePageItem>
 {

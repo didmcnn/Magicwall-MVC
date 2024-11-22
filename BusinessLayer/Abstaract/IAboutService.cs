@@ -1,7 +1,7 @@
 using EntityLayer.Concrete;
 using System.Linq.Expressions;
 
-namespace BusinessLayer.Abstaract;
+namespace BusinessLayer.Abstract;
 
 public interface IAboutService:IGenericService<About>
 {

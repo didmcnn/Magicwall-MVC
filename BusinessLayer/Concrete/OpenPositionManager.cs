@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using BusinessLayer.Abstaract;
+using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 
