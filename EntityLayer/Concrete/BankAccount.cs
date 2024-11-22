@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class BankAccount
+public class BankAccount:BaseEntity<int>
 {
-    public int Id { get; set; }
     
     public string Image { get; set; }
     

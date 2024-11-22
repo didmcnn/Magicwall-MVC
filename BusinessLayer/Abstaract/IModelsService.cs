@@ -3,14 +3,6 @@ using EntityLayer.Concrete;
 
 namespace BusinessLayer.Abstaract;
 
-public interface IModelsService
+public interface IModelsService:IGenericService<ModelPageItem>
 {
-    void Add(ModelPageItem modelPageItem);
-
-    void Delete(ModelPageItem modelPageItem);
-    void Update(ModelPageItem modelPageItem);
-
-    List<ModelPageItem> GetListAll();
-
-    ModelPageItem GetById (int id);
 }

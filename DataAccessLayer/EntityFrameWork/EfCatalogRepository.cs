@@ -1,12 +1,11 @@
-using System;
+using CoreLayer.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 
-namespace DataAccessLayer.EntityFrameWork;
+namespace DataAccessLayer.EntityFramework;
 
-public class EfCatalogRepository : GenericRepository<Catalog>, ICatalogDal
+public class EfCatalogRepository : EfEntityRepositoryBase<Catalog, int, Context>, ICatalogDal
 {
     public EfCatalogRepository(Context context) : base(context)
     {

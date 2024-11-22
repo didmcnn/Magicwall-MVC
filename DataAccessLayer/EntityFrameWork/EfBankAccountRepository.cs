@@ -1,12 +1,11 @@
-using System;
+using CoreLayer.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.Repositories;
-using EntityLayer.Concrete; 
+using EntityLayer.Concrete;
 
-namespace DataAccessLayer.EntityFrameWork;
+namespace DataAccessLayer.EntityFramework;
 
-public class EfBankAccountRepository : GenericRepository<BankAccount>, IBankAccountDal
+public class EfBankAccountRepository : EfEntityRepositoryBase<BankAccount, int, Context>, IBankAccountDal
 {
     public EfBankAccountRepository(Context context) : base(context)
     {

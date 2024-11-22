@@ -1,12 +1,11 @@
-using System;
+using CoreLayer.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 
-namespace DataAccessLayer.EntityFrameWork;
+namespace DataAccessLayer.EntityFramework;
 
-public class EfDocumentPageItemRepository : GenericRepository<DocumentsPageItem>, IDocumentsPageItemsDal
+public class EfDocumentPageItemRepository : EfEntityRepositoryBase<DocumentsPageItem,int,Context>, IDocumentsPageItemDal
 {
     public EfDocumentPageItemRepository(Context context) : base(context)
     {

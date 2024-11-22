@@ -1,38 +1,50 @@
 using BusinessLayer.Abstaract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete;
 
 public class AboutManager : IAboutService
 {
-    IAboutDal _aboutDal;    
+    private readonly IAboutDal _aboutDal;    
     public AboutManager(IAboutDal aboutDal)
     {
         _aboutDal = aboutDal;
     }
-    public void Add(About about)
+
+    public async Task<About> CreateAsync(About about)
     {
-        _aboutDal.Insert(about);
+        return await _aboutDal.AddAsync(about);
     }
 
-    public void Delete(About about)
+    public async Task<List<About>> GetAllAsync()
     {
-        _aboutDal.Delete(about);
+        return await _aboutDal.GetAllAsync();
     }
 
-    public void Update(About about)
+    public async Task<About> GetByIdAsync(int id)
     {
-        _aboutDal.Update(about);
+        return await _aboutDal.GetByIdAsync(id);
     }
 
-    public About GetById(int id)
+    public async Task<About> GetWithIncludeById(int id)
     {
-        return _aboutDal.GetById(id);
+        return await _aboutDal.GetByIdAsync(id);
     }
 
-    public List<About> GetListAll()
+    public async Task<About> GetByFilterAsync(Expression<Func<About, bool>> predicate)
     {
-        return _aboutDal.GetListAll();
+        return await _aboutDal.GetByFilterAsync(predicate);
+    }
+
+    public async Task<About> UpdateAsync(About about)
+    {
+        return await _aboutDal.UpdateAsync(about);
+    }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        return await _aboutDal.DeleteByIdAsync(id);
     }
 }

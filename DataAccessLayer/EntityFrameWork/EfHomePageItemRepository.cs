@@ -1,12 +1,11 @@
-using System;
+using CoreLayer.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 
-namespace DataAccessLayer.EntityFrameWork;
+namespace DataAccessLayer.EntityFramework;
 
-public class EfHomePageItemRepository : GenericRepository<HomePageItem>, IHomePageItemDal
+public class EfHomePageItemRepository : EfEntityRepositoryBase<HomePageItem,int,Context>, IHomePageItemDal
 {
     public EfHomePageItemRepository(Context context) : base(context)
     {

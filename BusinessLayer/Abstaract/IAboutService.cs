@@ -1,15 +1,9 @@
 using EntityLayer.Concrete;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Abstaract;
 
-public interface IAboutService
+public interface IAboutService:IGenericService<About>
 {
-    void Add(About about);
-
-    void Delete(About about);
-    void Update(About about);
-
-    List<About> GetListAll();
-
-    About GetById (int id);
+   
 }

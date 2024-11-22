@@ -1,6 +1,7 @@
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstaract;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete;
 
@@ -11,28 +12,39 @@ public class ModelsManager : IModelsService
     {
         _modelPageItemDal = modelPageItemDal;
     }
-    public void Add(ModelPageItem modelPageItem)
+
+    public async Task<ModelPageItem> CreateAsync(ModelPageItem t)
     {
-        _modelPageItemDal.Insert(modelPageItem);
+        return await _modelPageItemDal.AddAsync(t);
     }
 
-    public void Delete(ModelPageItem modelPageItem)
+    public async Task<bool> DeleteAsync(int id)
     {
-        _modelPageItemDal.Delete(modelPageItem);
+        return await _modelPageItemDal.DeleteByIdAsync(id);
     }
 
-    public void Update(ModelPageItem modelPageItem)
+    public Task<List<ModelPageItem>> GetAllAsync()
     {
-        _modelPageItemDal.Update(modelPageItem);
+        throw new NotImplementedException();
     }
 
-    public ModelPageItem GetById(int id)
+    public Task<ModelPageItem> GetByFilterAsync(Expression<Func<ModelPageItem, bool>> predicate)
     {
-        return _modelPageItemDal.GetById(id);
+        throw new NotImplementedException();
     }
 
-    public List<ModelPageItem> GetListAll()
+    public Task<ModelPageItem> GetByIdAsync(int id)
     {
-        return _modelPageItemDal.GetListAll();
+        throw new NotImplementedException();
+    }
+
+    public Task<ModelPageItem> GetWithIncludeById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ModelPageItem> UpdateAsync(ModelPageItem t)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class JobApplication
+public class JobApplication:BaseEntity<int>
 {
-    public int Id { get; set; }
     
     public string FirstName { get; set; }   
     

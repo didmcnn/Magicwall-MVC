@@ -1,6 +1,7 @@
 using BusinessLayer.Abstaract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using System.Linq.Expressions;
 
 namespace BusinessLayer.Concrete
 {
@@ -12,29 +13,39 @@ namespace BusinessLayer.Concrete
             _homePageItemDal = homePageItemDal;
         }
 
-        public void Add(HomePageItem homePageItem)
+        public async Task<HomePageItem> CreateAsync(HomePageItem t)
         {
-            _homePageItemDal.Insert(homePageItem);
+            return await _homePageItemDal.AddAsync(t);
         }
 
-        public void Delete(HomePageItem homePageItem)
+        public async Task<bool> DeleteAsync(int id)
         {
-            _homePageItemDal.Delete(homePageItem);
+            return await _homePageItemDal.DeleteByIdAsync(id);
         }
 
-        public HomePageItem GetById(int id)
+        public async Task<List<HomePageItem>> GetAllAsync()
         {
-            return _homePageItemDal.GetById(id);
+            return await _homePageItemDal.GetAllAsync();
         }
 
-        public List<HomePageItem> GetListAll()
+        public async Task<HomePageItem> GetByFilterAsync(Expression<Func<HomePageItem, bool>> predicate)
         {
-            return _homePageItemDal.GetListAll();
+            return await _homePageItemDal.GetByFilterAsync(predicate);
         }
 
-        public void Update(HomePageItem homePageItem)
+        public async Task<HomePageItem> GetByIdAsync(int id)
         {
-            _homePageItemDal.Update(homePageItem);
+            return await _homePageItemDal.GetByIdAsync(id);
+        }
+
+        public Task<HomePageItem> GetWithIncludeById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<HomePageItem> UpdateAsync(HomePageItem t)
+        {
+            return await _homePageItemDal.UpdateAsync(t);
         }
     }
 }

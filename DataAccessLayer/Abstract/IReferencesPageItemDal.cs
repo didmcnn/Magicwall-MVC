@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
+using CoreLayer.EntityFramework;
 using EntityLayer.Concrete;
 
 namespace DataAccessLayer.Abstract;
 
-public interface IReferencesPageItemDal:IGenericDal<ReferencesPageItem>
+public interface IReferencesPageItemDal : IEntityRepository<ReferencesPageItem, int>
 {
 }

@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
+using CoreLayer.EntityFramework;
 using EntityLayer.Concrete;
 
 namespace DataAccessLayer.Abstract;
 
-public interface ICatalogDal:IGenericDal<Catalog>
+public interface ICatalogDal : IEntityRepository<Catalog, int>
 {
 }

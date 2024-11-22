@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class ReferencesPageItem
+public class ReferencesPageItem :BaseEntity<int>
 {
-    public int Id { get; set; }
-    
     public string Image { get; set; }
 }

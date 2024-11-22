@@ -1,12 +1,11 @@
-using System;
+using CoreLayer.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
-using DataAccessLayer.Repositories;
 using EntityLayer.Concrete;
 
-namespace DataAccessLayer.EntityFrameWork;
+namespace DataAccessLayer.EntityFramework;
 
-public class EfContactRepository : GenericRepository<Contact>, IContactDal
+public class EfContactRepository : EfEntityRepositoryBase<Contact,int,Context>, IContactDal
 {
     public EfContactRepository(Context context) : base(context)
     {

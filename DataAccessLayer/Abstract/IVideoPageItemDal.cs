@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
+using CoreLayer.EntityFramework;
 using EntityLayer.Concrete;
 
 namespace DataAccessLayer.Abstract;
 
-public interface IVideoPageItemDal:IGenericDal<VideoPageItem>
+public interface IVideoPageItemDal : IEntityRepository<VideoPageItem, int>
 {
 }

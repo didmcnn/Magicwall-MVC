@@ -25,17 +25,17 @@ public class Context : DbContext
     public DbSet<Catalog> Catalogs { get; set; }
     public DbSet<HomePageItem> HomePageItems { get; set; }
     public DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         // Create a default admin user
         var adminUser = new User
         {
-            Id = Guid.NewGuid(),
             Username = "admin",
             Email = "admin@magicwall.com",
             PasswordHash = HashPassword("MagicWall24Admin@Pass!"),
-            CreatedAt = DateTime.UtcNow
+            CreatedDate = DateTime.UtcNow
         };
 
         modelBuilder.Entity<User>().HasData(adminUser);

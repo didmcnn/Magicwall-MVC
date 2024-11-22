@@ -1,16 +1,8 @@
 using EntityLayer.Concrete;
 
-namespace BusinessLayer.Abstaract
+namespace BusinessLayer.Abstaract;
+
+public interface IPhotoPageItemService:IGenericService<PhotoPageItem>
 {
-    public interface IPhotoPageItemService
-    {
-        void Add(PhotoPageItem photoPageItem);
 
-        void Delete(PhotoPageItem photoPageItem);
-        void Update(PhotoPageItem photoPageItem);
-
-        List<PhotoPageItem> GetListAll();
-
-        PhotoPageItem GetById(int id);
-    }
 }

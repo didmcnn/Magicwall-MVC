@@ -1,9 +1,9 @@
+using CoreLayer.BaseEntities;
+
 namespace EntityLayer.Concrete;
 
-public class DocumentsPageItem
+public class DocumentsPageItem:BaseEntity<int>
 {
-    public int Id { get; set; }
     public string Name{ get; set; }
-    
     public string Image { get; set; }
 }

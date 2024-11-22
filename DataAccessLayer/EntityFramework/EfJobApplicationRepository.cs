@@ -5,9 +5,9 @@ using EntityLayer.Concrete;
 
 namespace DataAccessLayer.EntityFramework;
 
-public class EfAboutRepository : EfEntityRepositoryBase<About, int, Context>, IAboutDal
+public class EfJobApplicationRepository : EfEntityRepositoryBase<JobApplication, int, Context>, IJobApplicationDal
 {
-    public EfAboutRepository(Context context) : base(context)
+    public EfJobApplicationRepository(Context context) : base(context)
     {
     }
 }

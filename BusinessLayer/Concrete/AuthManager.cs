@@ -8,9 +8,9 @@ namespace BusinessLayer.Concrete
 {
     public class AuthManager : IAuthService
     {
-        private readonly IAuthDal _authDal;
+        private readonly IUserDal _authDal;
 
-        public AuthManager(IAuthDal authDal)
+        public AuthManager(IUserDal authDal)
         {
             _authDal = authDal;
         }
@@ -18,7 +18,7 @@ namespace BusinessLayer.Concrete
         public async Task<bool> RegisterAsync(string username, string email, string password)
         {
             // Check if user exists
-            var existingUser = await _authDal.GetUserByEmailAsync(email);
+            User existingUser = await _authDal.GetByFilterAsync(x => x.Email == email);
             if (existingUser != null)
                 return false;
 
@@ -31,16 +31,16 @@ namespace BusinessLayer.Concrete
                 Username = username,
                 Email = email,
                 PasswordHash = passwordHash,
-                CreatedAt = DateTime.UtcNow
+                CreatedDate = DateTime.UtcNow
             };
 
-            await _authDal.AddUserAsync(user);
+            await _authDal.AddAsync(user);
             return true;
         }
 
         public async Task<bool> LoginAsync(string email, string password)
         {
-            var user = await _authDal.GetUserByEmailAsync(email);
+            var user = await _authDal.GetByFilterAsync(x=>x.Email==email);
             if (user == null)
                 return false;
 
@@ -58,6 +58,36 @@ namespace BusinessLayer.Concrete
         {
             var hash = HashPassword(password);
             return hash == passwordHash;
+        }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            await _authDal.DeleteAsync(user);
+        }
+
+        public async Task<User?> GetByIDAsync(int id)
+        {
+            return await _authDal.GetByIdAsync(id);
+        }
+
+        public async Task<User?> UpdateUserAsync(User user)
+        {
+            return await _authDal.UpdateAsync(user);
+        }
+
+        public async Task<User?> GetByUserNameAsync(string userName)
+        {
+            return await _authDal.GetByFilterAsync(x => x.Username == userName);
+        }
+
+        public async Task<User?> GetByMailAsync(string mail)
+        {
+            return await _authDal.GetByFilterAsync(x => x.Email == mail);
+        }
+
+        public async Task<List<User>> GetUserListAsync()
+        {
+            return await _authDal.GetAllAsync();
         }
     }
 }

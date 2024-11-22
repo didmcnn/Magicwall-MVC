@@ -1,8 +1,5 @@
 using BusinessLayer.Abstaract;
 using BusinessLayer.Concrete;
-using DataAccessLayer.Abstract;
-using DataAccessLayer.Concrete;
-using DataAccessLayer.EntityFrameWork;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,21 +9,24 @@ namespace Magicwall.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly Context _context = new();
-        private readonly OpenPositionManager _openPositionManager;
-        private readonly HomePageItemManager _homePageItemManager;
-        private readonly AboutManager _aboutManager;
-        private readonly ModelsManager _modelsManager;
-        private readonly PhotoPageManager _photoPageItemManager;
-        private readonly VideoPageManager _videoPageItemManager;
-        public AdminController()
+        private readonly IAuthorizationService _authorizationService;
+        private readonly IOpenPositionService _openPositionService;
+        private readonly IHomePageItemService _homePageItemService;
+        private readonly IAboutService _aboutService;
+        private readonly IModelsService _modelsService;
+        private readonly IPhotoPageItemService _photoPageItemService;
+        private readonly IVideoPageItemService _videoPageItemService;
+        public AdminController(IAuthorizationService authorizationService,IOpenPositionService openPositionService,
+            IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
+            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService)
         {
-            _openPositionManager = new(new EfOpenPositionsRepository(_context));
-            _homePageItemManager = new(new EfHomePageItemRepository(_context));
-            _aboutManager = new(new EfAboutRepository(_context));
-            _modelsManager = new(new EfModelPageItemsRepository(_context));
-            _photoPageItemManager = new(new EfPhotoPageItemsRepository(_context));
-            _videoPageItemManager = new(new EfVideoPageItemRepository(_context));
+            _authorizationService = authorizationService;
+            _openPositionService = openPositionService;
+            _homePageItemService = homePageItemService;
+            _aboutService = aboutService;
+            _modelsService = modelsService;
+            _photoPageItemService = photoPageItemService;
+            _videoPageItemService = videoPageItemService;
         }
 
         public ActionResult Index()
@@ -35,15 +35,15 @@ namespace Magicwall.Controllers
         }
         public ActionResult Abouts()
         {
-            List<About> aboutList = _aboutManager.GetListAll();
+            List<About> aboutList = _aboutService.GetListAll();
             return View(aboutList);
         }
         [HttpPost]
         public ActionResult Abouts(About about)
         {
-            _aboutManager.Add(about);
+            _aboutService.Add(about);
 
-            List<About> aboutList = _aboutManager.GetListAll();
+            List<About> aboutList = _aboutService.GetListAll();
             return View(aboutList);
         }
         public ActionResult Catalog()
@@ -65,7 +65,7 @@ namespace Magicwall.Controllers
         [HttpGet]
         public ActionResult OpenPositions()
         {
-            List<OpenPosition> openPositions = _openPositionManager.GetListAll();
+            List<OpenPosition> openPositions = _openPositionService.GetListAll();
 
             return View(openPositions);
         }

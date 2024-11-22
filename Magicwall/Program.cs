@@ -1,4 +1,5 @@
 using BusinessLayer.DependencyResolver;
+using CoreLayer.DependencyResolver;
 using DataAccessLayer.DependencyResolver;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Register services from other layers
+builder.Services.IocCoreInstall();
 builder.Services.AddDataAccessLayerServices();
 builder.Services.AddBusinessLayerServices();
 

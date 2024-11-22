@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class Catalog
+public class Catalog:BaseEntity<int>
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string PDF { get; set; }
 }

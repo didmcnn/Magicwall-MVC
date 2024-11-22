@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class OpenPosition
+public class OpenPosition:BaseEntity<int>
 {
-    public int Id { get; set; }
-    
     public string Name { get; set; }
 }

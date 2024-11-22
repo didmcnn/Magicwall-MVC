@@ -1,9 +1,9 @@
+using CoreLayer.BaseEntities;
+
 namespace EntityLayer.Concrete;
 
-public class Contact
+public class Contact:BaseEntity<int>
 {
-    public int Id { get; set; }
-    
     public string ContactName { get; set; }
     
     public string ContactSurname { get; set; }

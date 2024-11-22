@@ -2,14 +2,6 @@ using EntityLayer.Concrete;
 
 namespace BusinessLayer.Abstaract;
 
-public interface IContactService
+public interface IContactService : IGenericService<Contact>
 {
-    void Add(Contact contact);
-
-    void Delete(Contact contact);
-    void Update(Contact contact);
-
-    List<Contact> GetListAll();
-
-    Contact GetById (int id);
 }

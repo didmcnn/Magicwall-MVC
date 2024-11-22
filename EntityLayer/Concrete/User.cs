@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CoreLayer.BaseEntities;
 
 namespace EntityLayer.Concrete;
 
-public class User
+public class User:BaseEntity<int>
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
     public string Username { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

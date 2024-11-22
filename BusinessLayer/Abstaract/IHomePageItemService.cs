@@ -2,14 +2,6 @@ using EntityLayer.Concrete;
 
 namespace BusinessLayer.Abstaract;
 
-public interface IHomePageItemService
+public interface IHomePageItemService:IGenericService<HomePageItem>
 {
-    void Add(HomePageItem homePageItem);
-
-    void Delete(HomePageItem homePageItem);
-    void Update(HomePageItem homePageItem);
-
-    List<HomePageItem> GetListAll();
-
-    HomePageItem GetById (int id);
 }

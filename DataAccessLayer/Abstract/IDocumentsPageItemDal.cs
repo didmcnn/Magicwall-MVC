@@ -3,6 +3,6 @@ using EntityLayer.Concrete;
 
 namespace DataAccessLayer.Abstract;
 
-public interface IAboutDal : IEntityRepository<About, int>
+public interface IDocumentsPageItemDal:IEntityRepository<DocumentsPageItem,int>
 {
 }
