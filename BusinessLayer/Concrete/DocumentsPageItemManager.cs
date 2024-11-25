@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 
 namespace BusinessLayer.Concrete;
 
@@ -18,12 +19,6 @@ public class DocumentsPageItemManager : IDocumentsPageItemService
     {
         return await _documentsPageItemDal.AddAsync(documentsPageItem);
     }
-
-    public async Task<bool> DeleteAsync(int id)
-    {
-        return await _documentsPageItemDal.DeleteByIdAsync(id);
-    }
-
     public async Task<List<DocumentsPageItem>> GetAllAsync()
     {
         return await _documentsPageItemDal.GetAllAsync();
@@ -48,4 +43,19 @@ public class DocumentsPageItemManager : IDocumentsPageItemService
     {
         return await _documentsPageItemDal.UpdateAsync(documentsPageItem);
     }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var doc = await _documentsPageItemDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "DocumentPage"));
+
+        if (success)
+        {
+            return await _documentsPageItemDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using CoreLayer.Helpers
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -28,7 +30,7 @@
     <link href="~/plugins/datatables/datatables.min.css" rel="stylesheet" />
     <style>
         .dropdown-toggle::after {
-            content:unset !important;
+            content: unset !important;
         }
     </style>
     @await RenderSectionAsync("Links", required: false)
@@ -74,7 +76,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link text-center">
+            <a href="/Admin" class="brand-link text-center">
                 <img src="~/img/magic_wall_logo.png" alt="MagicWall Logo" class="brand-image" style="opacity: .8; float: none; filter: brightness(0) invert(1);max-height:53px;">
             </a>
 
@@ -95,119 +97,125 @@
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="~/Admin/HomePageItems" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Anasayfa
-              </p>
-            </a>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Home Page -->
+                        <li class="nav-item">
+                            <a href="~/Admin/HomePageItems" class="nav-link @Html.IsActive("Admin", "HomePageItems")">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Anasayfa</p>
+                            </a>
+                        </li>
 
-          </li>
-          <li class="nav-item">
-            <a href="~/Admin/Models" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Modeller
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Galeri
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="~/Admin/PhotoPageItem" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Foto Galeri</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="~/Admin/VideoPageItem" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Video Galeri</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Kurumsal
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="~/Admin/Abouts" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hakkımızda</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Belgelerimiz</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/buttons.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Referanslarımız</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    İnsan Kaynakları
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="~/Admin/OpenPositions" class="nav-link">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Açık Pozisyonlar</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="pages/UI/navbar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Banka Bilgilerimiz</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>
-                E-Katalog
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                İletişim
-              </p>
-            </a>
-          </li>
-      </nav>
-                
+                        <!-- Models -->
+                        <li class="nav-item">
+                            <a href="~/Admin/Models" class="nav-link @Html.IsActive("Admin", "Models")">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>Modeller</p>
+                            </a>
+                        </li>
+
+                        <!-- Gallery -->
+                        <li class="nav-item @Html.IsParentActive(new[] { "PhotoPageItem", "VideoPageItem" }, "Admin")">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    Galeri
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/PhotoPageItem" class="nav-link @Html.IsActive("Admin", "PhotoPageItem")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Foto Galeri</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Admin/VideoPageItem" class="nav-link @Html.IsActive("Admin", "VideoPageItem")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Video Galeri</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Corporate -->
+                        <li class="nav-item @Html.IsParentActive(new[] { "AboutUs" }, "Admin")">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tree"></i>
+                                <p>
+                                    Kurumsal
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/AboutUs" class="nav-link @Html.IsActive("Admin", "AboutUs")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Hakkımızda</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Admin/DocumentsPageItem" class="nav-link @Html.IsActive("Admin", "DocumentsPageItem")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Belgelerimiz</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/UI/buttons.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Referanslarımız</p>
+                                    </a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a href="pages/UI/navbar.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Banka Bilgilerimiz</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item @Html.IsParentActive(new[] { "OpenPositions" }, "Admin")">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    İnsan Kaynakları
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="~/Admin/Forms" class="nav-link @Html.IsActive("Admin", "Forms")">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Başvurular</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="~/Admin/OpenPositions" class="nav-link @Html.IsActive("Admin", "OpenPositions")">
+                                        <i class="far fa-dot-circle nav-icon"></i>
+                                        <p>Açık Pozisyonlar</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- E-Katalog -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-edit"></i>
+                                <p>E-Katalog</p>
+                            </a>
+                        </li>
+
+                        <!-- İletişim -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>İletişim</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->

@@ -12,10 +12,11 @@ public static class ServiceRegistration
         services.AddScoped<IAboutService, AboutManager>();
         services.AddScoped<IContactService, ContactManager>();
         services.AddScoped<IHomePageItemService, HomePageItemManager>();
-        services.AddScoped<IModelsService,ModelsManager>();
-        services.AddScoped<IOpenPositionService,OpenPositionManager>();
-        services.AddScoped<IPhotoPageItemService,PhotoPageManager>();
-        services.AddScoped<IVideoPageItemService,VideoPageManager>();
+        services.AddScoped<IModelsService, ModelsManager>();
+        services.AddScoped<IOpenPositionService, OpenPositionManager>();
+        services.AddScoped<IPhotoPageItemService, PhotoPageManager>();
+        services.AddScoped<IVideoPageItemService, VideoPageManager>();
         services.AddScoped<IDocumentsPageItemService, DocumentsPageItemManager>();
+        services.AddScoped<IReferencesPageItemService, ReferencesPageItemManager>();
     }
 }

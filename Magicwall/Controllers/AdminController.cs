@@ -33,52 +33,38 @@ namespace Magicwall.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> AboutsAsync()
+
+        #region aboutUs
+
+        public async Task<ActionResult> AboutUsAsync()
         {
             List<About> aboutList = await _aboutService.GetAllAsync();
             return View(aboutList);
         }
         [HttpPost]
-        public async Task<ActionResult> AboutsAsync(About about)
+        public async Task<ActionResult> AboutUsAsync(About about, IFormFile ModelFileInput)
         {
-            await _aboutService.CreateAsync(about);
+            if (!string.IsNullOrEmpty(about.Title) && !string.IsNullOrEmpty(about.Text) && ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "AboutUs"), ModelFileInput, FileType.image);
 
-            List<About> aboutList = await _aboutService.GetAllAsync();
-            return View(aboutList);
+                if (location != null)
+                {
+                    about.Image = location;
+                    await _aboutService.CreateAsync(about);
+                }
+            }
+            return RedirectToAction("AboutUs");
         }
-        public ActionResult Catalog()
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAboutUs(int Id)
         {
-            return View();
+            await _aboutService.DeleteAsync(Id);
+            return Ok();
         }
-        public ActionResult Contact()
-        {
-            return View();
-        }
-        public async Task<ActionResult> DocumentsPageItemAsync()
-        {
-            List<DocumentsPageItem> documentsPageItems = await _documentsPageItemService.GetAllAsync();
-            return View(documentsPageItems);
-        }
-        public ActionResult JobApplication()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<ActionResult> OpenPositionsAsync()
-        {
-            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
+        #endregion
 
-            return View(openPositions);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> OpenPositionsAsync(OpenPosition position)
-        {
-            await _openPositionService.CreateAsync(position);
-
-            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
-            return View(openPositions);
-        }
+        #region Models
         public async Task<ActionResult> ModelsAsync()
         {
             List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
@@ -101,9 +87,7 @@ namespace Magicwall.Controllers
                     await _modelsService.CreateAsync(modelPageItem);
                 }
             }
-
-            List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
-            return View(modelPageItems);
+            return RedirectToAction("Models");
         }
         [HttpDelete]
         public async Task<ActionResult> DeleteModel(int Id)
@@ -111,36 +95,148 @@ namespace Magicwall.Controllers
             await _modelsService.DeleteAsync(Id);
             return Ok();
         }
+        #endregion
 
+        #region PhotoGallery
         public async Task<ActionResult> PhotoPageItemAsync()
         {
             List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
             return View(photoPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> PhotoPageItemAsync(PhotoPageItem photoPageItem)
+        public async Task<ActionResult> PhotoPageItemAsync(string Name, IFormFile ModelFileInput)
         {
-            await _photoPageItemService.CreateAsync(photoPageItem);
-            List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
-            return View(photoPageItems);
+            if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "PhotoPage"), ModelFileInput, FileType.image);
+
+                if (location != null)
+                {
+                    PhotoPageItem photoPageItem = new()
+                    {
+                        Name=Name,
+                        Image= location
+                    };
+                    await _photoPageItemService.CreateAsync(photoPageItem);
+                }
+            }
+            return RedirectToAction("PhotoPageItem");
         }
-        public ActionResult Referances()
+        [HttpDelete]
+        public async Task<ActionResult> DeletePhotoItem(int Id)
         {
-            return View();
+            await _photoPageItemService.DeleteAsync(Id);
+            return Ok();
         }
+        #endregion
+
+        #region VideoGallery
         public async Task<ActionResult> VideoPageItemAsync()
         {
             List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
             return View(videoPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> VideoPageItemAsync(VideoPageItem videoPageItem)
+        public async Task<ActionResult> VideoPageItemAsync(string Name, IFormFile ModelFileInput)
         {
+            if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "VideoPage"), ModelFileInput, FileType.image);
 
-            await _videoPageItemService.CreateAsync(videoPageItem);
-            List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
-            return View(videoPageItems);
+                if (location != null)
+                {
+                    VideoPageItem videoPageItem = new()
+                    {
+                        Name = Name,
+                        Video = location
+                    };
+                    await _videoPageItemService.CreateAsync(videoPageItem);
+                }
+            }
+
+            return RedirectToAction("VideoPageItem");
         }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteVideoItem(int Id)
+        {
+            await _videoPageItemService.DeleteAsync(Id);
+            return Ok();
+        }
+        #endregion
+
+        #region Documents
+        public async Task<ActionResult> DocumentsPageItemAsync()
+        {
+            List<DocumentsPageItem> documentsPageItems = await _documentsPageItemService.GetAllAsync();
+            return View(documentsPageItems);
+        }
+        [HttpPost]
+        public async Task<ActionResult> DocumentsPageItemAsync(string Name, IFormFile ModelFileInput)
+        {
+            if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "DocumentPage"), ModelFileInput, FileType.image);
+
+                if (location != null)
+                {
+                    DocumentsPageItem documentsPageItem = new()
+                    {
+                        Name = Name,
+                        Image = location
+                    };
+                    await _documentsPageItemService.CreateAsync(documentsPageItem);
+                }
+            }
+            return RedirectToAction("DocumentsPageItem");
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteDocumentItem(int Id)
+        {
+            await _documentsPageItemService.DeleteAsync(Id);
+            return Ok();
+        }
+        #endregion
+
+
+        public ActionResult Referances()
+        {
+            return View();
+        }
+
+        public ActionResult Catalog()
+        {
+            return View();
+        }
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        
+        public ActionResult JobApplication()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult> OpenPositionsAsync()
+        {
+            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
+
+            return View(openPositions);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> OpenPositionsAsync(OpenPosition position)
+        {
+            await _openPositionService.CreateAsync(position);
+
+            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
+            return View(openPositions);
+        }
+
+        
+        
         public async Task<ActionResult> HomePageItemsAsync()
         {
             List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
@@ -151,8 +247,7 @@ namespace Magicwall.Controllers
         public async Task<ActionResult> HomePageItemsAsync(HomePageItem homePageItem)
         {
             await _homePageItemService.CreateAsync(homePageItem);
-            List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
-            return View(homePageItems);
+            return RedirectToAction("HomePageItems");
         }
     }
 

@@ -2,6 +2,7 @@ using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstract;
 using System.Linq.Expressions;
+using CoreLayer.Helpers;
 
 namespace BusinessLayer.Concrete;
 
@@ -18,10 +19,6 @@ public class VideoPageManager : IVideoPageItemService
         return await _videoPageItemDal.AddAsync(t);
     }
 
-    public async Task<bool> DeleteAsync(int id)
-    {
-        return await _videoPageItemDal.DeleteByIdAsync(id);
-    }
 
     public async Task<List<VideoPageItem>> GetAllAsync()
     {
@@ -46,5 +43,19 @@ public class VideoPageManager : IVideoPageItemService
     public async Task<VideoPageItem> UpdateAsync(VideoPageItem t)
     {
         return await _videoPageItemDal.UpdateAsync(t);
+    }
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var doc = await _videoPageItemDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Video, Path.Combine("Files", "VideoPage"));
+
+        if (success)
+        {
+            return await _videoPageItemDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+        }
     }
 }

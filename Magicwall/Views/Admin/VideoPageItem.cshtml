@@ -1,8 +1,95 @@
 ﻿@using EntityLayer.Concrete
-@model List<VideoPageItem>   
-
+@model List<VideoPageItem>
 @{
     ViewData["Title"] = "Video Galeri";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<h1>Video Galeri</h1>
+@section Links {
+    <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span class="font-weight-bold flex-fill my-auto">Resim Galerisi Listesi</span>
+                <button class="btn btn-primary w-auto" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="VideoPageItem">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Ekle</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>Başlık</label>
+                                            <input type="text" class="form-control" name="Name" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim</label>
+                                            <input type="file" name="ModelFileInput" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">iptal</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="px-2 py-1">Id</th>
+                            <th class="px-2 py-1">Adı</th>
+                            <th class="px-2 py-1">Resim</th>
+                            <th class="px-2 py-1">Oluşturma Tarihi</th>
+                            <th class="px-2 py-1">İşlem</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="px-2 py-1">@item.Id</td>
+                                <td class="px-2 py-1">@item.Name</td>
+                                <td class="px-2 py-1">@item.Video</td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
+                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteVideoItem')"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/js/filepondinit.js"></script>
+    <script>
+        $(document).ready(function() {
+            table = new DataTable('#datatable', {
+            scrollY: "",
+            language: { url: "/plugins/datatables/tr.json" },
+            order: [0, "desc"]
+            });
+        });
+    </script>
+    <script src="~/js/deletemodel.js"></script>
+}

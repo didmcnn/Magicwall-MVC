@@ -1,15 +1,55 @@
 ﻿@using EntityLayer.Concrete
 @model List<About>
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Hakkımızda";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@section Links {
+    <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
+}
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <span class="font-weight-bold">Burası Hakkımızda</span>
+            <div class="card-header d-flex justify-content-between">
+                <span class="font-weight-bold flex-fill my-auto">Hakkımızda Sayfası Yazıları</span>
+                <button class="btn btn-primary w-auto" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="AboutUs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Ekle</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>Başlık</label>
+                                            <input type="text" class="form-control" name="Title" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>İçerik</label>
+                                            <textarea class="form-control" name="Text" required></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim</label>
+                                            <input type="file" name="ModelFileInput" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">iptal</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
             </div>
             <div class="card-body">
                 <table id="datatable" class="table-striped table-bordered w-100">
@@ -19,6 +59,7 @@
                             <th class="px-2 py-1">Adı</th>
                             <th class="px-2 py-1">İçerik</th>
                             <th class="px-2 py-1">Resim</th>
+                            <th class="px-2 py-1">Tarih</th>
                             <th class="px-2 py-1">İşlem</th>
 
                         </tr>
@@ -29,9 +70,18 @@
                             <tr>
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Title</td>
-                                <td class="px-2 py-1">@item.Text</td>
+                                <td class="px-2 py-1">
+                                    @if (item.Text.Length<40)
+                                    {
+                                        @item.Text
+                                    }
+                                    else{
+                                        @item.Text.Substring(0,40)@("...")
+                                    }
+                                    </td>
                                 <td class="px-2 py-1">@item.Image</td>
-                                <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
+                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'AboutUs')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }
 
@@ -40,47 +90,20 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <form method="post">
-            <div class="card">
-                <div class="card-header">
-                    <span class="font-weight-bold">Hakkımızda Ekle</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label>Başlık</label>
-                            <input type="text" class="form-control" name="Title" />
-                        </div>
-                        <div class="col-12">
-                            <label>Başlık</label>
-                            <input type="text" class="form-control" name="Text" />
-                        </div>
-                        <div class="col-12">
-                            <label>Başlık</label>
-                            <input type="text" class="form-control" name="Image" />
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Ekle</button>
-                </div>
-            </div>
-        </form>
-
-    </div>
 </div>
 
 @section Scripts {
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/js/filepondinit.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             table = new DataTable('#datatable', {
-                scrollY: "",
-                language: { url: "/plugins/datatables/tr.json" },
-                order: [0, "desc"]
+            scrollY: "",
+            language: { url: "/plugins/datatables/tr.json" },
+            order: [0, "desc"]
             });
         });
     </script>
-
+    <script src="~/js/deletemodel.js"></script>
 }

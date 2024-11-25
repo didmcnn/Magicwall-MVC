@@ -2,6 +2,7 @@ using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstract;
 using System.Linq.Expressions;
+using CoreLayer.Helpers;
 
 namespace BusinessLayer.Concrete;
 
@@ -45,7 +46,18 @@ public class PhotoPageManager : IPhotoPageItemService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        return await _photoPageItemDal.DeleteByIdAsync(id);
+        var doc = await _photoPageItemDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "PhotoPage"));
+
+        if (success)
+        {
+            return await _photoPageItemDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+
+        }
     }
 }
 

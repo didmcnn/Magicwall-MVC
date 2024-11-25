@@ -1,4 +1,5 @@
 using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System.Linq.Expressions;
@@ -45,6 +46,16 @@ public class AboutManager : IAboutService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        return await _aboutDal.DeleteByIdAsync(id);
+        var doc = await _aboutDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "AboutUs"));
+
+        if (success)
+        {
+            return await _aboutDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+        }
     }
 }
