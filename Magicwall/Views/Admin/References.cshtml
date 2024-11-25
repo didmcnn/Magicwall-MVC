@@ -1,13 +1,8 @@
-﻿@using EntityLayer.Concrete
-@model List<ReferencesPageItem>
+﻿@model List<ReferencesPageItem>
 @{
     ViewData["Title"] = "Referanslar";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-
-
-
 @section Links {
     <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
 }
@@ -19,7 +14,7 @@
                 <button class="btn btn-primary w-auto" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
-                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="VideoPageItem">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="References">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Ekle</h4>
@@ -65,7 +60,7 @@
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Image</td>
                                 <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
-                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteReferencesItem')"><i class="fa fa-trash"></i></a></td>
+                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteReferenceItem')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }
 

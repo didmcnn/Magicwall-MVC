@@ -1,8 +1,68 @@
-﻿
+﻿@model List<JobApplication>
 @{
     ViewData["Title"] = "Job Application";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Job Application</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">Burası İletişim</span>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="px-2 py-1">Id</th>
+                            <th class="px-2 py-1">Adı Soyadı</th>
+                            <th class="px-2 py-1">Email</th>
+                            <th class="px-2 py-1">Telefon</th>
+                            <th class="px-2 py-1">Mesaj</th>
+                            <th class="px-2 py-1">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="px-2 py-1">@item.Id</td>
+                                <td class="px-2 py-1">@item.FirstName @item.LastName</td>
+                                <td class="px-2 py-1">@item.Email</td>
+                                <td class="px-2 py-1">@item.Phone</td>
+                                <td class="px-2 py-1">
+                                    @if (item.Message.Length>40)
+                                    {
+                                        @item.Message.Substring(0,40)@("...")
+                                    }
+                                    else
+                                    {
+                                        @item.Message
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteCatalogItem')"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-primary" onclick=""><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            table = new DataTable('#datatable', {
+            scrollY: "",
+            language: { url: "/plugins/datatables/tr.json" },
+            order: [0, "desc"]
+            });
+        });
+    </script>
+    <script src="~/js/deletemodel.js"></script>
+}

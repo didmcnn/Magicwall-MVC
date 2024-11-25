@@ -1,12 +1,11 @@
-﻿@using EntityLayer.Concrete
-@model List<Contact>   
+﻿@model List<Contact>   
 @{
     ViewData["Title"] = "Contact";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <span class="font-weight-bold">Burası İletişim</span>
@@ -16,11 +15,11 @@
                     <thead>
                         <tr>
                             <th class="px-2 py-1">Id</th>
-                            <th class="px-2 py-1">Adı</th>
+                            <th class="px-2 py-1">Adı Soyadı</th>
                             <th class="px-2 py-1">Email</th>
                             <th class="px-2 py-1">Telefon</th>
+                            <th class="px-2 py-1">Mesaj</th>
                             <th class="px-2 py-1">İşlem</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -28,51 +27,42 @@
                         {
                             <tr>
                                 <td class="px-2 py-1">@item.Id</td>
-                                <td class="px-2 py-1">@item.Name</td>
-                                <td class="px-2 py-1">@item.TextEmail</td>
-                                <td class="px-2 py-1">@item.TextPhone</td>
-                                <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                                <td class="px-2 py-1">@item.Name @item.Surname</td>
+                                <td class="px-2 py-1">@item.Email</td>
+                                <td class="px-2 py-1">@item.Phone</td>
+                                <td class="px-2 py-1">
+                                    @if (item.Message.Length > 40)
+                                    {
+                                        @item.Message.Substring(0, 40)@("...")
+                                    }
+                                    else
+                                    {
+                                        @item.Message
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteCatalogItem')"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-primary" onclick=""><i class="fa fa-eye"></i></a>
+                                    </td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <form method="post">
-            <div class="card">
-                <div class="card-header">
-                    <span class="font-weight-bold">İletişim Ekle</span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <label>Adı</label>
-                            <input type="text" class="form-control" name="Name" />
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Ekle</button>
-                </div>
-            </div>
-        </form>
-        
-    </div>
 </div>
 
 @section Scripts {
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             table = new DataTable('#datatable', {
-                scrollY: "",
-                language: { url: "/plugins/datatables/tr.json" },
-                order: [0, "desc"]
+            scrollY: "",
+            language: { url: "/plugins/datatables/tr.json" },
+            order: [0, "desc"]
             });
         });
     </script>
-
+    <script src="~/js/deletemodel.js"></script>
 }

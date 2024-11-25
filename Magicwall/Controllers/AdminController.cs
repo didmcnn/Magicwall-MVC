@@ -257,7 +257,7 @@ namespace Magicwall.Controllers
             return View(catalog);
         }
         [HttpPost]
-        public async Task<ActionResult> CatalogAsync(string Name, IFormFile ModelFileInput)
+        public async Task<ActionResult> CatalogAsync(IFormFile ModelFileInput)
         {
             if (ModelFileInput != null)
             {
@@ -267,7 +267,6 @@ namespace Magicwall.Controllers
                 {
                     Catalog catalog = new()
                     {
-                        Name = Name,
                         PDF = location  
                     };
                     await _catalogService.CreateAsync(catalog);
@@ -290,20 +289,6 @@ namespace Magicwall.Controllers
             List<Contact> contact = await _contactService.GetAllAsync();
             return View(contact);
         }
-        [HttpPost]
-            public async Task<ActionResult> ContactAsync(string ContactName, string ContactSurname, string ContactEmail, string ContactMessage, string MapLocation)
-        {
-            Contact contact = new()
-            {
-                ContactName = ContactName,
-                ContactSurname = ContactSurname,
-                ContactEmail = ContactEmail,
-                ContactMessage = ContactMessage,
-                MapLocation = MapLocation
-            };
-            await _contactService.CreateAsync(contact);
-            return RedirectToAction("Contact");
-        }
         [HttpDelete]
         public async Task<ActionResult> DeleteContactItem(int Id)
         {
@@ -318,22 +303,7 @@ namespace Magicwall.Controllers
             List<JobApplication> jobApplications = await _jobApplicationService.GetAllAsync();
             return View(jobApplications);
         }
-        [HttpPost]
-        public async Task<ActionResult> JobApplicationAsync(string Name, string Surname, string Email, string Phone, string Message, string CVFile, OpenPosition OpenPosition)
-        {
-            JobApplication jobApplication = new()
-            {
-                FirstName = Name,
-                LastName = Surname,
-                Email = Email,
-                Phone = Phone,
-                CVFile = CVFile,
-                Message = Message,
-                OpenPosition = OpenPosition
-            };
-            await _jobApplicationService.CreateAsync(jobApplication);
-            return RedirectToAction("JobApplication");
-        }
+
         [HttpDelete]
         public async Task<ActionResult> DeleteJobApplicationItem(int Id)
         {
@@ -355,8 +325,13 @@ namespace Magicwall.Controllers
         {
             await _openPositionService.CreateAsync(position);
 
-            List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
-            return View(openPositions);
+            return RedirectToAction("Catalog");
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteOpenPositionsItem(int Id)
+        {
+            await _jobApplicationService.DeleteAsync(Id);
+            return Ok();
         }
         #endregion
 

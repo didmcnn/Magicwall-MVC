@@ -4,13 +4,12 @@ namespace EntityLayer.Concrete;
 
 public class Contact:BaseEntity<int>
 {
-    public string ContactName { get; set; }
+    public string Name { get; set; }
     
-    public string ContactSurname { get; set; }
+    public string Surname { get; set; }
     
-    public string ContactEmail { get; set; }
-    
-    public string ContactMessage { get; set; }
-    
-    public string MapLocation { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+
+    public string Message { get; set; }
 }
