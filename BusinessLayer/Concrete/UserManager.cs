@@ -6,19 +6,19 @@ using System.Text;
 
 namespace BusinessLayer.Concrete
 {
-    public class AuthManager : IAuthService
+    public class UserManager : UserService
     {
-        private readonly IUserDal _authDal;
+        private readonly IUserDal _userDal;
 
-        public AuthManager(IUserDal authDal)
+        public UserManager(IUserDal authDal)
         {
-            _authDal = authDal;
+            _userDal = authDal;
         }
 
         public async Task<bool> RegisterAsync(string username, string email, string password)
         {
             // Check if user exists
-            User existingUser = await _authDal.GetByFilterAsync(x => x.Email == email);
+            User existingUser = await _userDal.GetByFilterAsync(x => x.Email == email);
             if (existingUser != null)
                 return false;
 
@@ -34,13 +34,13 @@ namespace BusinessLayer.Concrete
                 CreatedDate = DateTime.UtcNow
             };
 
-            await _authDal.AddAsync(user);
+            await _userDal.AddAsync(user);
             return true;
         }
 
         public async Task<bool> LoginAsync(string email, string password)
         {
-            var user = await _authDal.GetByFilterAsync(x=>x.Email==email);
+            var user = await _userDal.GetByFilterAsync(x=>x.Email==email);
             if (user == null)
                 return false;
 
@@ -62,32 +62,32 @@ namespace BusinessLayer.Concrete
 
         public async Task DeleteUserAsync(User user)
         {
-            await _authDal.DeleteAsync(user);
+            await _userDal.DeleteAsync(user);
         }
 
         public async Task<User?> GetByIDAsync(int id)
         {
-            return await _authDal.GetByIdAsync(id);
+            return await _userDal.GetByIdAsync(id);
         }
 
         public async Task<User?> UpdateUserAsync(User user)
         {
-            return await _authDal.UpdateAsync(user);
+            return await _userDal.UpdateAsync(user);
         }
 
         public async Task<User?> GetByUserNameAsync(string userName)
         {
-            return await _authDal.GetByFilterAsync(x => x.Username == userName);
+            return await _userDal.GetByFilterAsync(x => x.Username == userName);
         }
 
         public async Task<User?> GetByMailAsync(string mail)
         {
-            return await _authDal.GetByFilterAsync(x => x.Email == mail);
+            return await _userDal.GetByFilterAsync(x => x.Email == mail);
         }
 
         public async Task<List<User>> GetUserListAsync()
         {
-            return await _authDal.GetAllAsync();
+            return await _userDal.GetAllAsync();
         }
     }
 }

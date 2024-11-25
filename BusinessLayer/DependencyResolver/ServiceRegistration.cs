@@ -9,7 +9,7 @@ public static class ServiceRegistration
     {
 
         // Register BusinessLayer dependencies
-        services.AddScoped<IAuthService, AuthManager>();
+        services.AddScoped<UserService, UserManager>();
         services.AddScoped<IAboutService, AboutManager>();
         services.AddScoped<IContactService, ContactManager>();
         services.AddScoped<IHomePageItemService, HomePageItemManager>();

@@ -19,6 +19,7 @@
                             <th class="px-2 py-1">Id</th>
                             <th class="px-2 py-1">Adı</th>
                             <th class="px-2 py-1">Resim</th>
+                            <th class="px-2 py-1">Oluşturma Tarihi</th>
                             <th class="px-2 py-1">İşlem</th>
 
                         </tr>
@@ -30,6 +31,7 @@
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Name</td>
                                 <td class="px-2 py-1">@item.Image</td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
                                 <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }

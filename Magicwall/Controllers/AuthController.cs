@@ -10,9 +10,9 @@ namespace Magicwall.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly IAuthService _authService;
+        private readonly UserService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(UserService authService)
         {
             _authService = authService;
         }

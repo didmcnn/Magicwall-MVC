@@ -1,5 +1,4 @@
 using BusinessLayer.Abstract;
-using BusinessLayer.Concrete;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,18 +8,16 @@ namespace Magicwall.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly IAuthorizationService _authorizationService;
         private readonly IOpenPositionService _openPositionService;
         private readonly IHomePageItemService _homePageItemService;
         private readonly IAboutService _aboutService;
         private readonly IModelsService _modelsService;
         private readonly IPhotoPageItemService _photoPageItemService;
         private readonly IVideoPageItemService _videoPageItemService;
-        public AdminController(IAuthorizationService authorizationService,IOpenPositionService openPositionService,
+        public AdminController(IOpenPositionService openPositionService,
             IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
             IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService)
         {
-            _authorizationService = authorizationService;
             _openPositionService = openPositionService;
             _homePageItemService = homePageItemService;
             _aboutService = aboutService;
@@ -86,7 +83,10 @@ namespace Magicwall.Controllers
         [HttpPost]
         public async Task<ActionResult> ModelsAsync(ModelPageItem modelPageItem)
         {
-            await _modelsService.CreateAsync(modelPageItem);
+            if (ModelState.IsValid)
+            {
+                await _modelsService.CreateAsync(modelPageItem);
+            }
             List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
             return View(modelPageItems);
         }

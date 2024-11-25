@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.Abstract
 {
-    public interface IAuthService
+    public interface UserService
     {
         Task<bool> RegisterAsync(string username, string email, string password);
         Task<bool> LoginAsync(string email, string password);
