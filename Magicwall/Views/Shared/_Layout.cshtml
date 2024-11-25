@@ -45,9 +45,8 @@
                             <li><a class="dropdown-item" href="~/Home/Accounts">Banka Bilgilerimiz</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item ms-3">
-                        <a class="nav-link" href="~/img/katalog.pdf" target="_blank">E-Katalog</a>
-                    </li>
+                        @await Component.InvokeAsync("CatalogComponent")
+
                     <li class="nav-item ms-3">
                         <a class="nav-link" href="~/Home/Contact">İletişim</a>
                     </li>

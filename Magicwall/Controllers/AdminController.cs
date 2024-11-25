@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Magicwall.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IOpenPositionService _openPositionService;
@@ -261,7 +261,7 @@ namespace Magicwall.Controllers
         {
             if (ModelFileInput != null)
             {
-                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "Catalog"), ModelFileInput, FileType.image);
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "Catalog"), ModelFileInput, FileType.document);
 
                 if (location != null)
                 {
