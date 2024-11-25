@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.Abstract
 {
-    internal interface IReferencesPageItemService : IGenericService<ReferencesPageItem>
+    public interface IReferencesPageItemService : IGenericService<ReferencesPageItem>
     {
     }
 }

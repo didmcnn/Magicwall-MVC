@@ -16,9 +16,24 @@ namespace Magicwall.Controllers
         private readonly IPhotoPageItemService _photoPageItemService;
         private readonly IVideoPageItemService _videoPageItemService;
         private readonly IDocumentsPageItemService _documentsPageItemService;
-        public AdminController(IOpenPositionService openPositionService,
-            IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
-            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService, IDocumentsPageItemService documentsPageItemService)
+        private readonly IReferencesPageItemService _referencesPageItemService;
+        private readonly ICatalogService _catalogService;
+        private readonly IContactService _contactService;
+        private readonly IJobApplicationService _jobApplicationService;
+        private readonly IBankAccountService _bankAccountService;
+        public AdminController(
+            IOpenPositionService openPositionService,
+            IHomePageItemService homePageItemService,
+            IAboutService aboutService,
+            IModelsService modelsService,
+            IPhotoPageItemService photoPageItemService,    
+            IVideoPageItemService videoPageItemService,
+            IDocumentsPageItemService documentsPageItemService,
+            IReferencesPageItemService referencesPageItemService,
+            ICatalogService catalogService,
+            IContactService contactService,
+            IJobApplicationService jobApplicationService,
+            IBankAccountService bankAccountService)
         {
             _openPositionService = openPositionService;
             _homePageItemService = homePageItemService;
@@ -27,6 +42,11 @@ namespace Magicwall.Controllers
             _photoPageItemService = photoPageItemService;
             _videoPageItemService = videoPageItemService;
             _documentsPageItemService = documentsPageItemService;
+            _referencesPageItemService = referencesPageItemService;
+            _catalogService = catalogService;
+            _contactService = contactService;
+            _jobApplicationService = jobApplicationService;
+            _bankAccountService = bankAccountService;
         }
 
         public ActionResult Index()
@@ -197,28 +217,132 @@ namespace Magicwall.Controllers
         }
         #endregion
 
+        #region References
+        public async Task<ActionResult> ReferencesAsync()
+        {
+            List<ReferencesPageItem> references = await _referencesPageItemService.GetAllAsync();
+            return View(references);
+        }
+        [HttpPost]
+        public async Task<ActionResult> ReferencesAsync(IFormFile ModelFileInput)
+        {
+            if (ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "References"), ModelFileInput, FileType.image);
 
-        public ActionResult Referances()
-        {
-            return View();
-        }
+                if (location != null)
+                {
+                    ReferencesPageItem referencesPageItem = new()
+                    {
+                        Image = location
+                    };
+                    await _referencesPageItemService.CreateAsync(referencesPageItem);
+                }
+            }
 
-        public ActionResult Catalog()
-        {
-            return View();
+            return RedirectToAction("References");
         }
-        public ActionResult Contact()
+        [HttpDelete]
+        public async Task<ActionResult> DeleteReferenceItem(int Id)
         {
-            return View();
+            await _referencesPageItemService.DeleteAsync(Id);
+            return Ok();
         }
+        #endregion
+       
+        #region Catalog
+        public async Task<ActionResult> CatalogAsync()
+        {
+            List<Catalog> catalog = await _catalogService.GetAllAsync();
+            return View(catalog);
+        }
+        [HttpPost]
+        public async Task<ActionResult> CatalogAsync(string Name, IFormFile ModelFileInput)
+        {
+            if (ModelFileInput != null)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "Catalog"), ModelFileInput, FileType.image);
+
+                if (location != null)
+                {
+                    Catalog catalog = new()
+                    {
+                        Name = Name,
+                        PDF = location  
+                    };
+                    await _catalogService.CreateAsync(catalog);
+                }
+            }
+
+            return RedirectToAction("Catalog");
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteCatalogItem(int Id)
+        {
+            await _catalogService.DeleteAsync(Id);
+            return Ok();
+        }
+        #endregion
         
-        public ActionResult JobApplication()
+        #region Contact
+        public async Task<ActionResult> ContactAsync()
         {
-            return View();
+            List<Contact> contact = await _contactService.GetAllAsync();
+            return View(contact);
         }
+        [HttpPost]
+            public async Task<ActionResult> ContactAsync(string ContactName, string ContactSurname, string ContactEmail, string ContactMessage, string MapLocation)
+        {
+            Contact contact = new()
+            {
+                ContactName = ContactName,
+                ContactSurname = ContactSurname,
+                ContactEmail = ContactEmail,
+                ContactMessage = ContactMessage,
+                MapLocation = MapLocation
+            };
+            await _contactService.CreateAsync(contact);
+            return RedirectToAction("Contact");
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteContactItem(int Id)
+        {
+            await _contactService.DeleteAsync(Id);
+            return Ok();
+        }
+        #endregion
 
-
-        [HttpGet]
+        #region JobApplication
+        public async Task<ActionResult> JobApplicationAsync()
+        {
+            List<JobApplication> jobApplications = await _jobApplicationService.GetAllAsync();
+            return View(jobApplications);
+        }
+        [HttpPost]
+        public async Task<ActionResult> JobApplicationAsync(string Name, string Surname, string Email, string Phone, string Message, string CVFile, OpenPosition OpenPosition)
+        {
+            JobApplication jobApplication = new()
+            {
+                FirstName = Name,
+                LastName = Surname,
+                Email = Email,
+                Phone = Phone,
+                CVFile = CVFile,
+                Message = Message,
+                OpenPosition = OpenPosition
+            };
+            await _jobApplicationService.CreateAsync(jobApplication);
+            return RedirectToAction("JobApplication");
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteJobApplicationItem(int Id)
+        {
+            await _jobApplicationService.DeleteAsync(Id);
+            return Ok();
+        }
+        #endregion
+    
+        #region OpenPositions
         public async Task<ActionResult> OpenPositionsAsync()
         {
             List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
@@ -234,9 +358,27 @@ namespace Magicwall.Controllers
             List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
             return View(openPositions);
         }
+        #endregion
 
+        #region BankAccount
+        public async Task<ActionResult> BankAccountAsync()
+        {
+            List<BankAccount> bankAccounts = await _bankAccountService.GetAllAsync();
+
+            return View(bankAccounts);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> BankAccountAsync(BankAccount bankAccount)
+        {
+            await _bankAccountService.CreateAsync(bankAccount);
+
+            List<BankAccount> bankAccounts = await _bankAccountService.GetAllAsync();
+            return View(bankAccounts);
+        }
+        #endregion
         
-        
+        #region HomePageItems
         public async Task<ActionResult> HomePageItemsAsync()
         {
             List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
@@ -249,6 +391,7 @@ namespace Magicwall.Controllers
             await _homePageItemService.CreateAsync(homePageItem);
             return RedirectToAction("HomePageItems");
         }
+        #endregion
     }
 
 }

@@ -16,8 +16,6 @@ public class JobApplication:BaseEntity<int>
     public string CVFile { get; set; }
     
     public string Message { get; set; }
-    
-    public int OpenPositionId { get; set; }
 
     public OpenPosition OpenPosition { get; set; }
 
