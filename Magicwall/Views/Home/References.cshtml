@@ -1,3 +1,4 @@
+@model List<ReferencesPageItem>
 @{
     ViewBag.Title = "References";
     Layout = "_Layout";
@@ -11,69 +12,13 @@
 <div class="container my-5 section-references">
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <!-- Satır 1 -->
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="~/img/barbour.png" class="card-img-top" alt="Referans 1">
+        @foreach(var item in Model)
+        {
+            <div class="col mb-5">
+                <div class="card h-100">
+                <img src="~/Files/References/@item.Image" class="card-img-top" alt="Referans">
+                </div>
             </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="~/img/emlak_konut.png" class="card-img-top" alt="Referans 2">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="~/img/ibis_hotel.png" class="card-img-top" alt="Referans 3">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="~/img/movenpick.png" class="card-img-top" alt="Referans 4">
-            </div>
-        </div>
-
-        <!-- Satır 2 -->
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 5">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 6">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 7">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 8">
-            </div>
-        </div>
-
-        <!-- Satır 3 -->
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 9">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 10">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 11">
-            </div>
-        </div>
-        <div class="col mb-5">
-            <div class="card h-100">
-                <img src="https://placehold.co/600x400" class="card-img-top" alt="Referans 12">
-            </div>
-        </div>
+        }
     </div>
 </div>

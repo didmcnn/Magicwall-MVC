@@ -17,9 +17,15 @@ public class HomeController : Controller
     private readonly IPhotoPageItemService _photoPageItemService;
     private readonly IVideoPageItemService _videoPageItemService;
     private readonly IDocumentsPageItemService _documentsPageItemService;
+    private readonly IReferencesPageItemService _referencesPageItemService;
     public HomeController(IOpenPositionService openPositionService,
-        IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
-        IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService, IDocumentsPageItemService documentsPageItemService)
+        IHomePageItemService homePageItemService,
+        IAboutService aboutService,
+        IModelsService modelsService,
+        IPhotoPageItemService photoPageItemService,
+        IVideoPageItemService videoPageItemService,
+        IDocumentsPageItemService documentsPageItemService,
+        IReferencesPageItemService referencesPageItemService)       
     {
         _openPositionService = openPositionService;
         _homePageItemService = homePageItemService;
@@ -28,6 +34,7 @@ public class HomeController : Controller
         _photoPageItemService = photoPageItemService;
         _videoPageItemService = videoPageItemService;
         _documentsPageItemService = documentsPageItemService;
+        _referencesPageItemService = referencesPageItemService;
     }
 
     public IActionResult Index()
@@ -60,9 +67,10 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult Documents()
+    public async Task<IActionResult> DocumentsAsync()
     {
-        return View();
+        List<DocumentsPageItem> documentsPageItems = await _documentsPageItemService.GetAllAsync();
+        return View(documentsPageItems);
     }
     public IActionResult Gallery()
     {
@@ -87,9 +95,10 @@ public class HomeController : Controller
         List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
         return View(videoPageItems);
     }
-    public IActionResult References()
+    public async Task<IActionResult> ReferencesAsync()
     {
-        return View();
+        List<ReferencesPageItem> references = await _referencesPageItemService.GetAllAsync();
+        return View(references);
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
