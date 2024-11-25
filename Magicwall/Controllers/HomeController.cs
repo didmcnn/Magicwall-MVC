@@ -2,12 +2,33 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Magicwall.Models;
 using Microsoft.AspNetCore.Authorization;
+using BusinessLayer.Abstract;
+using EntityLayer.Concrete;
 
 namespace Magicwall.Controllers;
 
 [AllowAnonymous]
 public class HomeController : Controller
 {
+    private readonly IOpenPositionService _openPositionService;
+    private readonly IHomePageItemService _homePageItemService;
+    private readonly IAboutService _aboutService;
+    private readonly IModelsService _modelsService;
+    private readonly IPhotoPageItemService _photoPageItemService;
+    private readonly IVideoPageItemService _videoPageItemService;
+    private readonly IDocumentsPageItemService _documentsPageItemService;
+    public HomeController(IOpenPositionService openPositionService,
+        IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
+        IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService, IDocumentsPageItemService documentsPageItemService)
+    {
+        _openPositionService = openPositionService;
+        _homePageItemService = homePageItemService;
+        _aboutService = aboutService;
+        _modelsService = modelsService;
+        _photoPageItemService = photoPageItemService;
+        _videoPageItemService = videoPageItemService;
+        _documentsPageItemService = documentsPageItemService;
+    }
 
     public IActionResult Index()
     {
@@ -22,9 +43,10 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Aboutus()
+    public async Task<IActionResult> AboutUsAsync()
     {
-        return View();
+        List<About> aboutList = await _aboutService.GetAllAsync();
+        return View(aboutList);
     }
     public IActionResult Accounts()
     {
@@ -50,17 +72,20 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult Models()
+    public async Task<IActionResult> ModelsAsync()
     {
-        return View();
+        List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
+        return View(modelPageItems);
     }
-    public IActionResult Photogallery()
+    public async Task<IActionResult> PhotoGalleryAsync()
     {
-        return View();
+        List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
+        return View(photoPageItems);
     }
-    public IActionResult Videogallery()
+    public async Task<IActionResult> VideoGalleryAsync()
     {
-        return View();
+        List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
+        return View(videoPageItems);
     }
     public IActionResult References()
     {

@@ -11,13 +11,15 @@ public enum FileType
     document,
     image,
     compressed,
-    documentAndImage
+    documentAndImage,
+    video
 }
 public static class FileHelper
 {
     private static readonly List<string> documentExtentions = [".pdf", ".docx", ".rtf", ".doc", ".csv", ".xlsx", ".xls"];
-    private static readonly List<string> imageExtentions = [".jpg", ".jpeg", ".png", ".tiff", ".jfif", "bmp"];
+    private static readonly List<string> imageExtentions = [".jpg", ".jpeg", ".png", ".tiff", ".jfif", ".bmp"];
     private static readonly List<string> compressedExtentions = [".rar", ".zip", ".7z", ".tar"];
+    private static readonly List<string> videoExtentions = [".mp4", ".mov"];
     public static async Task<string?> UploadAsync(string folderName, IFormFile file, FileType type, string randomName = null!)
     {
         if (!Directory.Exists(Path.Combine("wwwroot", folderName)))
@@ -80,6 +82,28 @@ public static class FileHelper
 
             return randomName;
         }
+        else if (type == FileType.video)
+        {
+            if (!videoExtentions.Contains(extent.ToLower()))
+            {
+                return null; // Invalid video extension
+            }
+
+            // Generate a random name for the video file
+            randomName = $"{DateTime.Now:dd-MM-yy--HH-mm}-{file.FileName}";
+
+            // Define the path to save the video file
+            string? videoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", folderName, randomName);
+
+            // Save the video file to the specified path
+            using (var outputStream = new FileStream(videoPath, FileMode.Create))
+            {
+                await file.CopyToAsync(outputStream);
+            }
+
+            return randomName; // Return the generated file name
+        }
+
         else if (type == FileType.compressed)
         {
             if (!compressedExtentions.Contains(extent.ToLower()))

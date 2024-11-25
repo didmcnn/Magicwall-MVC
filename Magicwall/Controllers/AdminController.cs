@@ -141,7 +141,7 @@ namespace Magicwall.Controllers
         {
             if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
-                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "VideoPage"), ModelFileInput, FileType.image);
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "VideoPage"), ModelFileInput, FileType.video);
 
                 if (location != null)
                 {

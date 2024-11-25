@@ -1,3 +1,4 @@
+@model List<PhotoPageItem>
 @{
     ViewBag.Title = "Photo Gallery";
     Layout = "_Layout";
@@ -13,125 +14,18 @@
         </div>
 
         <div class="row">
-            <!-- Kart 1 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 1" class="img-fluid rounded" src="~/img/chair-1.jpg">
-                    <div class="overlay">
-                        <div class="text-white">Model 1</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Kart 2 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 2" class="img-fluid rounded" src="~/img/resim-3.jpg">
-                    <div class="overlay">
-                        <div class="text-white">Model 2</div>
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-md-4 mb-5">
+                    <div class="card border-0 position-relative gallery-card">
+                        <img alt="@item.Name" class="img-fluid rounded" src="~/Files/PhotoPage/@item.Image">
+                        <div class="overlay">
+                            <div class="text-white">@item.Name</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Kart 3 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 3" class="img-fluid rounded" src="~/img/resim-4.jpg">
-                    <div class="overlay">
-                        <div class="text-white">Model 3</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 4 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 4" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 4</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 5 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 5" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 5</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 6 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 6" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 6</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 7 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 7" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 7</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 8 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 8" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 8</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 9 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 9" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 9</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 10 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 10" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 10</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 11 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 11" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 11</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kart 12 -->
-            <div class="col-sm-6 col-md-4 mb-5">
-                <div class="card border-0 position-relative gallery-card">
-                    <img alt="Model 12" class="img-fluid rounded" src="https://via.placeholder.com/400x300">
-                    <div class="overlay">
-                        <div class="text-white">Model 12</div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>

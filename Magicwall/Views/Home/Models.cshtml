@@ -1,3 +1,4 @@
+@model List<ModelPageItem>
 @{
     ViewBag.Title = "Models";
     Layout = "_Layout";
@@ -17,30 +18,16 @@
 
         <!-- Görsellerin olduğu satırlar -->
         <div class="row mt-2">
-            <div class="col-lg-3 col-md-6">
-                <div class="image-wrapper position-relative">
-                    <img alt="Apex" class="img-fluid" src="~/img/apex.jpg">
-                    <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">APEX</a>
+
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="image-wrapper position-relative">
+                        <img alt="@item.Name" class="img-fluid" src="~/Files/Models/@item.Image">
+                        <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">@item.Name</a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="image-wrapper position-relative">
-                    <img alt="Delta" class="img-fluid" src="~/img/delta.jpg">
-                    <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">DELTA</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="image-wrapper position-relative">
-                    <img alt="Frame" class="img-fluid" src="~/img/frame.jpg">
-                    <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">FRAME</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="image-wrapper position-relative">
-                    <img alt="Moon" class="img-fluid" src="~/img/moon.jpg">
-                    <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">MOON</a>
-                </div>
-            </div>
+            }
         </div>
 
     </div>
