@@ -1,9 +1,13 @@
 ﻿@using EntityLayer.Concrete
-@model List<VideoPageItem>
+@model List<ReferencesPageItem>
 @{
-    ViewData["Title"] = "Video Galeri";
+    ViewData["Title"] = "Referanslar";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+
+
+
 @section Links {
     <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
 }
@@ -11,7 +15,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <span class="font-weight-bold flex-fill my-auto">Video Galerisi Listesi</span>
+                <span class="font-weight-bold flex-fill my-auto">Referanslar Listesi</span>
                 <button class="btn btn-primary w-auto" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
                 <div class="modal fade" id="modal-default">
                     <div class="modal-dialog">
@@ -25,10 +29,6 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <label>Başlık</label>
-                                            <input type="text" class="form-control" name="Name" required />
-                                        </div>
                                         <div class="col-12">
                                             <label>Resim</label>
                                             <input type="file" name="ModelFileInput" required />
@@ -52,8 +52,7 @@
                     <thead>
                         <tr>
                             <th class="px-2 py-1">Id</th>
-                            <th class="px-2 py-1">Adı</th>
-                            <th class="px-2 py-1">Video</th>
+                            <th class="px-2 py-1">Resim</th>
                             <th class="px-2 py-1">Oluşturma Tarihi</th>
                             <th class="px-2 py-1">İşlem</th>
 
@@ -64,10 +63,9 @@
                         {
                             <tr>
                                 <td class="px-2 py-1">@item.Id</td>
-                                <td class="px-2 py-1">@item.Name</td>
-                                <td class="px-2 py-1">@item.Video</td>
+                                <td class="px-2 py-1">@item.Image</td>
                                 <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
-                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteVideoItem')"><i class="fa fa-trash"></i></a></td>
+                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteReferencesItem')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }
 
@@ -93,3 +91,4 @@
     </script>
     <script src="~/js/deletemodel.js"></script>
 }
+

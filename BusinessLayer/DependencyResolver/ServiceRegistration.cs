@@ -18,5 +18,8 @@ public static class ServiceRegistration
         services.AddScoped<IVideoPageItemService, VideoPageManager>();
         services.AddScoped<IDocumentsPageItemService, DocumentsPageItemManager>();
         services.AddScoped<IReferencesPageItemService, ReferencesPageItemManager>();
+        services.AddScoped<ICatalogService, CatalogManager>();
+        services.AddScoped<IJobApplicationService, JobApplicationManager>();
+        services.AddScoped<IBankAccountService, BankAccountManager>();
     }
 }
