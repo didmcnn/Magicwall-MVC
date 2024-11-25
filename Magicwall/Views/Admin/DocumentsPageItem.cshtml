@@ -1,7 +1,7 @@
 ﻿@using EntityLayer.Concrete
-@model List<Abouts>
+@model List<DocumentsPageItem>
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "Documents";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -9,7 +9,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <span class="font-weight-bold">Burası Hakkımızda</span>
+                <span class="font-weight-bold">Burası Belgeler</span>
             </div>
             <div class="card-body">
                 <table id="datatable" class="table-striped table-bordered w-100">
@@ -27,9 +27,8 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td class="px-2 py-1">@item.Id</td>
-                                <td class="px-2 py-1">@item.Title</td>
-                                <td class="px-2 py-1">@item.Text</td>
+                                <td class="px-2 py-1">@item.Id</td> 
+                                <td class="px-2 py-1">@item.Name</td>
                                 <td class="px-2 py-1">@item.Image</td>
                                 <td><a class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
                             </tr>
@@ -44,7 +43,7 @@
         <form method="post">
             <div class="card">
                 <div class="card-header">
-                    <span class="font-weight-bold">Hakkımızda Ekle</span>
+                    <span class="font-weight-bold">Belgeler Ekle</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -53,11 +52,11 @@
                             <input type="text" class="form-control" name="Title" />
                         </div>
                         <div class="col-12">
-                            <label>Başlık</label>
+                            <label>İçerik</label>
                             <input type="text" class="form-control" name="Text" />
                         </div>
                         <div class="col-12">
-                            <label>Başlık</label>
+                            <label>Resim</label>
                             <input type="text" class="form-control" name="Image" />
                         </div>
                     </div>

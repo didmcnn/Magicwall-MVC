@@ -14,9 +14,10 @@ namespace Magicwall.Controllers
         private readonly IModelsService _modelsService;
         private readonly IPhotoPageItemService _photoPageItemService;
         private readonly IVideoPageItemService _videoPageItemService;
-        public AdminController(IOpenPositionService openPositionService,
+        private readonly IDocumentsPageItemService _documentsPageItemService;
+        public AdminController(IAuthorizationService authorizationService,IOpenPositionService openPositionService,
             IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
-            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService)
+            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService,IDocumentsPageItemService documentsPageItemService)
         {
             _openPositionService = openPositionService;
             _homePageItemService = homePageItemService;
@@ -24,6 +25,7 @@ namespace Magicwall.Controllers
             _modelsService = modelsService;
             _photoPageItemService = photoPageItemService;
             _videoPageItemService = videoPageItemService;
+            _documentsPageItemService = documentsPageItemService;
         }
 
         public ActionResult Index()
@@ -51,9 +53,10 @@ namespace Magicwall.Controllers
         {
             return View();
         }
-        public ActionResult Documents()
+        public async Task<ActionResult> DocumentsPageItemAsync()
         {
-            return View();
+            List<DocumentsPageItem> documentsPageItems = await _documentsPageItemService.GetAllAsync();
+            return View(documentsPageItems);
         }
         public ActionResult JobApplication()
         {
