@@ -2,6 +2,7 @@ using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using BusinessLayer.Abstract;
 using System.Linq.Expressions;
+using CoreLayer.Helpers;
 
 namespace BusinessLayer.Concrete;
 
@@ -20,7 +21,17 @@ public class ModelsManager : IModelsService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        return await _modelPageItemDal.DeleteByIdAsync(id);
+        var doc = await _modelPageItemDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "Models"));
+
+        if (success)
+        {
+            return await _modelPageItemDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public async Task<List<ModelPageItem>> GetAllAsync()

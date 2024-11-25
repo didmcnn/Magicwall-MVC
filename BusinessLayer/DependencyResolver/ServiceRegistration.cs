@@ -7,7 +7,6 @@ public static class ServiceRegistration
 {
     public static void AddBusinessLayerServices(this IServiceCollection services)
     {
-
         // Register BusinessLayer dependencies
         services.AddScoped<UserService, UserManager>();
         services.AddScoped<IAboutService, AboutManager>();
@@ -17,5 +16,6 @@ public static class ServiceRegistration
         services.AddScoped<IOpenPositionService,OpenPositionManager>();
         services.AddScoped<IPhotoPageItemService,PhotoPageManager>();
         services.AddScoped<IVideoPageItemService,VideoPageManager>();
+        services.AddScoped<IDocumentsPageItemService, DocumentsPageItemManager>();
     }
 }

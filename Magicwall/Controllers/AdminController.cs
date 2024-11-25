@@ -1,11 +1,12 @@
 using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Magicwall.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         private readonly IOpenPositionService _openPositionService;
@@ -17,7 +18,7 @@ namespace Magicwall.Controllers
         private readonly IDocumentsPageItemService _documentsPageItemService;
         public AdminController(IOpenPositionService openPositionService,
             IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
-            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService,IDocumentsPageItemService documentsPageItemService)
+            IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService, IDocumentsPageItemService documentsPageItemService)
         {
             _openPositionService = openPositionService;
             _homePageItemService = homePageItemService;
@@ -84,15 +85,33 @@ namespace Magicwall.Controllers
             return View(modelPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> ModelsAsync(ModelPageItem modelPageItem)
+        public async Task<ActionResult> ModelsAsync(string Name, IFormFile ModelFileInput)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
-                await _modelsService.CreateAsync(modelPageItem);
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "Models"), ModelFileInput, FileType.image);
+
+                if (location != null)
+                {
+                    ModelPageItem modelPageItem = new()
+                    {
+                        Name = Name,
+                        Image = location
+                    };
+                    await _modelsService.CreateAsync(modelPageItem);
+                }
             }
+
             List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
             return View(modelPageItems);
         }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteModel(int Id)
+        {
+            await _modelsService.DeleteAsync(Id);
+            return Ok();
+        }
+
         public async Task<ActionResult> PhotoPageItemAsync()
         {
             List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
@@ -117,7 +136,7 @@ namespace Magicwall.Controllers
         [HttpPost]
         public async Task<ActionResult> VideoPageItemAsync(VideoPageItem videoPageItem)
         {
-           
+
             await _videoPageItemService.CreateAsync(videoPageItem);
             List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
             return View(videoPageItems);
@@ -127,9 +146,9 @@ namespace Magicwall.Controllers
             List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
             return View(homePageItems);
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult> HomePageItemsAsync(HomePageItem homePageItem)  
+        public async Task<ActionResult> HomePageItemsAsync(HomePageItem homePageItem)
         {
             await _homePageItemService.CreateAsync(homePageItem);
             List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
