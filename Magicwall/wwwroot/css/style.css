@@ -44,6 +44,53 @@
     animation: flipFlag 0.8s;
 }
 
+/* BANNER */
+
+.banner-section {
+    position: relative;
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 200px;
+    margin: 0 auto;
+    color: #fff;
+    background-image: url('../img/banner-1.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.banner-section .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.27); 
+    z-index: 1;
+}
+
+.banner-section .container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-section h2 {
+    margin: 0;
+    z-index: 2;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    word-spacing: 13px;
+    font-family: "Titillium Web", sans-serif;
+}
+
+/* BANNER END */
+
+
 .main-section h2 {
     font-family: "Titillium Web", sans-serif;
     font-size: 2rem;
@@ -110,69 +157,24 @@
     width: 100%;
     height: auto;
 }
-.section-models .image-wrapper .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+.btn-custom {
+    background-color: rgba(255, 255, 255, 0.25);
     color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    padding: 0.2rem 4.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
-.section-models .image-wrapper .overlay .overlay-text {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-family: "Titillium Web", sans-serif;
+
+.btn-custom:hover {
+    background-color: rgba(255, 255, 255, 0.57);
+    color: #fff;
 }
-.section-models .image-wrapper:hover .overlay {
-    opacity: 1;
-}
-@media (max-width: 425px) {
-    .section-models .col-lg-3, .section-models .col-md-6 {
-        width: 50%;
-        max-width: 50%;
-        margin-bottom: 20px;
-    }
-    .section-models .image-wrapper {
-        margin-bottom: 15px;
-    }
-    .section-models .overlay {
-        background-color: rgba(0, 0, 0, 0.7);
-    }
-    .section-models .overlay .overlay-text {
-        font-size: 16px;
-        font-family: "Titillium Web", sans-serif;
-    }
-    .section-models:hover .overlay {
-        opacity: 1;
-    }
-}
-@media (max-width: 375px) {
-    .section-models .col-lg-3, .section-models .col-md-6 {
-        width: 50%;
-        max-width: 50%;
-        margin-bottom: 20px;
-    }
-    .section-models .image-wrapper {
-        margin-bottom: 15px;
-    }
-    .section-models .overlay {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-    .section-models .overlay .overlay-text {
-        font-size: 14px;
-        font-family: "Titillium Web", sans-serif;
-    }
-    .section-models:hover .overlay {
-        opacity: 1;
-    }
-}
+
+
 
 section {
     font-family: "Titillium Web", sans-serif;
