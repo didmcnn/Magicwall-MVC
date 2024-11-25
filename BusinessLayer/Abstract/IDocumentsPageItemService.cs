@@ -1,8 +1,6 @@
-using System;
-using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
 
-namespace BusinessLayer.Abstaract;
+namespace BusinessLayer.Abstract;
 
 public interface IDocumentsPageItemService:IGenericService<DocumentsPageItem>
 {

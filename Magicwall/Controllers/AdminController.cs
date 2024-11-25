@@ -15,7 +15,7 @@ namespace Magicwall.Controllers
         private readonly IPhotoPageItemService _photoPageItemService;
         private readonly IVideoPageItemService _videoPageItemService;
         private readonly IDocumentsPageItemService _documentsPageItemService;
-        public AdminController(IAuthorizationService authorizationService,IOpenPositionService openPositionService,
+        public AdminController(IOpenPositionService openPositionService,
             IHomePageItemService homePageItemService, IAboutService aboutService, IModelsService modelsService,
             IPhotoPageItemService photoPageItemService, IVideoPageItemService videoPageItemService,IDocumentsPageItemService documentsPageItemService)
         {
