@@ -329,7 +329,6 @@ namespace Magicwall.Controllers
         public async Task<IActionResult> OpenPositionsAsync()
         {
             List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
-
             return View(openPositions);
         }
 
@@ -337,8 +336,7 @@ namespace Magicwall.Controllers
         public async Task<IActionResult> OpenPositionsAsync(OpenPosition position)
         {
             await _openPositionService.CreateAsync(position);
-
-            return RedirectToAction("Catalog");
+            return RedirectToAction("OpenPositions");
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteOpenPositionsItem(int Id)
