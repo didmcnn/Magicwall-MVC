@@ -47,7 +47,15 @@ public class AboutManager : IAboutService
     public async Task<bool> DeleteAsync(int id)
     {
         var doc = await _aboutDal.GetByIdAsync(id);
-        bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "AboutUs"));
+        bool success=false;
+        if (!string.IsNullOrEmpty(doc.Image))
+        {
+            success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "AboutUs"));
+        }
+        else
+        {
+            success=true;
+        }
 
         if (success)
         {
