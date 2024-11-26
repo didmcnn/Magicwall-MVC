@@ -65,15 +65,18 @@ namespace Magicwall.Controllers
         [HttpPost]
         public async Task<IActionResult> AboutUsAsync(About about, IFormFile ModelFileInput)
         {
-            if (!string.IsNullOrEmpty(about.Title) && !string.IsNullOrEmpty(about.Text) && ModelFileInput != null)
+            if (!string.IsNullOrEmpty(about.Title) && !string.IsNullOrEmpty(about.Text))
             {
-                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "AboutUs"), ModelFileInput, FileType.image);
-
-                if (location != null)
+                if (ModelFileInput != null)
                 {
-                    about.Image = location;
-                    await _aboutService.CreateAsync(about);
+                    string? location = await FileHelper.UploadAsync(Path.Combine("Files", "AboutUs"), ModelFileInput, FileType.image);
+
+                    if (location != null)
+                    {
+                        about.Image = location;
+                    }
                 }
+                await _aboutService.CreateAsync(about);
             }
             return RedirectToAction("AboutUs");
         }
