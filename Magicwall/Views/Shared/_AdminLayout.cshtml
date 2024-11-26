@@ -76,7 +76,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/Admin" class="brand-link text-center">
+            <a href="/Admin/HomePageItems" class="brand-link text-center">
                 <img src="~/img/magic_wall_logo.png" alt="MagicWall Logo" class="brand-image" style="opacity: .8; float: none; filter: brightness(0) invert(1);max-height:53px;">
             </a>
 
@@ -140,7 +140,7 @@
                         </li>
 
                         <!-- Corporate -->
-                        <li class="nav-item @Html.IsParentActive(new[] { "AboutUs" }, "Admin")">
+                        <li class="nav-item @Html.IsParentActive(new[] { "AboutUs","DocumentsPageItem","References","BankAccount"}, "Admin")">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tree"></i>
                                 <p>
@@ -162,21 +162,21 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="~/Admin/References" class="nav-link">
+                                    <a href="~/Admin/References" class="nav-link @Html.IsActive("Admin", "References")">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Referanslarımız</p>
                                     </a>
                                 </li>
                                 
                                 <li class="nav-item">
-                                    <a href="~/Admin/BankAccount" class="nav-link">
+                                    <a href="~/Admin/BankAccount" class="nav-link @Html.IsActive("Admin", "BankAccount")">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Banka Bilgilerimiz</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item @Html.IsParentActive(new[] { "OpenPositions" }, "Admin")">
+                        <li class="nav-item @Html.IsParentActive(new[] { "OpenPositions","JobApplication" }, "Admin")">
                             <a href="#" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
@@ -209,7 +209,7 @@
 
                         <!-- İletişim -->
                         <li class="nav-item">
-                            <a href="~/Admin/Contact" class="nav-link">
+                            <a href="~/Admin/Contact" class="nav-link @Html.IsActive("Admin", "Contact")">
                                 <i class="nav-icon fas fa-table"></i>
                                 <p>İletişim</p>
                             </a>

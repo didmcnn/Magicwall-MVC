@@ -31,9 +31,9 @@
                                 <td class="px-2 py-1">@item.Email</td>
                                 <td class="px-2 py-1">@item.Phone</td>
                                 <td class="px-2 py-1">
-                                    @if (item.Message.Length>40)
+                                    @if (item.Message.Length>80)
                                     {
-                                        @item.Message.Substring(0,40)@("...")
+                                        @item.Message.Substring(0,80)@("...")
                                     }
                                     else
                                     {
@@ -42,7 +42,7 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteCatalogItem')"><i class="fa fa-trash"></i></a>
-                                    <a class="btn btn-primary" onclick=""><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-primary" href="/Admin/JobApplicationDetails/@item.Id"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         }

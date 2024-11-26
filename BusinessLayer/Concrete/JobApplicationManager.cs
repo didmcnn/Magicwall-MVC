@@ -1,4 +1,5 @@
 using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System.Linq.Expressions;
@@ -20,7 +21,17 @@ namespace BusinessLayer.Concrete
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _jobApplicationDal.DeleteByIdAsync(id);
+            var bankAccount = await _jobApplicationDal.GetByIdAsync(id);
+            bool success = FileHelper.DeleteFile(bankAccount.CVFile, Path.Combine("Files", "JobApplications"));
+
+            if (success)
+            {
+                return await _jobApplicationDal.DeleteByIdAsync(id);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<List<JobApplication>> GetAllAsync()

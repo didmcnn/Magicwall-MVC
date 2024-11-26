@@ -1,8 +1,11 @@
+@model List<OpenPosition>
 @{
     ViewBag.Title = "Human Resources";
     Layout = "_Layout";
 }
-
+@section Links {
+    <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
+}
 <div class="parallax-section-humanresources">
     <h2 class="display-4">İnsan Kaynakları</h2>
 </div>
@@ -18,10 +21,13 @@
                     <p>Formdaki tüm alanları eksiksiz olarak doldurun. Başvuru değerlendirme komitesi başvuruları değerlendirecek ve olumlu değerlendirilen adaylar mülakat için randevulu olarak MagicWall tarafından çağırılacaktır.</p>
                     <h5>Açık Pozisyonlar</h5>
                     <ul>
-                        <li>Grafik Tasarımcısı</li>
-                        <li>Tabela Ustası</li>
-                        <li>Montaj Ekibi</li>
-                        <li>Sekreter</li>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <li>@item.Name</li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>
@@ -29,55 +35,56 @@
             <!-- Başvuru Formu -->
             <div class="col-lg-6">
                 <h2 class="fw-semibold mb-3">İş Başvuru Formu</h2>
-                <form>
+                <form enctype="multipart/form-data" asp-controller="Home" asp-action="HumanResources">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Ad" type="text">
+                                <input class="form-control bg-light" name="FirstName" placeholder="Ad" type="text" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Soyad" type="text">
+                                <input class="form-control bg-light" name="LastName" placeholder="Soyad" type="text" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Email" type="email">
+                                <input class="form-control bg-light" name="Email" placeholder="Email" type="email" required>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Telefon" type="tel">
+                                <input class="form-control bg-light" name="Phone" placeholder="Telefon" type="tel" required>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="position" class="form-label">Başvurduğunuz Alan</label>
-                                <select class="form-select bg-light" id="position">
+                                <select class="form-select bg-light" id="position" name="OpenPosition" required>
                                     <option value="" selected disabled>Bir pozisyon seçin</option>
-                                    <option value="grafik-tasarimcisi">Grafik Tasarımcısı</option>
-                                    <option value="tabela-ustasi">Tabela Ustası</option>
-                                    <option value="montaj-ekibi">Montaj Ekibi</option>
-                                    <option value="sekreter">Sekreter</option>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+                                        }
+                                    }
+
                                 </select>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="resume" class="form-label">Özgeçmiş Yükle</label>
-                                <input class="form-control bg-light" type="file" id="resume" required>
+                                <input type="file" name="FormFileInput" required>
                             </div>
                         </div>
-
                         <div class="col-12">
                             <div class="mb-3">
-                                <textarea class="form-control bg-light" placeholder="Mesajınız" rows="4"></textarea>
+                                <textarea class="form-control bg-light" name="Message" placeholder="Mesajınız" rows="4" required></textarea>
                             </div>
                         </div>
-
                         <div class="col-md-4 ms-auto">
                             <div class="d-grid">
                                 <button class="btn btn-primary" type="submit">Gönder</button>
@@ -89,3 +96,7 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/js/filepondinit.js"></script>
+}

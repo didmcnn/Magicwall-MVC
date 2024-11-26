@@ -800,3 +800,7 @@ footer .footer-bottom .footer-bottom-box ul li a:hover {
     background-color: #128c7e;
     color: white;
 }/*# sourceMappingURL=style.css.map */
+
+.filepond--credits {
+    display: none;
+}

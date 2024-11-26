@@ -15,26 +15,31 @@
         <div class="row justify-content-between mt-5 mb-5">
             <div class="col-lg-6">
                 <h5 class="fw-semibold mb-3">Daha fazla bilgi için bize ulaşın</h5>
-                <form>
+                <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Contact">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Ad" type="text">
+                                <input class="form-control bg-light" name="Name" placeholder="Ad" type="text" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Soyad" type="text">
+                                <input class="form-control bg-light" name="Surname" placeholder="Soyad" type="text" required>
                             </div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="mb-3">
-                                <input class="form-control bg-light" placeholder="Email" type="text">
+                                <input class="form-control bg-light" name="Email" placeholder="Email" type="email" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <input class="form-control bg-light" name="Phone" placeholder="Phone" type="text" required>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control bg-light" placeholder="Mesajınız" rows="4"></textarea>
+                        <textarea class="form-control bg-light" name="Message" placeholder="Mesajınız" rows="4" required></textarea>
                     </div>
                     <div class="col-md-4 ms-auto">
                         <div class="d-grid">

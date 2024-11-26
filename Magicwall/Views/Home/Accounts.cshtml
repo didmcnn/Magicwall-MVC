@@ -1,4 +1,4 @@
-
+@model List<BankAccount>
 @{
     ViewBag.Title = "Accounts";
     Layout = "_Layout";
@@ -10,69 +10,29 @@
 
 <div class="container my-5 section-accounts">
     <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-            <div class="banka-kutusu">
-                <div class="banka-logo">
-                    <img src="~/img/vakifbank.png" alt="Vakıfbank" style="width: 100px;">
+
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="banka-kutusu">
+                        <div class="banka-logo">
+                            <img src="~/Files/BankAccount/@item.Image" alt="Vakıfbank" style="width: 100px;">
+                        </div>
+                        <div class="banka-bilgileri">
+                            <h5>@item.Title</h5>
+                            <p>@item.SubTitle</p>
+                            <p>
+                                IBAN: <span class="iban-numara" id="iban-vakifbank">@item.IBAN</span>
+                                <i class="bi bi-clipboard copy-icon" data-target="iban-vakifbank" title="Kopyala"></i>
+                            </p>
+                            <p>Şube Kodu: <span class="sube-numara">@item.BranchCode</span></p>
+                            <p>Hesap Numarası: <span class="hesap-numara">@item.AccountNumber</span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="banka-bilgileri">
-                    <h5>Vakıfbank - TL Hesabı</h5>
-                    <p>MagicWall Ticaret Limited Şirketi</p>
-                    <p>IBAN: <span class="iban-numara" id="iban-vakifbank">TR75 0001 5001 5800 7319 7383 87</span>
-                        <i class="bi bi-clipboard copy-icon" data-target="iban-vakifbank" title="Kopyala"></i>
-                    </p>
-                    <p>Şube Kodu: <span class="sube-numara">959 - Firuzköy Şubesi</span></p>
-                    <p>Hesap Numarası: <span class="hesap-numara">00158007319738387</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="banka-kutusu">
-                <div class="banka-logo">
-                    <img src="~/img/halkbank.png" alt="Halkbank" style="width: 100px;">
-                </div>
-                <div class="banka-bilgileri">
-                    <h5>Halkbank - TL Hesabı</h5>
-                    <p>MagicWall Ticaret Limited Şirketi</p>
-                    <p>IBAN: <span class="iban-numara" id="iban-halkbank">TR12 0001 2009 3480 0016 0000 00</span>
-                        <i class="bi bi-clipboard copy-icon" data-target="iban-halkbank" title="Kopyala"></i>
-                    </p>
-                    <p>Şube Kodu: <span class="sube-numara">123 - Halkalı Şubesi</span></p>
-                    <p>Hesap Numarası: <span class="hesap-numara">0009348001600000</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="banka-kutusu">
-                <div class="banka-logo">
-                    <img src="~/img/kuveytturk.png" alt="Kuveyt Türk" style="width: 100px;">
-                </div>
-                <div class="banka-bilgileri">
-                    <h5>Kuveyt Türk - TL Hesabı</h5>
-                    <p>MagicWall Ticaret Limited Şirketi</p>
-                    <p>IBAN: <span class="iban-numara" id="iban-kuveytturk">TR09 0001 2000 3440 0016 0000 00</span>
-                        <i class="bi bi-clipboard copy-icon" data-target="iban-kuveytturk" title="Kopyala"></i>
-                    </p>
-                    <p>Şube Kodu: <span class="sube-numara">456 - Atatürk Şubesi</span></p>
-                    <p>Hesap Numarası: <span class="hesap-numara">000123456789000</span></p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="banka-kutusu">
-                <div class="banka-logo">
-                    <img src="~/img/yapi-kredi.png" alt="Yapı Kredi" style="width: 100px;">
-                </div>
-                <div class="banka-bilgileri">
-                    <h5>Yapı Kredi - TL Hesabı</h5>
-                    <p>MagicWall Ticaret Limited Şirketi</p>
-                    <p>IBAN: <span class="iban-numara" id="iban-yapikredi">TR20 0006 4000 0012 3456 7890 12</span>
-                        <i class="bi bi-clipboard copy-icon" data-target="iban-yapikredi" title="Kopyala"></i>
-                    </p>
-                    <p>Şube Kodu: <span class="sube-numara">789 - Mecidiyeköy Şubesi</span></p>
-                    <p>Hesap Numarası: <span class="hesap-numara">123456789012345</span></p>
-                </div>
-            </div>
-        </div>
+            }
+        }
     </div>
 </div>

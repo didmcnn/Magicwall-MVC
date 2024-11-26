@@ -65,8 +65,8 @@
                             <tr>
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Name</td>
-                                <td class="px-2 py-1">@item.Image</td>
-                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
+                                <td class="px-2 py-1"><img src="/Files/PhotoPage/@item.Image" height="80" /></td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
                                 <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeletePhotoItem')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }

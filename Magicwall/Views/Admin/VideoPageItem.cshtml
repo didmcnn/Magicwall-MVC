@@ -64,8 +64,8 @@
                             <tr>
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Name</td>
-                                <td class="px-2 py-1">@item.Video</td>
-                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
+                                <td class="px-2 py-1"><a href="/Files/VideoPage/@item.Video" target="_blank">Görüntüle</a></td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
                                 <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteVideoItem')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }

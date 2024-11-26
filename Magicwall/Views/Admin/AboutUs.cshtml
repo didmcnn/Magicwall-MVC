@@ -70,16 +70,16 @@
                                 <td class="px-2 py-1">@item.Id</td>
                                 <td class="px-2 py-1">@item.Title</td>
                                 <td class="px-2 py-1">
-                                    @if (item.Text.Length<40)
+                                    @if (item.Text.Length<80)
                                     {
                                         @item.Text
                                     }
                                     else{
-                                        @item.Text.Substring(0,40)@("...")
+                                        @item.Text.Substring(0,80)@("...")
                                     }
                                     </td>
-                                <td class="px-2 py-1">@item.Image</td>
-                                <td class="px-2 py-1">@item.CreatedDate.ToLongDateString()</td>
+                                <td class="px-2 py-1"><img src="/Files/AboutUs/@item.Image" height="80" /></td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
                                 <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'AboutUs')"><i class="fa fa-trash"></i></a></td>
                             </tr>
                         }

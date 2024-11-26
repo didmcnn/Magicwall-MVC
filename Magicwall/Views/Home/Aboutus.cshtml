@@ -6,44 +6,47 @@
 <section class="about-us-section">
     <div class="container mb-5">
         <div class="row">
-            
-            <!-- Biz Kimiz Kısmı -->
-            @foreach (var item in Model)
+            @if (Model.Count > 0)
             {
-                @if (!string.IsNullOrEmpty(item.Image))
+                foreach (var item in Model)
                 {
-                    <div class="col-12 mb-4">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12 about-content my-auto">
-                                <h2>@item.Title</h2>
-                                <p>
-                                    @item.Text
-                                </p>
-                            </div>
-                            <div class="col-lg-6 col-md-12 svg-container">
-                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="blob-shape">
-                                    <defs>
-                                        <clipPath id="blobClip">
-                                            <path fill="#D0E2FF" d="M57.1,-61.7C67.5,-46.6,64.9,-23.3,63.4,-1.5C61.9,20.3,61.5,40.7,51.1,54.3C40.7,68,20.3,75,1.5,73.5C-17.2,71.9,-34.5,61.8,-50.1,48.2C-65.8,34.5,-79.9,17.2,-78.6,1.3C-77.2,-14.6,-60.5,-29.2,-44.8,-44.2C-29.2,-59.3,-14.6,-74.9,4.4,-79.3C23.3,-83.7,46.6,-76.8,57.1,-61.7Z" transform="translate(100 100) scale(1.2)" />
-                                        </clipPath>
-                                    </defs>
-                                    <image href="/Files/AboutUs/@item.Image" width="200" height="200" clip-path="url(#blobClip)" preserveAspectRatio="none" />
-                                </svg>
+                    if (!string.IsNullOrEmpty(item.Image))
+                    {
+                        <div class="col-12 mb-4">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12 about-content my-auto">
+                                    <h2>@item.Title</h2>
+                                    <p>
+                                        @item.Text
+                                    </p>
+                                </div>
+                                <div class="col-lg-6 col-md-12 svg-container">
+                                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="blob-shape">
+                                        <defs>
+                                            <clipPath id="blobClip">
+                                                <path fill="#D0E2FF" d="M57.1,-61.7C67.5,-46.6,64.9,-23.3,63.4,-1.5C61.9,20.3,61.5,40.7,51.1,54.3C40.7,68,20.3,75,1.5,73.5C-17.2,71.9,-34.5,61.8,-50.1,48.2C-65.8,34.5,-79.9,17.2,-78.6,1.3C-77.2,-14.6,-60.5,-29.2,-44.8,-44.2C-29.2,-59.3,-14.6,-74.9,4.4,-79.3C23.3,-83.7,46.6,-76.8,57.1,-61.7Z" transform="translate(100 100) scale(1.2)" />
+                                            </clipPath>
+                                        </defs>
+                                        <image href="/Files/AboutUs/@item.Image" width="200" height="200" clip-path="url(#blobClip)" preserveAspectRatio="none" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-lg-6 col-md-12 about-content">
-                        <h2>@item.Title</h2>
-                        <p>
-                            @item.Text
-                        </p>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="col-lg-6 col-md-12 about-content">
+                            <h2>@item.Title</h2>
+                            <p>
+                                @item.Text
+                            </p>
+                        </div>
+                    }
                 }
             }
-           
+            <!-- Biz Kimiz Kısmı -->
+
+
         </div>
 
     </div>

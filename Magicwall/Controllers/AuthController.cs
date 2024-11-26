@@ -46,7 +46,7 @@ namespace Magicwall.Controllers
                 // Sign in user
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("HomePageItems", "Admin");
             }
 
             ModelState.AddModelError("", "Invalid email or password.");

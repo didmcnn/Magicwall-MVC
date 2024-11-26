@@ -4,6 +4,8 @@ using Magicwall.Models;
 using Microsoft.AspNetCore.Authorization;
 using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
+using CoreLayer.Helpers;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Magicwall.Controllers;
 
@@ -18,6 +20,9 @@ public class HomeController : Controller
     private readonly IVideoPageItemService _videoPageItemService;
     private readonly IDocumentsPageItemService _documentsPageItemService;
     private readonly IReferencesPageItemService _referencesPageItemService;
+    private readonly IBankAccountService _bankAccountService;
+    private readonly IContactService _contactService;
+    private readonly IJobApplicationService _jobApplicationService;
     public HomeController(IOpenPositionService openPositionService,
         IHomePageItemService homePageItemService,
         IAboutService aboutService,
@@ -25,7 +30,10 @@ public class HomeController : Controller
         IPhotoPageItemService photoPageItemService,
         IVideoPageItemService videoPageItemService,
         IDocumentsPageItemService documentsPageItemService,
-        IReferencesPageItemService referencesPageItemService)       
+        IReferencesPageItemService referencesPageItemService,
+        IBankAccountService bankAccountService,
+        IContactService contactService,
+        IJobApplicationService jobApplicationService)
     {
         _openPositionService = openPositionService;
         _homePageItemService = homePageItemService;
@@ -35,11 +43,15 @@ public class HomeController : Controller
         _videoPageItemService = videoPageItemService;
         _documentsPageItemService = documentsPageItemService;
         _referencesPageItemService = referencesPageItemService;
+        _bankAccountService = bankAccountService;
+        _contactService = contactService;
+        _jobApplicationService = jobApplicationService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> IndexAsync()
     {
-        return View();
+        List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
+        return View(homePageItems);
     }
     public IActionResult Error404()
     {
@@ -55,13 +67,23 @@ public class HomeController : Controller
         List<About> aboutList = await _aboutService.GetAllAsync();
         return View(aboutList);
     }
-    public IActionResult Accounts()
+    public async Task<IActionResult> AccountsAsync()
     {
-        return View();
+        List<BankAccount> bankAccounts = await _bankAccountService.GetAllAsync();
+        return View(bankAccounts);
     }
     public IActionResult Contact()
     {
         return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> ContactAsync(Contact contact)
+    {
+        if (ModelState.IsValid)
+        {
+            await _contactService.CreateAsync(contact);
+        }
+        return RedirectToAction("Contact");
     }
     public IActionResult Corporate()
     {
@@ -76,9 +98,28 @@ public class HomeController : Controller
     {
         return View();
     }
-    public IActionResult Humanresources()
+    public async Task<IActionResult> HumanResourcesAsync()
     {
-        return View();
+        var pos = await _openPositionService.GetAllAsync();
+        return View(pos);
+    }
+    [HttpPost]
+    public async Task<IActionResult> HumanResourcesAsync(JobApplication jobApplication, IFormFile FormFileInput)
+    {
+        if (FormFileInput != null)
+        {
+            ModelState["CVFile"].ValidationState = ModelValidationState.Valid;
+        }
+        if (ModelState.IsValid)
+        {
+            string? location = await FileHelper.UploadAsync(Path.Combine("Files", "JobApplications"), FormFileInput, FileType.document);
+            if (location != null)
+            {
+                jobApplication.CVFile = location;
+                await _jobApplicationService.CreateAsync(jobApplication);
+            }
+        }
+        return RedirectToAction("HumanResources");
     }
     public async Task<IActionResult> ModelsAsync()
     {

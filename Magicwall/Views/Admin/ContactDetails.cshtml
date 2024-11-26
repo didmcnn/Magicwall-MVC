@@ -1,0 +1,41 @@
+﻿@model Contact
+@{
+    ViewData["Title"] = "ContactDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span class="fw-bold flex-fill">iletişim Detayları - Oluşturulma Tarihi:@Model.CreatedDate.ToLocalTime()</span>
+                <span class="fw-bold">Id:@Model.Id</span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-6 mb-2">
+                        <label>Ad</label>
+                        <input class="form-control" asp-for="Name" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Soyad</label>
+                        <input class="form-control" asp-for="Surname" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Mail</label>
+                        <input class="form-control" asp-for="Email" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Telefon</label>
+                        <input class="form-control" asp-for="Phone" readonly />
+                    </div>
+                    <div class="col-12">
+                        <label>Mesaj</label>
+                        <textarea class="form-control" asp-for="Message" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

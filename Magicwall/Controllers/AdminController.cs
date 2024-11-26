@@ -3,6 +3,7 @@ using CoreLayer.Helpers;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Magicwall.Controllers
 {
@@ -26,7 +27,7 @@ namespace Magicwall.Controllers
             IHomePageItemService homePageItemService,
             IAboutService aboutService,
             IModelsService modelsService,
-            IPhotoPageItemService photoPageItemService,    
+            IPhotoPageItemService photoPageItemService,
             IVideoPageItemService videoPageItemService,
             IDocumentsPageItemService documentsPageItemService,
             IReferencesPageItemService referencesPageItemService,
@@ -49,20 +50,20 @@ namespace Magicwall.Controllers
             _bankAccountService = bankAccountService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("HomePageItems");
         }
 
         #region aboutUs
 
-        public async Task<ActionResult> AboutUsAsync()
+        public async Task<IActionResult> AboutUsAsync()
         {
             List<About> aboutList = await _aboutService.GetAllAsync();
             return View(aboutList);
         }
         [HttpPost]
-        public async Task<ActionResult> AboutUsAsync(About about, IFormFile ModelFileInput)
+        public async Task<IActionResult> AboutUsAsync(About about, IFormFile ModelFileInput)
         {
             if (!string.IsNullOrEmpty(about.Title) && !string.IsNullOrEmpty(about.Text) && ModelFileInput != null)
             {
@@ -77,7 +78,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("AboutUs");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteAboutUs(int Id)
+        public async Task<IActionResult> DeleteAboutUs(int Id)
         {
             await _aboutService.DeleteAsync(Id);
             return Ok();
@@ -85,13 +86,13 @@ namespace Magicwall.Controllers
         #endregion
 
         #region Models
-        public async Task<ActionResult> ModelsAsync()
+        public async Task<IActionResult> ModelsAsync()
         {
             List<ModelPageItem> modelPageItems = await _modelsService.GetAllAsync();
             return View(modelPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> ModelsAsync(string Name, IFormFile ModelFileInput)
+        public async Task<IActionResult> ModelsAsync(string Name, IFormFile ModelFileInput)
         {
             if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
@@ -110,7 +111,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("Models");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteModel(int Id)
+        public async Task<IActionResult> DeleteModel(int Id)
         {
             await _modelsService.DeleteAsync(Id);
             return Ok();
@@ -118,13 +119,13 @@ namespace Magicwall.Controllers
         #endregion
 
         #region PhotoGallery
-        public async Task<ActionResult> PhotoPageItemAsync()
+        public async Task<IActionResult> PhotoPageItemAsync()
         {
             List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
             return View(photoPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> PhotoPageItemAsync(string Name, IFormFile ModelFileInput)
+        public async Task<IActionResult> PhotoPageItemAsync(string Name, IFormFile ModelFileInput)
         {
             if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
@@ -134,8 +135,8 @@ namespace Magicwall.Controllers
                 {
                     PhotoPageItem photoPageItem = new()
                     {
-                        Name=Name,
-                        Image= location
+                        Name = Name,
+                        Image = location
                     };
                     await _photoPageItemService.CreateAsync(photoPageItem);
                 }
@@ -143,7 +144,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("PhotoPageItem");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeletePhotoItem(int Id)
+        public async Task<IActionResult> DeletePhotoItem(int Id)
         {
             await _photoPageItemService.DeleteAsync(Id);
             return Ok();
@@ -151,13 +152,13 @@ namespace Magicwall.Controllers
         #endregion
 
         #region VideoGallery
-        public async Task<ActionResult> VideoPageItemAsync()
+        public async Task<IActionResult> VideoPageItemAsync()
         {
             List<VideoPageItem> videoPageItems = await _videoPageItemService.GetAllAsync();
             return View(videoPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> VideoPageItemAsync(string Name, IFormFile ModelFileInput)
+        public async Task<IActionResult> VideoPageItemAsync(string Name, IFormFile ModelFileInput)
         {
             if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
@@ -177,7 +178,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("VideoPageItem");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteVideoItem(int Id)
+        public async Task<IActionResult> DeleteVideoItem(int Id)
         {
             await _videoPageItemService.DeleteAsync(Id);
             return Ok();
@@ -185,13 +186,13 @@ namespace Magicwall.Controllers
         #endregion
 
         #region Documents
-        public async Task<ActionResult> DocumentsPageItemAsync()
+        public async Task<IActionResult> DocumentsPageItemAsync()
         {
             List<DocumentsPageItem> documentsPageItems = await _documentsPageItemService.GetAllAsync();
             return View(documentsPageItems);
         }
         [HttpPost]
-        public async Task<ActionResult> DocumentsPageItemAsync(string Name, IFormFile ModelFileInput)
+        public async Task<IActionResult> DocumentsPageItemAsync(string Name, IFormFile ModelFileInput)
         {
             if (!string.IsNullOrEmpty(Name) && ModelFileInput != null)
             {
@@ -210,7 +211,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("DocumentsPageItem");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteDocumentItem(int Id)
+        public async Task<IActionResult> DeleteDocumentItem(int Id)
         {
             await _documentsPageItemService.DeleteAsync(Id);
             return Ok();
@@ -218,13 +219,13 @@ namespace Magicwall.Controllers
         #endregion
 
         #region References
-        public async Task<ActionResult> ReferencesAsync()
+        public async Task<IActionResult> ReferencesAsync()
         {
             List<ReferencesPageItem> references = await _referencesPageItemService.GetAllAsync();
             return View(references);
         }
         [HttpPost]
-        public async Task<ActionResult> ReferencesAsync(IFormFile ModelFileInput)
+        public async Task<IActionResult> ReferencesAsync(IFormFile ModelFileInput)
         {
             if (ModelFileInput != null)
             {
@@ -243,21 +244,21 @@ namespace Magicwall.Controllers
             return RedirectToAction("References");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteReferenceItem(int Id)
+        public async Task<IActionResult> DeleteReferenceItem(int Id)
         {
             await _referencesPageItemService.DeleteAsync(Id);
             return Ok();
         }
         #endregion
-       
+
         #region Catalog
-        public async Task<ActionResult> CatalogAsync()
+        public async Task<IActionResult> CatalogAsync()
         {
             List<Catalog> catalog = await _catalogService.GetAllAsync();
             return View(catalog);
         }
         [HttpPost]
-        public async Task<ActionResult> CatalogAsync(IFormFile ModelFileInput)
+        public async Task<IActionResult> CatalogAsync(IFormFile ModelFileInput)
         {
             if (ModelFileInput != null)
             {
@@ -267,7 +268,7 @@ namespace Magicwall.Controllers
                 {
                     Catalog catalog = new()
                     {
-                        PDF = location  
+                        PDF = location
                     };
                     await _catalogService.CreateAsync(catalog);
                 }
@@ -276,44 +277,53 @@ namespace Magicwall.Controllers
             return RedirectToAction("Catalog");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteCatalogItem(int Id)
+        public async Task<IActionResult> DeleteCatalogItem(int Id)
         {
             await _catalogService.DeleteAsync(Id);
             return Ok();
         }
         #endregion
-        
+
         #region Contact
-        public async Task<ActionResult> ContactAsync()
+        public async Task<IActionResult> ContactAsync()
         {
             List<Contact> contact = await _contactService.GetAllAsync();
             return View(contact);
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteContactItem(int Id)
+        public async Task<IActionResult> DeleteContactItem(int Id)
         {
             await _contactService.DeleteAsync(Id);
             return Ok();
         }
+        public async Task<IActionResult> ContactDetails(int Id)
+        {
+            return View(await _contactService.GetByIdAsync(Id));
+        }
         #endregion
 
         #region JobApplication
-        public async Task<ActionResult> JobApplicationAsync()
+        public async Task<IActionResult> JobApplicationAsync()
         {
             List<JobApplication> jobApplications = await _jobApplicationService.GetAllAsync();
             return View(jobApplications);
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteJobApplicationItem(int Id)
+        public async Task<IActionResult> DeleteJobApplicationItem(int Id)
         {
             await _jobApplicationService.DeleteAsync(Id);
             return Ok();
         }
+
+        public async Task<IActionResult> JobApplicationDetails(int Id)
+        {
+            return View(await _jobApplicationService.GetByIdAsync(Id));
+        }
         #endregion
-    
+
         #region OpenPositions
-        public async Task<ActionResult> OpenPositionsAsync()
+        public async Task<IActionResult> OpenPositionsAsync()
         {
             List<OpenPosition> openPositions = await _openPositionService.GetAllAsync();
 
@@ -321,50 +331,79 @@ namespace Magicwall.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> OpenPositionsAsync(OpenPosition position)
+        public async Task<IActionResult> OpenPositionsAsync(OpenPosition position)
         {
             await _openPositionService.CreateAsync(position);
 
             return RedirectToAction("Catalog");
         }
         [HttpDelete]
-        public async Task<ActionResult> DeleteOpenPositionsItem(int Id)
+        public async Task<IActionResult> DeleteOpenPositionsItem(int Id)
         {
-            await _jobApplicationService.DeleteAsync(Id);
+            await _openPositionService.DeleteAsync(Id);
             return Ok();
         }
         #endregion
 
         #region BankAccount
-        public async Task<ActionResult> BankAccountAsync()
+        public async Task<IActionResult> BankAccountAsync()
         {
             List<BankAccount> bankAccounts = await _bankAccountService.GetAllAsync();
-
             return View(bankAccounts);
         }
 
         [HttpPost]
-        public async Task<ActionResult> BankAccountAsync(BankAccount bankAccount)
+        public async Task<IActionResult> BankAccountAsync(BankAccount bankAccount, IFormFile ModelFileInput)
         {
-            await _bankAccountService.CreateAsync(bankAccount);
-
-            List<BankAccount> bankAccounts = await _bankAccountService.GetAllAsync();
-            return View(bankAccounts);
+            if (ModelFileInput != null)
+            {
+                ModelState["Image"].ValidationState = ModelValidationState.Valid;
+            }
+            if (ModelState.IsValid)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "BankAccount"), ModelFileInput, FileType.image);
+                if (location != null)
+                {
+                    bankAccount.Image = location;
+                    await _bankAccountService.CreateAsync(bankAccount);
+                }
+            }
+            return RedirectToAction("BankAccount");
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBankAccount(int Id)
+        {
+            await _bankAccountService.DeleteAsync(Id);
+            return Ok();
         }
         #endregion
-        
+
         #region HomePageItems
-        public async Task<ActionResult> HomePageItemsAsync()
+        public async Task<IActionResult> HomePageItemsAsync()
         {
             List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
             return View(homePageItems);
         }
 
         [HttpPost]
-        public async Task<ActionResult> HomePageItemsAsync(HomePageItem homePageItem)
+        public async Task<IActionResult> HomePageItemsAsync(HomePageItem homePageItem, IFormFile ModelFileInput)
         {
-            await _homePageItemService.CreateAsync(homePageItem);
+            if (ModelState.IsValid)
+            {
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "homePageItems"), ModelFileInput, FileType.image);
+                if (location != null)
+                {
+                    homePageItem.Image = location;
+                    await _homePageItemService.CreateAsync(homePageItem);
+                }
+            }
             return RedirectToAction("HomePageItems");
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteHomePageItems(int Id)
+        {
+            await _homePageItemService.DeleteAsync(Id);
+            return Ok();
         }
         #endregion
     }

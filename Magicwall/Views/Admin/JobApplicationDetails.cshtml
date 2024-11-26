@@ -1,0 +1,48 @@
+﻿@model JobApplication
+@{
+    ViewData["Title"] = "Başvuru Detayları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span class="fw-bold flex-fill">İş Başvurusu Detayları - Oluşturulma Tarihi:@Model.CreatedDate.ToLocalTime()</span>
+                <span class="fw-bold">Id:@Model.Id</span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 mb-2">
+                        <label>Ad</label>
+                        <input class="form-control" asp-for="FirstName" readonly/>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Soyad</label>
+                        <input class="form-control" asp-for="LastName" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Mail</label>
+                        <input class="form-control" asp-for="Email" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Telefon</label>
+                        <input class="form-control" asp-for="Phone" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>Başvurduğu Pozisyon</label>
+                        <input class="form-control" asp-for="OpenPosition" readonly />
+                    </div>
+                    <div class="col-6 mb-2">
+                        <label>CV</label>
+                        <a class="form-control" href="/Files/JobApplications/@Model.CVFile" target="_blank">Cv Görüntüle</a>
+                    </div>
+                    <div class="col-12">
+                        <label>Mesaj</label>
+                        <textarea class="form-control" asp-for="Message" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

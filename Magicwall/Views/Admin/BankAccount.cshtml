@@ -1,8 +1,118 @@
-﻿
+﻿@model List<BankAccount>
 @{
     ViewData["Title"] = "BankAccount";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@section Links {
+    <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
+}
 
-<h1>BankAccount</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span class="font-weight-bold flex-fill my-auto">Banka Hesap Listesi</span>
+                <button class="btn btn-primary w-auto" data-toggle="modal" data-target="#modal-default"><i class="fa fa-plus"></i></button>
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="BankAccount">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Ekle</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>Başlık</label>
+                                            <input type="text" class="form-control" name="Title" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Alt Başlık</label>
+                                            <input type="text" class="form-control" name="SubTitle" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>IBAN</label>
+                                            <input type="text" class="form-control" name="IBAN" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Şube Kodu</label>
+                                            <input type="text" class="form-control" name="BranchCode" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Hesap Numarası</label>
+                                            <input type="text" class="form-control" name="AccountNumber" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim</label>
+                                            <input type="file" name="ModelFileInput" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">iptal</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="px-2 py-1">Id</th>
+                            <th class="px-2 py-1">Başlık/Alt Başlık</th>
+                            <th class="px-2 py-1">IBAN</th>
+                            <th class="px-2 py-1">Şube Kodu</th>
+                            <th class="px-2 py-1">Hesap Numarası</th>
+                            <th class="px-2 py-1">Resim</th>
+                            <th class="px-2 py-1">Oluşturma Tarihi</th>
+                            <th class="px-2 py-1">İşlem</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="px-2 py-1">@item.Id</td>
+                                <td class="px-2 py-1">@item.Title <br />@item.SubTitle</td>
+                                <td class="px-2 py-1">@item.IBAN</td>
+                                <td class="px-2 py-1">@item.BranchCode</td>
+                                <td class="px-2 py-1">@item.AccountNumber</td>
+                                <td class="px-2 py-1"><img src="/Files/BankAccount/@item.Image" height="80"/></td>
+                                <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
+                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteBankAccount')"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/js/filepondinit.js"></script>
+    <script>
+        $(document).ready(function() {
+            table = new DataTable('#datatable', {
+            scrollY: "",
+            language: { url: "/plugins/datatables/tr.json" },
+            order: [0, "desc"]
+            });
+        });
+    </script>
+    <script src="~/js/deletemodel.js"></script>
+}
 
