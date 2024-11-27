@@ -306,7 +306,7 @@ namespace Magicwall.Controllers
         #endregion
 
         #region JobApplication
-        public async Task<IActionResult> JobApplication()
+        public async Task<IActionResult> JobApplicationAsync()
         {
             List<JobApplication> jobApplications = await _jobApplicationService.GetAllAsync();
             return View(jobApplications);

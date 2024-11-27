@@ -8,7 +8,7 @@ namespace BusinessLayer.Concrete;
 
 public class CatalogManager : ICatalogService
 {
-    private readonly ICatalogDal _catalogDal;    
+    private readonly ICatalogDal _catalogDal;
     public CatalogManager(ICatalogDal catalogDal)
     {
         _catalogDal = catalogDal;
@@ -47,7 +47,15 @@ public class CatalogManager : ICatalogService
     public async Task<bool> DeleteAsync(int id)
     {
         var doc = await _catalogDal.GetByIdAsync(id);
-        bool success = FileHelper.DeleteFile(doc.PDF, Path.Combine("Files", "Catalog"));
+        bool success = false;
+        if (!string.IsNullOrEmpty(doc.PDF))
+        {
+            success = FileHelper.DeleteFile(doc.PDF, Path.Combine("Files", "Catalog"));
+        }
+        else
+        {
+            success = true;
+        }
 
         if (success)
         {
