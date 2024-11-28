@@ -804,3 +804,24 @@ footer .footer-bottom .footer-bottom-box ul li a:hover {
 .filepond--credits {
     display: none;
 }
+
+.color-box {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.document-card {
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+}
+
+.document-card:hover {
+    background-color: #e9ecef;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.document-card i {
+    color: #0d6efd;
+}

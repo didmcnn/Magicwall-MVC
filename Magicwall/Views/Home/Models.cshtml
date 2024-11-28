@@ -26,7 +26,10 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="image-wrapper position-relative">
                             <img alt="@item.Name" class="img-fluid" src="~/Files/Models/@item.Image">
-                            <a class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">@item.Name</a>
+                            <a href="@Url.Action("ModelsDetail", "Home")" 
+                               class="btn btn-custom position-absolute start-50 translate-middle-x bottom-0 mb-3">
+                                @item.Name
+                            </a>
                         </div>
                     </div>
                 }
