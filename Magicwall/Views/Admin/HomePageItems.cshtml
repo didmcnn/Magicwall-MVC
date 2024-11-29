@@ -1,4 +1,4 @@
-﻿@model List<HomePageItem>   
+﻿@model List<HomePageItem>
 @{
     ViewData["Title"] = "Anasayfa Yazıları";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -49,6 +49,44 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+
+                <div class="modal fade" id="modal-update">
+                    <div class="modal-dialog">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="HomePageItemsUpdate">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Güncelle</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <input id="updatedIdInput" name="id" type="hidden" />
+                                        <div class="col-12">
+                                            <label>Başlık</label>
+                                            <input type="text" id="updatedTitleInput" class="form-control" name="Title" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Yazı</label>
+                                            <textarea class="form-control" id="updatedTextInput" name="Text" required></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim</label>
+                                            <input type="file" name="ModelFileInput" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">iptal</button>
+                                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
             </div>
             <div class="card-body">
                 <table id="datatable" class="table-striped table-bordered w-100">
@@ -76,12 +114,17 @@
                                     }
                                     else
                                     {
-                                        @item.Text.Substring(0, 80)@("...")
+                                        @item.Text.Substring(0, 80)
+
+                                        @("...")
                                     }
                                 </td>
                                 <td class="px-2 py-1"><img src="/Files/homePageItems/@item.Image" height="80" /></td>
                                 <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
-                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteHomePageItems')"><i class="fa fa-trash"></i></a></td>
+                                <td>
+                                    <a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteHomePageItems')"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-warning" onclick="openUpdateModal(@item.Id,`@item.Title`,`@item.Text`)"><i class="fa fa-pen"></i></a>
+                                </td>
                             </tr>
                         }
 
@@ -106,4 +149,13 @@
         });
     </script>
     <script src="~/js/deletemodel.js"></script>
+    <script>
+        function openUpdateModal(id,title,text){
+            $("#updatedIdInput").val(id);
+            $("#updatedTitleInput").val(title);
+            $("#updatedTextInput").val(text);
+            const myModal = new bootstrap.Modal(document.getElementById('modal-update'));
+            myModal.show();
+        }
+    </script>
 }
