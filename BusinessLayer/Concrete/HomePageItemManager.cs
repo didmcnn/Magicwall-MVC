@@ -54,9 +54,20 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
-        public async Task<HomePageItem> UpdateAsync(HomePageItem t)
+        public async Task<HomePageItem> UpdateAsync(HomePageItem homePageItem)
         {
-            return await _homePageItemDal.UpdateAsync(t);
+            var existItem = await GetByIdAsync(homePageItem.Id);
+
+            if (existItem != null && homePageItem.Image != null && existItem.Image != null)
+            {
+                FileHelper.DeleteFile(existItem.Image, Path.Combine("Files", "homePageItems"));
+            }
+            else if (existItem != null && homePageItem.Image == null)
+            {
+                homePageItem.Image = existItem.Image;
+            }
+
+            return await _homePageItemDal.UpdateAsync(homePageItem);
         }
     }
 }

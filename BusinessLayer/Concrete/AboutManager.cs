@@ -8,7 +8,7 @@ namespace BusinessLayer.Concrete;
 
 public class AboutManager : IAboutService
 {
-    private readonly IAboutDal _aboutDal;    
+    private readonly IAboutDal _aboutDal;
     public AboutManager(IAboutDal aboutDal)
     {
         _aboutDal = aboutDal;
@@ -41,20 +41,31 @@ public class AboutManager : IAboutService
 
     public async Task<About> UpdateAsync(About about)
     {
+        var existItem = await GetByIdAsync(about.Id);
+
+        if (existItem != null && about.Image != null && existItem.Image != null)
+        {
+            FileHelper.DeleteFile(existItem.Image, Path.Combine("Files", "AboutUs"));
+        }
+        else if (existItem != null && about.Image == null)
+        {
+            about.Image = existItem.Image;
+        }
+
         return await _aboutDal.UpdateAsync(about);
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
         var doc = await _aboutDal.GetByIdAsync(id);
-        bool success=false;
+        bool success = false;
         if (!string.IsNullOrEmpty(doc.Image))
         {
             success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "AboutUs"));
         }
         else
         {
-            success=true;
+            success = true;
         }
 
         if (success)

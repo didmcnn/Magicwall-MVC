@@ -41,6 +41,17 @@ public class BankAccountManager : IBankAccountService
 
     public async Task<BankAccount> UpdateAsync(BankAccount bankAccount)
     {
+        BankAccount existItem = await GetByIdAsync(bankAccount.Id);
+
+        if (existItem != null && bankAccount.Image != null && existItem.Image != null)
+        {
+            FileHelper.DeleteFile(existItem.Image, Path.Combine("Files", "BankAccount"));
+        }
+        else if (existItem != null && bankAccount.Image == null)
+        {
+            bankAccount.Image = existItem.Image;
+        }
+
         return await _bankAccountDal.UpdateAsync(bankAccount);
     }
 

@@ -86,6 +86,26 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("AboutUs");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AboutUsUpdate(About about, IFormFile modelFileInput)
+        {
+            if (!string.IsNullOrEmpty(about.Title) && !string.IsNullOrEmpty(about.Text))
+            {
+                if (modelFileInput != null)
+                {
+                    string? location = await FileHelper.UploadAsync(Path.Combine("Files", "AboutUs"), modelFileInput, FileType.image);
+
+                    if (location != null)
+                    {
+                        about.Image = location;
+                    }
+                }
+                await _aboutService.UpdateAsync(about);
+            }
+            return RedirectToAction("AboutUs");
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteAboutUs(int Id)
         {
@@ -435,6 +455,28 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("BankAccount");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> BankAccountUpdate(BankAccount bankAccount, IFormFile? ModelFileInput)
+        {
+
+            ModelState["Image"].ValidationState = ModelValidationState.Valid;
+
+            if (ModelState.IsValid)
+            {
+                if (ModelFileInput != null && ModelFileInput.Length > 0)
+                {
+                    string? location = await FileHelper.UploadAsync(Path.Combine("Files", "BankAccount"), ModelFileInput, FileType.image);
+                    if (location != null)
+                    {
+                        bankAccount.Image = location;
+                    }
+                }
+                await _bankAccountService.UpdateAsync(bankAccount);
+            }
+            return RedirectToAction("BankAccount");
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteBankAccount(int Id)
         {
@@ -464,6 +506,26 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("HomePageItems");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> HomePageItemsUpdate(HomePageItem homePageItem, IFormFile? modelFileInput)
+        {
+            if (ModelState.IsValid)
+            {
+                if (modelFileInput != null && modelFileInput.Length > 0)
+                {
+                    string? fileLocation = await FileHelper.UploadAsync(Path.Combine("Files", "homePageItems"), modelFileInput, FileType.image);
+                    if (fileLocation != null)
+                    {
+                        homePageItem.Image = fileLocation;
+                    }
+                }
+
+                await _homePageItemService.UpdateAsync(homePageItem);
+            }
+            return RedirectToAction("HomePageItems");
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteHomePageItems(int Id)
         {

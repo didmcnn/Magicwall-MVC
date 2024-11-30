@@ -62,6 +62,55 @@
                     <!-- /.modal-dialog -->
                 </div>
                 <!-- /.modal -->
+                <div class="modal fade" id="modal-update">
+                    <div class="modal-dialog">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Admin" asp-action="BankAccountUpdate">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Güncelle</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <input type="hidden" name="id" id="updatedIdInput"/>
+                                        <div class="col-12">
+                                            <label>Başlık</label>
+                                            <input type="text" class="form-control" id="updatedTitleInput" name="Title" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Alt Başlık</label>
+                                            <input type="text" class="form-control" id="updatedSubTitleInput" name="SubTitle" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>IBAN</label>
+                                            <input type="text" class="form-control" id="updatedIBANInput" name="IBAN" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Şube Kodu</label>
+                                            <input type="text" class="form-control" id="updatedBranchCodeInput" name="BranchCode" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Hesap Numarası</label>
+                                            <input type="text" class="form-control" id="updatedAccountNumberInput" name="AccountNumber" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim</label>
+                                            <input type="file" name="ModelFileInput" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-end">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">iptal</button>
+                                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </form>
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
             </div>
             <div class="card-body">
                 <table id="datatable" class="table-striped table-bordered w-100">
@@ -89,7 +138,10 @@
                                 <td class="px-2 py-1">@item.AccountNumber</td>
                                 <td class="px-2 py-1"><img src="/Files/BankAccount/@item.Image" height="80"/></td>
                                 <td class="px-2 py-1">@item.CreatedDate.ToLocalTime()</td>
-                                <td><a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteBankAccount')"><i class="fa fa-trash"></i></a></td>
+                                <td>
+                                    <a class="btn btn-danger" onclick="DeleteModel(@item.Id,'DeleteBankAccount')"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-warning" onclick="openUpdateModal(@item.Id,`@item.Title`,`@item.SubTitle`, `@item.IBAN`,` @item.BranchCode`,` @item.AccountNumber`)"><i class="fa fa-pen"></i></a>
+                                </td>
                             </tr>
                         }
 
@@ -114,5 +166,17 @@
         });
     </script>
     <script src="~/js/deletemodel.js"></script>
+    <script>
+        function openUpdateModal(id,title,subTitle,iban,branchCode,accountNumber){
+            $("#updatedIdInput").val(id);
+            $("#updatedTitleInput").val(title);
+            $("#updatedSubTitleInput").val(subTitle);
+            $("#updatedIBANInput").val(iban);
+            $("#updatedBranchCodeInput").val(branchCode);
+            $("#updatedAccountNumberInput").val(accountNumber);
+            const myModal = new bootstrap.Modal(document.getElementById('modal-update'));
+            myModal.show();
+        }
+    </script>
 }
 
