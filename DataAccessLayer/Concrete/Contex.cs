@@ -9,29 +9,46 @@ namespace DataAccessLayer.Concrete;
 public class Context(DbContextOptions<Context> options) : DbContext(options)
 {
 
-    public DbSet<About> Abouts { get; set; }
-    public DbSet<BankAccount> BankAccounts { get; set; }
-    public DbSet<Contact> Contacts { get; set; }
-    public DbSet<DocumentsPageItem> DocumentsPageItems { get; set; }
-    public DbSet<JobApplication> JobApplications { get; set; }
-    public DbSet<ModelPageItem> ModelPageItems { get; set; }
-    public DbSet<OpenPosition> OpenPositions { get; set; }
-    public DbSet<PhotoPageItem> PhotoPageItems { get; set; }
-    public DbSet<ReferencesPageItem> ReferencesPageItems { get; set; }
-    public DbSet<VideoPageItem> VideoPageItems { get; set; }
-    public DbSet<Catalog> Catalogs { get; set; }
-    public DbSet<HomePageItem> HomePageItems { get; set; }
-    public DbSet<User> Users { get; set; }
+    public virtual DbSet<About> Abouts { get; set; }
+    public virtual DbSet<BankAccount> BankAccounts { get; set; }
+    public virtual DbSet<Contact> Contacts { get; set; }
+    public virtual DbSet<DocumentsPageItem> DocumentsPageItems { get; set; }
+    public virtual DbSet<JobApplication> JobApplications { get; set; }
+    public virtual DbSet<ModelPageItem> ModelPageItems { get; set; }
+    public virtual DbSet<OpenPosition> OpenPositions { get; set; }
+    public virtual DbSet<PhotoPageItem> PhotoPageItems { get; set; }
+    public virtual DbSet<ReferencesPageItem> ReferencesPageItems { get; set; }
+    public virtual DbSet<VideoPageItem> VideoPageItems { get; set; }
+    public virtual DbSet<Catalog> Catalogs { get; set; }
+    public virtual DbSet<HomePageItem> HomePageItems { get; set; }
+    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<ModelDetail> ModelDetails { get; set; }
+    public virtual DbSet<ModelImage> ModelImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.Entity<ModelPageItem>()
+            .HasOne(mpi => mpi.Details)
+            .WithOne(md => md.ModelPageItem)
+            .HasForeignKey<ModelDetail>(md => md.ModelPageItemId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<ModelDetail>()
+            .HasMany(md => md.ModelImages)
+            .WithOne(mi => mi.ModelDetail)
+            .HasForeignKey(mi => mi.ModelDetailId)
+            .OnDelete(DeleteBehavior.Cascade); 
+
+        modelBuilder.Entity<ModelImage>()
+            .HasOne(mi => mi.ModelDetail)
+            .WithMany(md => md.ModelImages)
+            .HasForeignKey(mi => mi.ModelDetailId)
+            .OnDelete(DeleteBehavior.NoAction); 
 
         // Create a default admin user
         var adminUser = new User
         {
-            Id=1,
+            Id = 1,
             Username = "admin",
             Email = "admin@magicwall.com",
             PasswordHash = HashPassword("MagicWall24Admin@Pass!"),
@@ -41,6 +58,9 @@ public class Context(DbContextOptions<Context> options) : DbContext(options)
         modelBuilder.Entity<User>().HasData(adminUser);
         // Additional configurations if needed
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique(); // Ensure unique emails
+
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
     // Helper method to hash passwords
     private static string HashPassword(string password)

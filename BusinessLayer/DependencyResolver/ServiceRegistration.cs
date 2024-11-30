@@ -21,5 +21,7 @@ public static class ServiceRegistration
         services.AddScoped<ICatalogService, CatalogManager>();
         services.AddScoped<IJobApplicationService, JobApplicationManager>();
         services.AddScoped<IBankAccountService, BankAccountManager>();
+        services.AddScoped<IModelDetailService, ModelDetailManeger>();
+        services.AddScoped<IModelImageService, ModelImageManager>();
     }
 }

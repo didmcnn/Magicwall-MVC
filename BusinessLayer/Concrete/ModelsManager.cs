@@ -1,17 +1,20 @@
+using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
-using BusinessLayer.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using CoreLayer.Helpers;
 
 namespace BusinessLayer.Concrete;
 
 public class ModelsManager : IModelsService
 {
     IModelPageItemDal _modelPageItemDal;
-    public ModelsManager(IModelPageItemDal modelPageItemDal)
+    IModelDetailService _modelDetailService;
+    public ModelsManager(IModelPageItemDal modelPageItemDal, IModelDetailService modelDetailService)
     {
         _modelPageItemDal = modelPageItemDal;
+        _modelDetailService = modelDetailService;
     }
 
     public async Task<ModelPageItem> CreateAsync(ModelPageItem t)
@@ -24,6 +27,23 @@ public class ModelsManager : IModelsService
         var doc = await _modelPageItemDal.GetByIdAsync(id);
         bool success = FileHelper.DeleteFile(doc.Image, Path.Combine("Files", "Models"));
 
+        if (doc.DetailsId != null)
+        {
+            var detail = await _modelDetailService.GetWithIncludeById((int)doc.DetailsId);
+            if (detail.ModelImages != null)
+            {
+                List<string> images = [];
+                try
+                {
+                    foreach (var image in detail.ModelImages) { images.Add(image.Path); }
+                    FileHelper.DeleteListFiles(images, Path.Combine("Files", "ModelImages"));
+                }
+                catch (Exception)
+                {
+                    success = false;
+                }
+            }
+        }
         if (success)
         {
             return await _modelPageItemDal.DeleteByIdAsync(id);
@@ -49,9 +69,9 @@ public class ModelsManager : IModelsService
         return await _modelPageItemDal.GetByIdAsync(id);
     }
 
-    public Task<ModelPageItem> GetWithIncludeById(int id)
+    public async Task<ModelPageItem> GetWithIncludeById(int id)
     {
-        throw new NotImplementedException();
+        return await _modelPageItemDal.GetByFilterAsync(x => x.Id == id, x => x.Include(x => x.Details).ThenInclude(x => x.ModelImages));
     }
 
     public async Task<ModelPageItem> UpdateAsync(ModelPageItem t)

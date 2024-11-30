@@ -29,6 +29,8 @@ namespace DataAccessLayer.DependencyResolver
             services.AddScoped<IPhotoPageItemDal,EfPhotoPageItemRepository>();
             services.AddScoped<IReferencesPageItemDal,EfReferencesPageItemRepository>();
             services.AddScoped<IVideoPageItemDal,EfVideoPageItemRepository>();
+            services.AddScoped<IModelDetailDal,EfModelDetailRepository>();
+            services.AddScoped<IModelImageDal,EfModelImageRepository>();
         }
     }
 }

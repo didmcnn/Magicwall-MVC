@@ -4,6 +4,7 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20241128192725_modeldetailsadded")]
+    partial class modeldetailsadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -368,6 +371,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("ModelDetailId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -525,7 +531,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 11, 29, 22, 23, 1, 35, DateTimeKind.Utc).AddTicks(6789),
+                            CreatedDate = new DateTime(2024, 11, 28, 19, 27, 24, 639, DateTimeKind.Utc).AddTicks(1552),
                             Email = "admin@magicwall.com",
                             PasswordHash = "gpaBtrmduKXnGq7fAxXf9kOlLT7MzEGWOc5Vv3FAQmg=",
                             Username = "admin"
@@ -575,7 +581,7 @@ namespace DataAccessLayer.Migrations
                     b.HasOne("EntityLayer.Concrete.ModelDetail", "ModelDetail")
                         .WithMany("ModelImages")
                         .HasForeignKey("ModelDetailId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ModelDetail");

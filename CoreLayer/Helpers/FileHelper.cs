@@ -407,6 +407,28 @@ public static class FileHelper
         }
     }
     /// <summary>
+    /// This method can be used for deleteing multiple entities
+    /// </summary>
+    /// <param name="fileLocationsParams">Array of file locations that will be deleted</param>
+    public static void DeleteListFiles(List<string> fileLocations,string folderPath=null)
+    {
+        string mainPath = "wwwroot";
+            foreach (string fileLocation in fileLocations)
+            {
+                if (string.IsNullOrEmpty(fileLocation)) continue;
+                try
+                {
+                    File.Delete(Path.Combine(Directory.GetCurrentDirectory(), mainPath + folderPath + fileLocation));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message.ToString());
+                    continue;
+                }
+            }
+        
+    }
+    /// <summary>
     /// This method is used for deleting a file and updating entity, This should only be used if you store file paths in a single string seperated by ","
     /// </summary>
     /// <typeparam name="T">Entity type that will be updated</typeparam>

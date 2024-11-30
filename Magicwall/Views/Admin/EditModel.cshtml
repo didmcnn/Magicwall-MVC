@@ -1,0 +1,231 @@
+﻿@using EntityLayer.Enums
+@model ModelPageItem
+
+@{
+    ViewData["Title"] = "EditModel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Links {
+    <link href="~/lib/filepond/filepond.min.css" rel="stylesheet" />
+    <style>
+        .model-image {
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: #343a40;
+        }
+    </style>
+}
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold flex-fill my-auto">Model Düzenle</span>
+    </div>
+    <form method="post" asp-controller="Admin" asp-action="EditModel" enctype="multipart/form-data">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <label>Başlığı</label>
+                    <input type="text" name="Name" class="form-control" value="@Model.Name" required />
+
+                    <label class="mt-3">Model Resmi Yükle</label>
+                    <input type="file" name="FileInput" />
+                </div>
+                <div class="col-4">
+                    <label class="border-bottom">Model Resmi</label>
+                    <div class="w-100 model-image" style="height:200px;background-image: url('/Files/Models/@Model.Image');"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold flex-fill my-auto">Model Detaylarını Düzenle</span>
+    </div>
+    <form method="post" asp-controller="Admin" asp-action="AddEditDetails" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Details.ModelPageItemId" value="@Model.Id" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Alt Başlık</label>
+                            <input type="text" asp-for="Details.SubTitle" class="form-control mb-2" required />
+
+                            <label>Açıklama Alt Başlık</label>
+                            <input type="text" asp-for="Details.AltTitle" class="form-control" required />
+                        </div>
+                        <div class="col-md-7">
+                            <label>Açıklama</label>
+                            <textarea style="height:116px;" asp-for="Details.Description" class="form-control" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Model No</label>
+                    <input type="text" asp-for="Details.ModelNo" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Kalınlık</label>
+                    <input type="text" asp-for="Details.Thickness" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Kenar Uzunluğu</label>
+                    <input type="text" asp-for="Details.SideLength" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Ölçüler</label>
+                    <input type="text" asp-for="Details.Measurements" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Ağırlık</label>
+                    <input type="text" asp-for="Details.Weight" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Yüzey Dokusu</label>
+                    <input type="text" asp-for="Details.SurfaceFinish" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Malzeme</label>
+                    <input type="text" asp-for="Details.Material" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Kullanım Alanları</label>
+                    <input type="text" asp-for="Details.UsableEnviroments" class="form-control" required />
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <label>Yanmazlık</label>
+                    <input type="text" asp-for="Details.FireResistance" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Yüzey Kalitesi</label>
+                    <input type="text" asp-for="Details.SurfaceQuality" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Eğilme Direnci</label>
+                    <input type="text" asp-for="Details.BendStrength" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Ölçü Sapma Oranı</label>
+                    <input type="text" asp-for="Details.DimentionTolerance" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Sıcaklık Direnci</label>
+                    <input type="text" asp-for="Details.HeatResistance" class="form-control" required />
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label>Kalınlık Sapma oranı</label>
+                    <input type="text" asp-for="Details.ThicknesTolerance" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bold flex-fill my-auto">Model Detay Resim Ekle</span>
+    </div>
+    @if (Model.DetailsId == null)
+    {
+        <div class="card-body">
+            <div class="alert alert-danger">Resim eklemek için önce detayları ekleyip kaydetmelisiniz.</div>
+        </div>
+    }
+    else
+    {
+        <form method="post" asp-controller="Admin" asp-action="AddModelImages" enctype="multipart/form-data">
+            <input type="hidden" name="ModelId" value="@Model.Id" />
+            <input type="hidden" name="DetailId" value="@Model.Details.Id" />
+            <div class="card-body">
+                <label>Resim Türü</label>
+                <select name="imageType" class="form-control mb-2" required>
+                    @for (int i = 0; i < ModelImageTypeEnum.strings.Count; i++)
+                    {
+                        <option value="@i">@ModelImageTypeEnum.strings[i]</option>
+                    }
+                </select>
+                <label>Resimler</label>
+                <input type="file" name="DetailImages" multiple required />
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+        </form>
+    }
+</div>
+
+@if(Model.Details.ModelImages!=null && Model.Details.ModelImages.Count>0){
+
+    <div class="card">
+        <div class="card-header">
+            <span class="font-weight-bold flex-fill my-auto">Model Detay Resimleri</span>
+        </div>
+        <div class="card-body">
+            <div class="row d-flex justify-content-between">
+                @foreach (var item in Model.Details.ModelImages)
+                {
+                    <div class="mx-2 my-2 model-image" style="background-image:url('/Files/ModelImages/@item.Path'); height:200px; width:200px">
+                        <button class="btn btn-danger image-delete-button" data-id="@item.Id" data-model-id="@Model.Id"><i class="fa fa-trash"></i></button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/lib/filepond/filepond.min.js"></script>
+    <script src="~/js/filepondinit.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+                $(document).on('click', '.image-delete-button', function () {
+            const itemId = $(this).data('id'); // Get the primary item ID
+            const modelId = $(this).data('model-id'); // Get the additional ID
+            const button = $(this);  // Store the reference to the button
+
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: `Bu resmi silmek üzeresiniz.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Evet, sil.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Use jQuery AJAX to send the request
+                    $.ajax({
+                        url: `/Admin/DeleteModelImages`,
+                        type: 'DELETE',
+                        data: {
+                            ImageId: itemId,
+                            ModelId: modelId
+                        },
+                        success: function () {
+                            // Remove the button and its parent div
+                            button.closest('.model-image').remove();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+
+}

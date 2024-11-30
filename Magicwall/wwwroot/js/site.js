@@ -26,30 +26,6 @@ function changeLanguage() {
 //End Dil Çeviri
 
 
-//NAVBAR
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('../Html/navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar-placeholder').innerHTML = data;
-        })
-        .catch(error => console.error('Navbar yüklenirken bir hata oluştu:', error));
-});
-//END NAVBAR
-
-
-//FOOTER
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('../Html/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-        })
-        .catch(error => console.error('Footer yüklenirken bir hata oluştu:', error));
-});
-//END FOOTER
-
-
 //Foto Galeri
 document.addEventListener("DOMContentLoaded", function () {
     const galleryCards = document.querySelectorAll('.gallery-card');

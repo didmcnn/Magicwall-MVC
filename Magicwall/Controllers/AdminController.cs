@@ -1,13 +1,14 @@
 using BusinessLayer.Abstract;
 using CoreLayer.Helpers;
 using EntityLayer.Concrete;
+using EntityLayer.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Magicwall.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         private readonly IOpenPositionService _openPositionService;
@@ -22,6 +23,8 @@ namespace Magicwall.Controllers
         private readonly IContactService _contactService;
         private readonly IJobApplicationService _jobApplicationService;
         private readonly IBankAccountService _bankAccountService;
+        private readonly IModelDetailService _modelDetailService;
+        private readonly IModelImageService _modelImageService;
         public AdminController(
             IOpenPositionService openPositionService,
             IHomePageItemService homePageItemService,
@@ -34,7 +37,8 @@ namespace Magicwall.Controllers
             ICatalogService catalogService,
             IContactService contactService,
             IJobApplicationService jobApplicationService,
-            IBankAccountService bankAccountService)
+            IBankAccountService bankAccountService,
+            IModelDetailService modelDetailService, IModelImageService modelImageService)
         {
             _openPositionService = openPositionService;
             _homePageItemService = homePageItemService;
@@ -48,6 +52,8 @@ namespace Magicwall.Controllers
             _contactService = contactService;
             _jobApplicationService = jobApplicationService;
             _bankAccountService = bankAccountService;
+            _modelDetailService = modelDetailService;
+            _modelImageService = modelImageService;
         }
 
         public IActionResult Index()
@@ -113,6 +119,64 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("Models");
         }
+
+        public async Task<IActionResult> EditModel(int Id)
+        {
+            var model = await _modelsService.GetWithIncludeById(Id);
+            model.Details ??= new ModelDetail();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditModel(ModelPageItem item, IFormFile FileInput)
+        {
+            var model = await _modelsService.GetByIdAsync(item.Id);
+            model.Name = item.Name;
+
+            if (FileInput != null)
+            {
+                FileHelper.DeleteFile(model.Image, Path.Combine("Files", "Models"));
+                string? location = await FileHelper.UploadAsync(Path.Combine("Files", "Models"), FileInput, FileType.image);
+                if (location != null)
+                {
+                    model.Image = location;
+                }
+            }
+            await _modelsService.UpdateAsync(model);
+            return RedirectToAction("EditModel", new { model.Id });
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddEditDetails(ModelPageItem pageitem)
+        {
+            var modelDetail = pageitem.Details;
+            var model = await _modelsService.GetByIdAsync(modelDetail.ModelPageItemId);
+            if (model.DetailsId == null)
+            {
+                var modeldetail = await _modelDetailService.CreateAsync(modelDetail);
+                model.Details = modeldetail;
+                model.DetailsId = modeldetail.Id;
+                await _modelsService.UpdateAsync(model);
+            }
+            else
+            {
+                await _modelDetailService.UpdateAsync(modelDetail);
+            }
+
+            return RedirectToAction("EditModel", new { model.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddModelImages(int ModelId, int DetailId, IFormFile[] DetailImages, ModelImageType imageType)
+        {
+            await _modelImageService.CreateListAsync(DetailImages, imageType, DetailId);
+            return RedirectToAction("EditModel", new { Id = ModelId });
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteModelImages(int ImageId,int ModelId)
+        {
+            await _modelImageService.DeleteAsync(ImageId);
+            return RedirectToAction("EditModel", new { Id = ModelId });
+        }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteModel(int Id)
         {

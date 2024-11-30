@@ -23,6 +23,7 @@ public class HomeController : Controller
     private readonly IBankAccountService _bankAccountService;
     private readonly IContactService _contactService;
     private readonly IJobApplicationService _jobApplicationService;
+    private readonly IModelDetailService _modelDetailService;
     public HomeController(
         IOpenPositionService openPositionService,
         IHomePageItemService homePageItemService,
@@ -34,7 +35,8 @@ public class HomeController : Controller
         IReferencesPageItemService referencesPageItemService,
         IBankAccountService bankAccountService,
         IContactService contactService,
-        IJobApplicationService jobApplicationService)
+        IJobApplicationService jobApplicationService,
+        IModelDetailService modelDetailService)
     {
         _openPositionService = openPositionService;
         _homePageItemService = homePageItemService;
@@ -47,9 +49,10 @@ public class HomeController : Controller
         _bankAccountService = bankAccountService;
         _contactService = contactService;
         _jobApplicationService = jobApplicationService;
+        _modelDetailService = modelDetailService;
     }
 
-  #region Index
+    #region Index
     public async Task<IActionResult> IndexAsync()
     {
         List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
@@ -157,11 +160,16 @@ public class HomeController : Controller
     #endregion
 
     #region ModelsDetail
-    public IActionResult ModelsDetail()
+    public async Task<IActionResult> ModelsDetail(int Id)
     {
-        return View();
+        if (Id==0 || Id==null)
+        {
+            return RedirectToAction("Models");
+        }
+        return View(await _modelsService.GetWithIncludeById(Id));
     }
     #endregion
+
     #region PhotoGallery
     public async Task<IActionResult> PhotoGalleryAsync()
     {
