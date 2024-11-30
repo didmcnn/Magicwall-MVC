@@ -42,7 +42,17 @@ public class ModelImageManager : IModelImageService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        return await _modelImageDal.DeleteByIdAsync(id);
+        var doc = await _modelImageDal.GetByIdAsync(id);
+        bool success = FileHelper.DeleteFile(doc.Path, Path.Combine("Files", "ModelImages"));
+
+        if (success)
+        {
+            return await _modelImageDal.DeleteByIdAsync(id);
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public async Task<List<ModelImage>> GetAllAsync()
