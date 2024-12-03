@@ -51,6 +51,10 @@ public class HomeController : Controller
         _jobApplicationService = jobApplicationService;
         _modelDetailService = modelDetailService;
     }
+    public IActionResult MagicWall3D()
+    {
+        return View();
+    }
 
     #region Index
     public async Task<IActionResult> IndexAsync()
