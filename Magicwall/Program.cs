@@ -2,6 +2,7 @@ using BusinessLayer.DependencyResolver;
 using CoreLayer.DependencyResolver;
 using DataAccessLayer.DependencyResolver;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,18 +50,33 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.Use(async (context, next) =>
-{
-    await next();
+//app.Use(async (context, next) =>
+//{
+//    await next();
 
-    if (context.Response.StatusCode == 401 || context.Response.StatusCode == 403 || context.Response.StatusCode == 404)
+//    if (context.Response.StatusCode == 401 || context.Response.StatusCode == 403 || context.Response.StatusCode == 404)
+//    {
+//        // Redirect unauthorized or forbidden users to the 404 page
+//        context.Response.Redirect("/Home/Error404");
+//    }
+//});
+app.UseHttpsRedirection();
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true,
+    OnPrepareResponse = ctx =>
     {
-        // Redirect unauthorized or forbidden users to the 404 page
-        context.Response.Redirect("/Home/Error404");
+        var filePath = ctx.File.Name.ToLower();
+        if (filePath.EndsWith(".data"))
+        {
+            ctx.Context.Response.ContentType = "application/octet-stream";
+        }
+        else if(filePath.EndsWith(".wasm"))
+        {
+            ctx.Context.Response.ContentType = "application/wasm";
+        }
     }
 });
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 
 app.UseRouting();
 
