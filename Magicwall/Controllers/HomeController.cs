@@ -24,6 +24,7 @@ public class HomeController : Controller
     private readonly IContactService _contactService;
     private readonly IJobApplicationService _jobApplicationService;
     private readonly IModelDetailService _modelDetailService;
+    private readonly ICatalogService _catalogService;
     public HomeController(
         IOpenPositionService openPositionService,
         IHomePageItemService homePageItemService,
@@ -36,7 +37,8 @@ public class HomeController : Controller
         IBankAccountService bankAccountService,
         IContactService contactService,
         IJobApplicationService jobApplicationService,
-        IModelDetailService modelDetailService)
+        IModelDetailService modelDetailService,
+        ICatalogService catalogService)
     {
         _openPositionService = openPositionService;
         _homePageItemService = homePageItemService;
@@ -50,6 +52,7 @@ public class HomeController : Controller
         _contactService = contactService;
         _jobApplicationService = jobApplicationService;
         _modelDetailService = modelDetailService;
+        _catalogService = catalogService;
     }
     public IActionResult MagicWall3D()
     {
@@ -59,6 +62,7 @@ public class HomeController : Controller
     #region Index
     public async Task<IActionResult> IndexAsync()
     {
+        ViewBag.catalog = _catalogService.GetAllAsync().Result.OrderByDescending(x => x.CreatedDate).First().PDF;
         List<HomePageItem> homePageItems = await _homePageItemService.GetAllAsync();
         return View(homePageItems);
     }
