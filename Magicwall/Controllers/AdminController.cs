@@ -106,7 +106,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("AboutUs");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteAboutUs(int Id)
         {
             await _aboutService.DeleteAsync(Id);
@@ -190,14 +190,14 @@ namespace Magicwall.Controllers
             await _modelImageService.CreateListAsync(DetailImages, imageType, DetailId);
             return RedirectToAction("EditModel", new { Id = ModelId });
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteModelImages(int ImageId,int ModelId)
         {
             await _modelImageService.DeleteAsync(ImageId);
             return RedirectToAction("EditModel", new { Id = ModelId });
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteModel(int Id)
         {
             await _modelsService.DeleteAsync(Id);
@@ -230,7 +230,7 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("PhotoPageItem");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeletePhotoItem(int Id)
         {
             await _photoPageItemService.DeleteAsync(Id);
@@ -264,7 +264,7 @@ namespace Magicwall.Controllers
 
             return RedirectToAction("VideoPageItem");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteVideoItem(int Id)
         {
             await _videoPageItemService.DeleteAsync(Id);
@@ -297,7 +297,7 @@ namespace Magicwall.Controllers
             }
             return RedirectToAction("DocumentsPageItem");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteDocumentItem(int Id)
         {
             await _documentsPageItemService.DeleteAsync(Id);
@@ -330,7 +330,7 @@ namespace Magicwall.Controllers
 
             return RedirectToAction("References");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteReferenceItem(int Id)
         {
             await _referencesPageItemService.DeleteAsync(Id);
@@ -363,7 +363,7 @@ namespace Magicwall.Controllers
 
             return RedirectToAction("Catalog");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteCatalogItem(int Id)
         {
             await _catalogService.DeleteAsync(Id);
@@ -377,7 +377,7 @@ namespace Magicwall.Controllers
             List<Contact> contact = await _contactService.GetAllAsync();
             return View(contact);
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteContactItem(int Id)
         {
             await _contactService.DeleteAsync(Id);
@@ -396,7 +396,7 @@ namespace Magicwall.Controllers
             return View(jobApplications);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteJobApplicationItem(int Id)
         {
             await _jobApplicationService.DeleteAsync(Id);
@@ -422,7 +422,7 @@ namespace Magicwall.Controllers
             await _openPositionService.CreateAsync(position);
             return RedirectToAction("OpenPositions");
         }
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteOpenPositionsItem(int Id)
         {
             await _openPositionService.DeleteAsync(Id);
@@ -477,7 +477,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("BankAccount");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteBankAccount(int Id)
         {
             await _bankAccountService.DeleteAsync(Id);
@@ -526,7 +526,7 @@ namespace Magicwall.Controllers
             return RedirectToAction("HomePageItems");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteHomePageItems(int Id)
         {
             await _homePageItemService.DeleteAsync(Id);

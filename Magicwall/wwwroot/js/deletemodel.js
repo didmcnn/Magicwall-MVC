@@ -14,7 +14,7 @@ function DeleteModel(id, endpoint) {
             // If user confirms, send AJAX request
             $.ajax({
                 url: '/Admin/' + endpoint, // Replace with your actual endpoint
-                type: 'DELETE', // Use DELETE if supported; otherwise use POST
+                type: 'POST',
                 data: { Id: id },
                 success: function (response) {
                     table.row($(`a[onclick="DeleteModel(${id},'${endpoint}')"]`).parents('tr')).remove().draw();
