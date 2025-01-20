@@ -13,6 +13,7 @@ public class ModelDetail:BaseEntity<int>
     public string Weight { get; set; }
     public string Material { get; set; }
     public string UsableEnviroments { get; set; }
+    public string? ModelFilesPath { get; set; }
 
 
     public string FireResistance { get; set; }

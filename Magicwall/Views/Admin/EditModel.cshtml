@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="row">
-                        
+
                         <div class="col-md-12">
                             <label>Açıklama</label>
                             <textarea style="height:116px;" asp-for="Details.Description" class="form-control" required></textarea>
@@ -116,41 +116,88 @@
     </form>
 </div>
 
-
-<div class="card">
-    <div class="card-header">
-        <span class="font-weight-bold flex-fill my-auto">Model Detay Resim Ekle</span>
-    </div>
-    @if (Model.DetailsId == null)
-    {
-        <div class="card-body">
-            <div class="alert alert-danger">Resim eklemek için önce detayları ekleyip kaydetmelisiniz.</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold flex-fill my-auto">Model Detay Resim Ekle</span>
+            </div>
+            @if (Model.DetailsId == null)
+            {
+                <div class="card-body">
+                    <div class="alert alert-danger">Resim eklemek için önce detayları ekleyip kaydetmelisiniz.</div>
+                </div>
+            }
+            else
+            {
+                <form method="post" asp-controller="Admin" asp-action="AddModelImages" enctype="multipart/form-data">
+                    <input type="hidden" name="ModelId" value="@Model.Id" />
+                    <input type="hidden" name="DetailId" value="@Model.Details.Id" />
+                    <div class="card-body">
+                        <label>Resim Türü</label>
+                        <select name="imageType" class="form-control mb-2" required>
+                            @for (int i = 0; i < ModelImageTypeEnum.strings.Count; i++)
+                            {
+                                <option value="@i">@ModelImageTypeEnum.strings[i]</option>
+                            }
+                        </select>
+                        <label>Resimler</label>
+                        <input type="file" name="DetailImages" multiple required />
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            }
         </div>
-    }
-    else
-    {
-        <form method="post" asp-controller="Admin" asp-action="AddModelImages" enctype="multipart/form-data">
-            <input type="hidden" name="ModelId" value="@Model.Id" />
-            <input type="hidden" name="DetailId" value="@Model.Details.Id" />
-            <div class="card-body">
-                <label>Resim Türü</label>
-                <select name="imageType" class="form-control mb-2" required>
-                    @for (int i = 0; i < ModelImageTypeEnum.strings.Count; i++)
-                    {
-                        <option value="@i">@ModelImageTypeEnum.strings[i]</option>
-                    }
-                </select>
-                <label>Resimler</label>
-                <input type="file" name="DetailImages" multiple required />
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold flex-fill my-auto">Model Dosyaları Ekle</span>
             </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Kaydet</button>
-            </div>
-        </form>
-    }
+            @if (Model.DetailsId == null)
+            {
+                <div class="card-body">
+                    <div class="alert alert-danger">Dosya eklemek için önce detayları ekleyip kaydetmelisiniz.</div>
+                </div>
+            }
+            else
+            {
+                if (Model.Details.ModelFilesPath == null)
+                {
+                    <form method="post" asp-controller="Admin" asp-action="AddModelZip" enctype="multipart/form-data">
+                        <input type="hidden" name="ModelId" value="@Model.Id" />
+                        <input type="hidden" name="DetailId" value="@Model.Details.Id" />
+                        <div class="card-body">
+                            <label>Detay Dosyası</label>
+                            <input type="file" name="DetailZipFiles" required />
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <div class="col-12">
+                        <div class="model-zip d-flex py-2">
+                            <button class="btn btn-danger zip-delete-button" data-id="@Model.Details.Id"><i class="fa fa-trash"></i></button>
+                            <a class="form-control ml-2" href="~/Files/ModelZip/@Model.Details.ModelFilesPath" target="_blank">
+                                Dosyayı indir
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
 
-@if(Model.Details.ModelImages!=null && Model.Details.ModelImages.Count>0){
+
+
+@if (Model.Details.ModelImages != null && Model.Details.ModelImages.Count > 0)
+{
 
     <div class="card">
         <div class="card-header">
@@ -176,11 +223,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-                $(document).on('click', '.image-delete-button', function () {
+        $(document).on('click', '.image-delete-button', function () {
             const itemId = $(this).data('id'); // Get the primary item ID
             const modelId = $(this).data('model-id'); // Get the additional ID
             const button = $(this);  // Store the reference to the button
-
             Swal.fire({
                 title: 'Emin misiniz?',
                 text: `Bu resmi silmek üzeresiniz.`,
@@ -207,8 +253,33 @@
                 }
             });
         });
-
     </script>
-
-
+    <script>
+        $(document).on('click', '.zip-delete-button', function () {
+            const itemId = $(this).data('id'); // Get the primary item ID
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: `Bu dosyayı silmek üzeresiniz.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Evet, sil.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Use jQuery AJAX to send the request
+                    $.ajax({
+                        url: `/Admin/DeleteModelZip`,
+                        type: 'POST',
+                        data: {
+                            ModelDetailId: itemId
+                        },
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 }

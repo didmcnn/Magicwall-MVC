@@ -1,4 +1,5 @@
-﻿@model List<PhotoPageItem>   
+﻿@using EntityLayer.Enums
+@model List<PhotoPageItem>
 
 @{
     ViewData["Title"] = "Foto Galeri";
@@ -28,6 +29,13 @@
                                         <div class="col-12">
                                             <label>Başlık</label>
                                             <input type="text" class="form-control" name="Name" required />
+                                        </div>
+                                        <div class="col-12">
+                                            <label>Resim Türü</label>
+                                            <select class="form-control" name="ItemType" required>
+                                                <option value="@PhotoItemType.decoration">@PhotoItemTypeString.List[0]</option>
+                                                <option value="@PhotoItemType.Signage">@PhotoItemTypeString.List[1]</option>
+                                            </select>
                                         </div>
                                         <div class="col-12">
                                             <label>Resim</label>

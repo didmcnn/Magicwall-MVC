@@ -1,6 +1,9 @@
 ﻿using BusinessLayer.Abstract;
+using CoreLayer.Helpers;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
+using EntityLayer.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -37,7 +40,30 @@ namespace BusinessLayer.Concrete
         {
             return await _modelDetailDal.GetByIdAsync(id);
         }
+        public async Task<ModelDetail> AddModelZipAsync(IFormFile DetailZipFiles, int DetailId)
+        {
+            ModelDetail modelDetail = await _modelDetailDal.GetByIdAsync(DetailId);
+            string? filename = await FileHelper.UploadAsync(Path.Combine("Files", "ModelZip"), DetailZipFiles, FileType.compressed);
 
+            modelDetail.ModelFilesPath = filename;
+
+            return await _modelDetailDal.UpdateAsync(modelDetail);
+        }
+        public async Task<bool> DeleteModelZipAsync(int id)
+        {
+            ModelDetail doc = await _modelDetailDal.GetByIdAsync(id);
+            bool success = FileHelper.DeleteFile(doc.ModelFilesPath, Path.Combine("Files", "ModelZip"));
+            if (success)
+            {
+                doc.ModelFilesPath = null;
+                await _modelDetailDal.UpdateAsync(doc);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public async Task<ModelDetail> GetWithIncludeById(int id)
         {
             return await _modelDetailDal.GetByFilterAsync(x => x.Id == id, x => x.Include(x => x.ModelImages));

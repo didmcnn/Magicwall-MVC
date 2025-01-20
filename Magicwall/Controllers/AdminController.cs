@@ -196,7 +196,18 @@ namespace Magicwall.Controllers
             await _modelImageService.DeleteAsync(ImageId);
             return RedirectToAction("EditModel", new { Id = ModelId });
         }
-
+        [HttpPost]
+        public async Task<IActionResult> AddModelZip(int ModelId, int DetailId, IFormFile DetailZipFiles)
+        {
+            await _modelDetailService.AddModelZipAsync(DetailZipFiles,DetailId);
+            return RedirectToAction("EditModel", new { Id = ModelId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteModelZip(int ModelDetailId)
+        {
+            await _modelDetailService.DeleteModelZipAsync(ModelDetailId);
+            return RedirectToAction("EditModel", new { Id = ModelDetailId });
+        }
         [HttpPost]
         public async Task<IActionResult> DeleteModel(int Id)
         {

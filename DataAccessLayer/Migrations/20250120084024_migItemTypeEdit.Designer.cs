@@ -4,6 +4,7 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250120084024_migItemTypeEdit")]
+    partial class migItemTypeEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,9 +299,6 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ModelFilesPath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ModelNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -511,7 +511,7 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 1, 20, 10, 59, 20, 804, DateTimeKind.Utc).AddTicks(2596),
+                            CreatedDate = new DateTime(2025, 1, 20, 8, 40, 23, 362, DateTimeKind.Utc).AddTicks(2439),
                             Email = "admin@magicwall.com",
                             PasswordHash = "gpaBtrmduKXnGq7fAxXf9kOlLT7MzEGWOc5Vv3FAQmg=",
                             Username = "admin"

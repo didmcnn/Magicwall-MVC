@@ -3,6 +3,7 @@ using EntityLayer.Concrete;
 using BusinessLayer.Abstract;
 using System.Linq.Expressions;
 using CoreLayer.Helpers;
+using EntityLayer.Enums;
 
 namespace BusinessLayer.Concrete;
 
@@ -22,6 +23,14 @@ public class PhotoPageManager : IPhotoPageItemService
     public async Task<List<PhotoPageItem>> GetAllAsync()
     {
         return await _photoPageItemDal.GetAllAsync();
+    }
+    public async Task<List<PhotoPageItem>> GetAllDecorationAsync()
+    {
+        return await _photoPageItemDal.GetAllAsync(x => x.ItemType == PhotoItemType.decoration);
+    }
+    public async Task<List<PhotoPageItem>> GetAllSignAsync()
+    {
+        return await _photoPageItemDal.GetAllAsync(x=>x.ItemType == PhotoItemType.Signage);
     }
 
     public async Task<PhotoPageItem> GetByIdAsync(int id)

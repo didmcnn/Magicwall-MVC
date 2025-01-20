@@ -179,10 +179,19 @@ public class HomeController : Controller
     #endregion
 
     #region PhotoGallery
-    public async Task<IActionResult> PhotoGalleryAsync()
+    public IActionResult PhotoGallery()
     {
-        List<PhotoPageItem> photoPageItems = await _photoPageItemService.GetAllAsync();
-        return View(photoPageItems);
+        return View();
+    }
+    public async Task<IActionResult> PhotoGalleryDecoration()
+    {
+        List<PhotoPageItem> items = await _photoPageItemService.GetAllDecorationAsync();
+        return View(items);
+    }
+    public async Task<IActionResult> PhotoGallerySignage()
+    {
+        List<PhotoPageItem> items = await _photoPageItemService.GetAllSignAsync();
+        return View(items);
     }
     #endregion
 
